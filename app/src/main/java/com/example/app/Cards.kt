@@ -23,7 +23,7 @@ class Cards : AppCompatActivity() {
             bu.startAnimation(aniRotate)
             //val text = findViewById<TextView>(R.id.text)
             //text.startAnimation(AnimationUtils.loadAnimation(applicationContext, R.anim.appearance))
-            //text.alpha = 0F
+            //text.alpha = 0
         }
 
         val angle = findViewById<Button>(R.id.angle)

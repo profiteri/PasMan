@@ -10,7 +10,7 @@ class Cards : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cards)
 
-        val bu = findViewById<TextView>(R.id.bu)
+      /*  val bu = findViewById<TextView>(R.id.bu)
         bu.setOnClickListener {
             val aniRotate = AnimationUtils.loadAnimation(applicationContext,R.anim.rotate)
             bu.startAnimation(aniRotate)
@@ -18,6 +18,8 @@ class Cards : AppCompatActivity() {
             text.startAnimation(AnimationUtils.loadAnimation(applicationContext, R.anim.appearance))
             text.alpha = 0F
         }
+
+       */
 
     }
 }

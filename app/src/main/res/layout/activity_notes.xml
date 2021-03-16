@@ -6,4 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".NotesActivity">
 
+    <Button
+        android:layout_width="90dp"
+        android:layout_height="66dp"
+        android:background="@drawable/settings"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="634dp"
+        tools:ignore="MissingConstraints" />
 </androidx.constraintlayout.widget.ConstraintLayout>

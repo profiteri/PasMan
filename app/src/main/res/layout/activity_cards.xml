@@ -74,18 +74,41 @@
         android:orientation="vertical"
         android:background="@drawable/oval"
         android:animateLayoutChanges="true"
-        android:alpha="0">
+        android:alpha="0"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        >
         <ImageView
+            android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:src="@drawable/card"
-            android:padding="12dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
             />
         <ImageView
+            android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:src="@drawable/account"
-            android:padding="12dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            />
+        <ImageView
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:src="@drawable/identity"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            />
+        <ImageView
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:src="@drawable/notes"
+            android:paddingStart="15dp"
+            android:paddingEnd="12dp"
             />
     </LinearLayout>
 

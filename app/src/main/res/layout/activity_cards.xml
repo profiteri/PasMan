@@ -69,11 +69,12 @@
         android:layout_height="wrap_content"
         app:layout_constraintRight_toRightOf="@+id/right_button"
         app:layout_constraintLeft_toLeftOf="@+id/right_button"
-        app:layout_constraintBottom_toBottomOf="@id/right_button"
+        app:layout_constraintBottom_toTopOf="@+id/right_button"
+        android:layout_marginBottom="10dp"
         android:orientation="vertical"
         android:background="@drawable/oval"
-        android:visibility="invisible">
-        <!--android:animateLayoutChanges="true"-->
+        android:animateLayoutChanges="true"
+        android:alpha="0">
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"

@@ -21,17 +21,14 @@ class Cards : AppCompatActivity() {
         bu.setOnClickListener {
             val aniRotate = AnimationUtils.loadAnimation(applicationContext, R.anim.rotate)
             bu.startAnimation(aniRotate)
-            //val text = findViewById<TextView>(R.id.text)
-            //text.startAnimation(AnimationUtils.loadAnimation(applicationContext, R.anim.appearance))
-            //text.alpha = 0
         }
+
+        var visible = false
+        var alfha = 1f
 
         val angle = findViewById<Button>(R.id.angle)
         angle.setOnClickListener {
-            /*val aniMove = AnimationUtils.loadAnimation(applicationContext, R.anim.move)
-            val image = findViewById<ImageView>(R.id.angle_image)
-            val aniBack = AnimationUtils.loadAnimation(applicationContext, R.anim.move_back)
-            image.startAnimation(aniMove)*/
+
             val image = findViewById<ImageView>(R.id.angle_image)
             val animator = ObjectAnimator.ofFloat(image, View.TRANSLATION_Y, -10f)
             animator.repeatCount = 1
@@ -46,17 +43,25 @@ class Cards : AppCompatActivity() {
                     angle.isEnabled = true;
                 }
             })
-            val layout = findViewById<LinearLayout>(R.id.layout_menu)
             animator.start()
-            layout.visibility = View.VISIBLE
 
-            val anim = ValueAnimator.ofInt(0, 400)
-            anim.addUpdateListener { valueAnimator ->
-                val a = valueAnimator.animatedValue as Int
-                val layoutParams = layout.layoutParams
-                layoutParams.height = a
-                layout.layoutParams = layoutParams
+            val layout = findViewById<LinearLayout>(R.id.layout_menu)
+
+            if (!visible) {
+                alfha = 1f
+                visible = true
             }
+            else {
+                alfha = 0f
+                visible = false
+            }
+            val anim = ObjectAnimator.ofFloat(layout, View.ALPHA, alfha)
+            anim.addListener(object: AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator?) {
+                    layout.alpha = alfha
+                }
+            })
+            anim.duration = 50
             anim.start()
         }
 

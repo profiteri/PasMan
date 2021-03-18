@@ -1,25 +1,72 @@
 package com.example.app
 
-import androidx.appcompat.app.AppCompatActivity
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
 import android.os.Bundle
+import android.view.View
+import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import android.widget.TextView
+import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
+
 
 class Cards : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cards)
 
-      /*  val bu = findViewById<TextView>(R.id.bu)
+        val bu = findViewById<ImageButton>(R.id.bu1)
         bu.setOnClickListener {
-            val aniRotate = AnimationUtils.loadAnimation(applicationContext,R.anim.rotate)
+            val aniRotate = AnimationUtils.loadAnimation(applicationContext, R.anim.rotate)
             bu.startAnimation(aniRotate)
-            val text = findViewById<TextView>(R.id.text)
-            text.startAnimation(AnimationUtils.loadAnimation(applicationContext, R.anim.appearance))
-            text.alpha = 0F
         }
 
-       */
+        var visible = false
+        var alfha = 1f
 
+        val angle = findViewById<Button>(R.id.angle)
+        angle.setOnClickListener {
+
+            val image = findViewById<ImageView>(R.id.angle_image)
+            val animator = ObjectAnimator.ofFloat(image, View.TRANSLATION_Y, -10f)
+            animator.repeatCount = 1
+            animator.repeatMode = ObjectAnimator.REVERSE
+            animator.duration = 100;
+            animator.addListener(object: AnimatorListenerAdapter() {
+                override fun onAnimationStart(animation: Animator?) {
+                    angle.isEnabled = false;
+                }
+
+                override fun onAnimationEnd(animation: Animator?) {
+                    angle.isEnabled = true;
+                }
+            })
+            animator.start()
+
+            val layout = findViewById<LinearLayout>(R.id.layout_menu)
+
+            if (!visible) {
+                alfha = 1f
+                visible = true
+            }
+            else {
+                alfha = 0f
+                visible = false
+            }
+            val anim = ObjectAnimator.ofFloat(layout, View.ALPHA, alfha)
+            anim.addListener(object: AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator?) {
+                    layout.alpha = alfha
+                }
+            })
+            anim.duration = 50
+            anim.start()
+        }
+
+    }
+    fun test(view: View) {
+        Toast.makeText(this, "HAHA", Toast.LENGTH_SHORT).show()
     }
 }

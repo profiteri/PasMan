@@ -4,8 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Cards">
+    tools:context=".Cards"
+    android:background="@color/teal_200">
     <ImageView
+        android:id="@+id/card_big"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
@@ -25,21 +27,134 @@
         android:text="+"
         android:textColor="@color/white"
         android:textSize="40dp"/>
-    <Button
+    <ImageButton
+        android:id="@+id/bu1"
         android:layout_width="60dp"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_margin="20dp"
         android:background="@drawable/round"
+        android:src="@drawable/settings"
+        android:scaleType="fitXY"
+        android:padding="12dp"
+        android:backgroundTint="@color/black"
         />
-    <Button
-        android:layout_width="60dp"
+    <FrameLayout
+        android:id="@+id/right_button"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_margin="20dp"
-        android:background="@drawable/round"
-        />
+        android:layout_margin="20dp">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/angle"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/round"
+            android:backgroundTint="@color/black"/>
+        </RelativeLayout>
+        <ImageView
+            android:id="@+id/angle_image"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/angle"
+            android:layout_gravity="center"/>
+    </FrameLayout>
+    <LinearLayout
+        android:id="@+id/layout_menu"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintRight_toRightOf="@+id/right_button"
+        app:layout_constraintLeft_toLeftOf="@+id/right_button"
+        app:layout_constraintBottom_toTopOf="@+id/right_button"
+        android:layout_marginBottom="10dp"
+        android:orientation="vertical"
+        android:background="@drawable/oval"
+        android:animateLayoutChanges="true"
+        android:alpha="0"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        >
+        <ImageView
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:src="@drawable/card"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            />
+        <ImageView
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:src="@drawable/account"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            />
+        <ImageView
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:src="@drawable/identity"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            />
+        <ImageView
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:src="@drawable/notes"
+            android:paddingStart="15dp"
+            android:paddingEnd="12dp"
+            />
+    </LinearLayout>
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar"
+        app:layout_constraintTop_toBottomOf="@+id/card_big"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginHorizontal="20dp"
+        android:background="@drawable/add_layout_background"
+        android:padding="20dp">
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:boxStrokeColor="@color/input_box"
+        app:boxStrokeWidth="5dp"
+        app:boxCornerRadiusTopEnd="50dp"
+        app:boxCornerRadiusBottomEnd="50dp"
+        app:boxCornerRadiusBottomStart="50dp"
+        app:boxCornerRadiusTopStart="50dp"
+        android:hint="Card Number">
+        <androidx.appcompat.widget.AppCompatEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_marginTop="20dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:boxStrokeColor="@color/input_box"
+            app:boxStrokeWidth="5dp"
+            app:boxCornerRadiusTopEnd="50dp"
+            app:boxCornerRadiusBottomEnd="50dp"
+            app:boxCornerRadiusBottomStart="50dp"
+            app:boxCornerRadiusTopStart="50dp"
+            android:hint="Cardholder">
+            <androidx.appcompat.widget.AppCompatEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

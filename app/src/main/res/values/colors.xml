@@ -12,4 +12,9 @@
     <color name="button_switch">#FF000000</color>
     <color name="add_layout_background">#FFFFFFFF</color>
     <color name="input_box">#FF000000</color>
+    <color name="blue">#03396c</color>
+    <color name="lightblue">#005b96</color>
+    <color name="verylightblue">#b3cde0</color>
+
+<!--#011f4b • #03396c • #005b96 • #6497b1 • #b3cde0 -->
 </resources>

@@ -4,6 +4,61 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".IdentityActivity">
 
+    tools:context=".NotesActivity">
+
+    <ImageView
+        android:id="@+id/iv_notes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/notes"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+
+    <LinearLayout
+        android:id="@+id/ll_noteText"
+        android:layout_width="match_parent"
+        android:layout_height="530dp"
+        app:layout_constraintTop_toBottomOf="@+id/iv_notes"
+        android:background="@drawable/rounded"
+        android:layout_margin="20dp"
+        android:orientation="vertical">
+
+
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_settingsInNotes"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:background="@drawable/settings"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <Button
+        android:id="@+id/btn_seeAllInNotes"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:background="@drawable/all"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:background="@drawable/plusbutton"
+        android:backgroundTint="@color/black"
+        android:text="+"
+        android:textColor="@color/white"
+        android:textSize="40dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

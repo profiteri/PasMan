@@ -7,6 +7,7 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,6 +17,12 @@ class MainActivity : AppCompatActivity() {
 
     fun startCards(view: View) {
         val intent = Intent(this, Cards::class.java)
+        startActivity(intent)
+        finish()
+    }
+    fun startNotes(view: View) {
+        Toast.makeText(this,"fewGRAhts",Toast.LENGTH_LONG).show()
+        val intent = Intent(this, IdentityActivity::class.java)
         startActivity(intent)
         finish()
     }

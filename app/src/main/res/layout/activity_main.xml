@@ -5,17 +5,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
+
     <Button
+        android:id="@+id/btn_cards"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="40dp"
+        android:backgroundTint="@null"
+        android:gravity="center_horizontal"
+        android:onClick="startCards"
         android:text="Cards"
         android:textAlignment="center"
-        android:backgroundTint="@null"
-        android:onClick="startCards"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_notes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:backgroundTint="@null"
+        android:gravity="center_horizontal"
+        android:onClick="startNotes"
+        android:text="Notes"
+        android:textAlignment="center"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_cards"  />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-android:background="@color/verylightblue"
+    android:background="@color/verylightblue"
     tools:context=".NotesActivity">
 
     <ImageView
@@ -17,90 +17,89 @@ android:background="@color/verylightblue"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="500dp"
-    app:layout_constraintTop_toBottomOf="@+id/iv_notes"
-    app:layout_constraintBottom_toTopOf="btn_cancel"
-android:layout_marginRight="20dp"
-    android:layout_marginLeft="20dp"
-    android:layout_marginTop="45dp"
-    android:background="@drawable/rounded"
-    android:orientation="vertical"
-    >
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_title"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="500dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/rounded"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/iv_notes">
 
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/et_title"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_title"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter title"
-            android:layout_marginTop="40dp"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
-            android:background="@drawable/roundedblack"
-            android:inputType="textCapWords"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
-            android:textSize="18dp" />
-    </com.google.android.material.textfield.TextInputLayout>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/note_body"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="350dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/et_node_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginRight="25dp"
+                android:background="@drawable/roundedblack"
+                android:hint="Enter title"
+                android:inputType="textCapWords"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textSize="18dp" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/et_note_body"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/note_body"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="350dp"
-            android:layout_marginLeft="25dp"
-            android:layout_marginTop="25dp"
-            android:layout_marginRight="25dp"
-            android:layout_marginBottom="75dp"
-            android:background="@drawable/roundedblack"
-            android:gravity="top"
-            android:hint="Enter note"
-            android:inputType="textCapWords"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
-            android:textSize="18dp" />
-    </com.google.android.material.textfield.TextInputLayout>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/roundedblack"
-        android:text="ADD"
-        android:textSize="25dp"
-android:layout_marginLeft="135dp"
-android:layout_marginTop="10dp"
-        />
-</LinearLayout>
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/et_note_body"
+                android:layout_width="match_parent"
+                android:layout_height="350dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginRight="25dp"
+                android:layout_marginBottom="75dp"
+                android:background="@drawable/roundedblack"
+                android:gravity="top"
+                android:hint="Enter note"
+                android:inputType="textCapWords"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textSize="18dp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/btn_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="135dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/roundedblack"
+            android:text="ADD"
+            android:textSize="25dp" />
+    </LinearLayout>
 
 
     <Button
         android:id="@+id/btn_cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
         android:background="@drawable/plusbutton"
         android:backgroundTint="@color/black"
         android:text="x"
-        android:textStyle="bold"
         android:textColor="@color/white"
-        android:textSize="25dp"/>
+        android:textSize="25dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

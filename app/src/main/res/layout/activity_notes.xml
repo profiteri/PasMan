@@ -32,14 +32,9 @@
             android:layout_margin="20dp"
             android:src="@drawable/search" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_name"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp">
 
-            <androidx.appcompat.widget.AppCompatEditText
+
+            <EditText
                 android:id="@+id/et_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -50,7 +45,6 @@
                 android:inputType="textCapWords"
                 android:textColor="#363A43"
                 android:textColorHint="#7A8089" />
-        </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
 
@@ -97,6 +91,7 @@
         />
 
     <Button
+        android:id="@+id/btn_add_notesactivity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -20,9 +20,9 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
+
     fun startNotes(view: View) {
-        Toast.makeText(this,"fewGRAhts",Toast.LENGTH_LONG).show()
-        val intent = Intent(this, IdentityActivity::class.java)
+        val intent = Intent(this, AddNoteActivity::class.java)
         startActivity(intent)
         finish()
     }

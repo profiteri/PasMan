@@ -5,11 +5,16 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.os.Bundle
+import android.transition.AutoTransition
+import android.transition.TransitionManager
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.AnimationUtils
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
 
 
 class Cards : AppCompatActivity() {
@@ -24,7 +29,8 @@ class Cards : AppCompatActivity() {
         }
 
         var visible = false
-        var alfha = 1f
+        var alfha: Float
+        var addMenuOpen = false
 
         val angle = findViewById<Button>(R.id.angle)
         angle.setOnClickListener {
@@ -38,7 +44,6 @@ class Cards : AppCompatActivity() {
                 override fun onAnimationStart(animation: Animator?) {
                     angle.isEnabled = false;
                 }
-
                 override fun onAnimationEnd(animation: Animator?) {
                     angle.isEnabled = true;
                 }
@@ -65,6 +70,26 @@ class Cards : AppCompatActivity() {
             anim.start()
         }
 
+        val addButton = findViewById<Button>(R.id.plus_button)
+        val mainLayout = findViewById<ConstraintLayout>(R.id.main_layout)
+
+        addButton.setOnClickListener {
+            val c = ConstraintSet()
+            c.clone(mainLayout)
+            val transition = AutoTransition()
+            transition.duration = 300
+            transition.interpolator = AccelerateDecelerateInterpolator()
+            if (addMenuOpen) {
+                addMenuOpen = false
+                c.connect(R.id.add_menu, ConstraintSet.TOP, R.id.card_big, ConstraintSet.BOTTOM)
+            }
+            else {
+                addMenuOpen = true
+                c.connect(R.id.add_menu, ConstraintSet.TOP, R.id.main_layout, ConstraintSet.BOTTOM)
+            }
+            TransitionManager.beginDelayedTransition(mainLayout, transition)
+            c.applyTo(mainLayout)
+        }
     }
     fun test(view: View) {
         Toast.makeText(this, "HAHA", Toast.LENGTH_SHORT).show()

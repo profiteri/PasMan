@@ -17,4 +17,7 @@
     <color name="verylightblue">#b3cde0</color>
 
 <!--#011f4b • #03396c • #005b96 • #6497b1 • #b3cde0 -->
+    <color name="add_button_background">#FF000000</color>
+    <color name="add_button_stroke">#FF554400</color>
+    <color name="add_button_text">#FFFFFFFF</color>
 </resources>

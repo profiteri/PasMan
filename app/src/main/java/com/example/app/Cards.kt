@@ -18,6 +18,7 @@ import androidx.constraintlayout.widget.ConstraintSet
 
 
 class Cards : AppCompatActivity() {
+    var addMenuOpen = true
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cards)
@@ -30,7 +31,6 @@ class Cards : AppCompatActivity() {
 
         var visible = false
         var alfha: Float
-        var addMenuOpen = false
 
         val angle = findViewById<Button>(R.id.angle)
         angle.setOnClickListener {
@@ -69,27 +69,42 @@ class Cards : AppCompatActivity() {
             anim.duration = 50
             anim.start()
         }
+    }
 
-        val addButton = findViewById<Button>(R.id.plus_button)
+    fun plusButton(view: View) {
+        val bu = findViewById<ImageView>(R.id.plus_image)
+        val animator = ObjectAnimator.ofFloat(bu, View.ROTATION, 135f)
+        animator.duration = 300;
+        animator.addListener(object: AnimatorListenerAdapter() {
+            override fun onAnimationStart(animation: Animator?) {
+                view.isEnabled = false;
+            }
+            override fun onAnimationEnd(animation: Animator?) {
+                view.isEnabled = true;
+
+            }
+        })//вращение
+
         val mainLayout = findViewById<ConstraintLayout>(R.id.main_layout)
-
-        addButton.setOnClickListener {
-            val c = ConstraintSet()
-            c.clone(mainLayout)
-            val transition = AutoTransition()
-            transition.duration = 300
-            transition.interpolator = AccelerateDecelerateInterpolator()
-            if (addMenuOpen) {
-                addMenuOpen = false
-                c.connect(R.id.add_menu, ConstraintSet.TOP, R.id.card_big, ConstraintSet.BOTTOM)
-            }
-            else {
-                addMenuOpen = true
-                c.connect(R.id.add_menu, ConstraintSet.TOP, R.id.main_layout, ConstraintSet.BOTTOM)
-            }
-            TransitionManager.beginDelayedTransition(mainLayout, transition)
-            c.applyTo(mainLayout)
+        val c = ConstraintSet()
+        c.clone(mainLayout)
+        val transition = AutoTransition()
+        transition.duration = 300
+        transition.interpolator = AccelerateDecelerateInterpolator()
+        if (addMenuOpen) {
+            addMenuOpen = false
+            c.connect(R.id.add_menu, ConstraintSet.TOP, R.id.card_big, ConstraintSet.BOTTOM)
+            animator.start()
         }
+        else {
+            addMenuOpen = true
+            c.connect(R.id.add_menu, ConstraintSet.TOP, R.id.main_layout, ConstraintSet.BOTTOM)
+            animator.setFloatValues(0f)
+            animator.start()
+        }
+        TransitionManager.beginDelayedTransition(mainLayout, transition)
+        c.applyTo(mainLayout) //появление
+
     }
     fun test(view: View) {
         Toast.makeText(this, "HAHA", Toast.LENGTH_SHORT).show()

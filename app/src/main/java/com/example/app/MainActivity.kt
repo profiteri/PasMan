@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun startNotes(view: View) {
-        val intent = Intent(this, AddNoteActivity::class.java)
+        val intent = Intent(this, NotesActivity::class.java)
         startActivity(intent)
         finish()
     }

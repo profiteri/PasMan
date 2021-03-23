@@ -33,25 +33,24 @@
             android:src="@drawable/search" />
 
 
-
-            <EditText
-                android:id="@+id/et_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Search"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="8dp"
-                android:imeOptions="actionGo"
-                android:inputType="textCapWords"
-                android:textColor="#363A43"
-                android:textColorHint="#7A8089" />
+        <EditText
+            android:id="@+id/et_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="20dp"
+            android:hint="Search"
+            android:imeOptions="actionGo"
+            android:inputType="textCapWords"
+            android:textColor="#363A43"
+            android:textColorHint="#7A8089" />
 
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/ll_noteText"
         android:layout_width="match_parent"
-        android:layout_height="450dp"
+        android:layout_height="250dp"
         android:layout_margin="20dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/rounded"
@@ -59,47 +58,277 @@
         app:layout_constraintTop_toBottomOf="@+id/ll_search"
         tools:layout_editor_absoluteX="20dp">
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_notes_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            tools:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tv_norecord_available"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="Nothing at the moment"
+            android:textSize="20sp"
+            android:visibility="visible"
+            tools:visibility="visible"
+
+            />
 
     </LinearLayout>
 
     <ImageButton
-        android:id="@+id/ib_settingsAllNotes"
+        android:id="@+id/btn_settingsInNotes"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_margin="20dp"
         android:background="@drawable/round"
+        android:backgroundTint="@color/black"
+        android:padding="12dp"
+        android:scaleType="fitXY"
         android:src="@drawable/settings"
-        android:scaleType="fitXY"
-        android:padding="12dp"
-        android:backgroundTint="@color/black"
-        />
-
-    <ImageButton
-        android:id="@+id/ib_seeAllAllNotes"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/right_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:background="@drawable/round"
-        android:src="@drawable/all"
-        android:scaleType="fitXY"
-        android:padding="12dp"
-        android:backgroundTint="@color/black"
-        />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/btn_angle"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/round"
+                android:backgroundTint="@color/black" />
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/iv_angle_image"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:src="@drawable/angle" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_layout_menu"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:alpha="0"
+        android:animateLayoutChanges="true"
+        android:background="@drawable/oval"
+        android:orientation="vertical"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/right_button"
+        app:layout_constraintLeft_toLeftOf="@+id/right_button"
+        app:layout_constraintRight_toRightOf="@+id/right_button">
+
+        <Button
+            android:id="@+id/btn_animation_cards"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/card"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:src="@drawable/account" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:src="@drawable/identity" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingStart="15dp"
+            android:paddingEnd="12dp"
+            android:src="@drawable/notes" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/add_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/add_layout_background"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar"
+        app:layout_constraintTop_toBottomOf="parent">
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Card Number"
+            app:boxCornerRadiusBottomEnd="50dp"
+            app:boxCornerRadiusBottomStart="50dp"
+            app:boxCornerRadiusTopEnd="50dp"
+            app:boxCornerRadiusTopStart="50dp"
+            app:boxStrokeColor="@color/input_box"
+            app:boxStrokeWidth="5dp">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:hint="Cardholder"
+            app:boxCornerRadiusBottomEnd="50dp"
+            app:boxCornerRadiusBottomStart="50dp"
+            app:boxCornerRadiusTopEnd="50dp"
+            app:boxCornerRadiusTopStart="50dp"
+            app:boxStrokeColor="@color/input_box"
+            app:boxStrokeWidth="5dp">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:hint="Expiry Date"
+                app:boxCornerRadiusBottomEnd="50dp"
+                app:boxCornerRadiusBottomStart="50dp"
+                app:boxCornerRadiusTopEnd="50dp"
+                app:boxCornerRadiusTopStart="50dp"
+                app:boxStrokeColor="@color/input_box"
+                app:boxStrokeWidth="5dp">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_weight="1"
+                android:hint="CVC"
+                app:boxCornerRadiusBottomEnd="50dp"
+                app:boxCornerRadiusBottomStart="50dp"
+                app:boxCornerRadiusTopEnd="50dp"
+                app:boxCornerRadiusTopStart="50dp"
+                app:boxStrokeColor="@color/input_box"
+                app:boxStrokeWidth="5dp">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:hint="PIN"
+                app:boxCornerRadiusBottomEnd="50dp"
+                app:boxCornerRadiusBottomStart="50dp"
+                app:boxCornerRadiusTopEnd="50dp"
+                app:boxCornerRadiusTopStart="50dp"
+                app:boxStrokeColor="@color/input_box"
+                app:boxStrokeWidth="5dp">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_weight="2"
+                android:hint="Other Info"
+                app:boxCornerRadiusBottomEnd="50dp"
+                app:boxCornerRadiusBottomStart="50dp"
+                app:boxCornerRadiusTopEnd="50dp"
+                app:boxCornerRadiusTopStart="50dp"
+                app:boxStrokeColor="@color/input_box"
+                app:boxStrokeWidth="5dp">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/add_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="70dp"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/add_button"
+            android:gravity="center"
+            android:text="Add"
+            android:textColor="@color/add_button_text" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/btn_add_notesactivity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
         android:background="@drawable/plusbutton"
         android:backgroundTint="@color/black"
         android:text="+"
         android:textColor="@color/white"
-        android:textSize="40dp"/>
+        android:textSize="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

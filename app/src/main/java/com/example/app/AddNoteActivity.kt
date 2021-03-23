@@ -1,5 +1,6 @@
 package com.example.app
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,16 +10,31 @@ import android.widget.TextView
 import android.widget.Toast
 import com.example.app.database.DatabaseHandler
 import com.example.app.models.NoteModel
+import kotlinx.android.synthetic.main.activity_add_note.*
 
 class AddNoteActivity : AppCompatActivity(), View.OnClickListener {
+    private var mNotesDetails: NoteModel? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_note)
         val btn_add = findViewById(R.id.btn_add) as Button
         val btn_cancel = findViewById(R.id.btn_cancel) as Button
+        if (intent.hasExtra(NotesActivity.EXTRA_NOTES_DETAILS)) {
+            mNotesDetails =
+                intent.getSerializableExtra(NotesActivity.EXTRA_NOTES_DETAILS) as NoteModel
+        }
+        if (mNotesDetails != null) {
+            btn_add.setText("Update")
+            supportActionBar?.title = "Edit Note"
+            et_node_title.setText(mNotesDetails!!.titel)
+            et_note_body.setText(mNotesDetails!!.text)
 
+        } else {
+            supportActionBar?.title = "Create new Note"
+        }
         btn_add.setOnClickListener(this)
         btn_cancel.setOnClickListener(this)
+
     }
 
 
@@ -35,13 +51,25 @@ class AddNoteActivity : AppCompatActivity(), View.OnClickListener {
                         Toast.makeText(this, "Pls enter text", Toast.LENGTH_SHORT).show()
                     }
                     else -> {
-                        val note = NoteModel(tv_title.text.toString(), tv_text.text.toString())
+                        val note = NoteModel(
+                            if (mNotesDetails == null) 0 else mNotesDetails!!.id
+                            ,
+                            tv_title.text.toString()
+                            , tv_text.text.toString()
+                        )
                         val dbHandler = DatabaseHandler(this)
-                        val addNoteResult = dbHandler.addNote(note)
-                        if (addNoteResult > 0) {
-                            Toast.makeText(this, "Note was added successfully", Toast.LENGTH_SHORT)
-                                .show()
+                        if (mNotesDetails == null) {
+                            val addNoteResult = dbHandler.addNote(note)
+                            if (addNoteResult > 0) {
+                                setResult(Activity.RESULT_OK)
+                            }
+                        } else {
+                            val updateNoteResult = dbHandler.updateNote(note)
+                            if (updateNoteResult > 0) {
+                                setResult(Activity.RESULT_OK)
+                            }
                         }
+
                         val intent = Intent(this, NotesActivity::class.java)
                         startActivity(intent)
                         finish()
@@ -49,7 +77,7 @@ class AddNoteActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
             R.id.btn_cancel -> {
-                val intent = Intent(this,NotesActivity::class.java)
+                val intent = Intent(this, NotesActivity::class.java)
                 startActivity(intent)
                 finish()
             }

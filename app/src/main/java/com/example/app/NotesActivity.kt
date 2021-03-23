@@ -30,6 +30,11 @@ class NotesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_notes)
         getNotesListFromPrivateDB()
+        iv_animation_cards.setOnClickListener {
+            val intent = Intent(this, Cards::class.java)
+            startActivity(intent)
+            finish()
+        }
         val btn_add = findViewById(R.id.btn_add_notesactivity) as Button
         btn_add.setOnClickListener {
             val intent = Intent(this, AddNoteActivity::class.java)
@@ -82,11 +87,13 @@ class NotesActivity : AppCompatActivity() {
             anim.duration = 50
             anim.start()
         }
-        btn_animation_cards.setOnClickListener {
+        /*btn_animation_cards.setOnClickListener {
             val intent = Intent(this, Cards::class.java)
             startActivity(intent)
             finish()
         }
+
+         */
     }
 
     private fun setupNotesRecyclerView(noteslist: ArrayList<NoteModel>) {

@@ -135,15 +135,14 @@
         app:layout_constraintLeft_toLeftOf="@+id/right_button"
         app:layout_constraintRight_toRightOf="@+id/right_button">
 
-        <Button
-            android:id="@+id/btn_animation_cards"
+        <ImageView
+            android:id="@+id/iv_animation_cards"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:background="@drawable/card"
             android:paddingLeft="12dp"
-            android:paddingRight="12dp"
-            />
+            android:paddingRight="12dp" />
 
         <ImageView
             android:layout_width="match_parent"
@@ -323,12 +322,13 @@
         android:id="@+id/btn_add_notesactivity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/plusbutton"
+        android:background="@drawable/round"
         android:backgroundTint="@color/black"
         android:text="+"
         android:textColor="@color/white"
         android:textSize="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

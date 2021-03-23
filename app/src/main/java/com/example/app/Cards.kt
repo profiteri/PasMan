@@ -4,6 +4,7 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
+import android.content.Intent
 import android.os.Bundle
 import android.transition.AutoTransition
 import android.transition.TransitionManager
@@ -149,6 +150,27 @@ class Cards : AppCompatActivity() {
         else {
             findViewById<RecyclerView>(R.id.cards_layout).visibility = View.GONE
         }
+    }
+
+    //switchers
+    fun toCards(view: View) {
+        val intent = Intent(this, Cards::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+    fun toAccounts(view: View) {
+
+    }
+
+    fun toIdent(view: View) {
+
+    }
+
+    fun toNotes(view: View) {
+        val intent = Intent(this, NotesActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
     fun test(view: View) {

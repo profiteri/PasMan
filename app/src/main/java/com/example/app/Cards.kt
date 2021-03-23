@@ -7,6 +7,7 @@ import android.animation.ValueAnimator
 import android.os.Bundle
 import android.transition.AutoTransition
 import android.transition.TransitionManager
+import android.transition.Visibility
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
@@ -15,6 +16,10 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.app.database.DatabaseCards
+import com.example.app.models.CardModel
 
 
 class Cards : AppCompatActivity() {
@@ -69,6 +74,8 @@ class Cards : AppCompatActivity() {
             anim.duration = 50
             anim.start()
         }
+
+        setupListOfDataIntoRecycleView()
     }
 
     fun plusButton(view: View) {
@@ -104,8 +111,46 @@ class Cards : AppCompatActivity() {
         }
         TransitionManager.beginDelayedTransition(mainLayout, transition)
         c.applyTo(mainLayout) //появление
-
     }
+
+    fun addCard(view: View) {
+        val number = findViewById<EditText>(R.id.et_number).text.toString()
+        val holder = findViewById<EditText>(R.id.et_holder).text.toString()
+        val date = findViewById<EditText>(R.id.et_expiry).text.toString()
+        val cvc = findViewById<EditText>(R.id.et_cvc).text.toString().toIntOrNull()
+        val pin = findViewById<EditText>(R.id.et_pin).text.toString().toIntOrNull()
+        val comment = findViewById<EditText>(R.id.et_comment).text.toString()
+        val cardsHandler: DatabaseCards = DatabaseCards(this)
+        val status = cardsHandler.addCard(CardModel(0, number, holder, date, cvc!!, pin!!, comment))
+        if (status > -1) {
+            Toast.makeText(this, "Card added", Toast.LENGTH_SHORT).show()
+            findViewById<EditText>(R.id.et_number).text.clear()
+            findViewById<EditText>(R.id.et_holder).text.clear()
+            findViewById<EditText>(R.id.et_expiry).text.clear()
+            findViewById<EditText>(R.id.et_cvc).text.clear()
+            findViewById<EditText>(R.id.et_pin).text.clear()
+            findViewById<EditText>(R.id.et_comment).text.clear()
+            setupListOfDataIntoRecycleView()
+            plusButton(view)
+        }
+    }
+
+    private fun getCards(): ArrayList<CardModel> {
+        return DatabaseCards(this).viewCards()
+    }
+
+    private fun setupListOfDataIntoRecycleView() {
+        if (getCards().size > 0) {
+            findViewById<RecyclerView>(R.id.cards_layout).visibility = View.VISIBLE
+            findViewById<RecyclerView>(R.id.cards_layout).layoutManager = LinearLayoutManager(this)
+            val itemAdapter = ItemAdapter(this, getCards())
+            findViewById<RecyclerView>(R.id.cards_layout).adapter = itemAdapter
+        }
+        else {
+            findViewById<RecyclerView>(R.id.cards_layout).visibility = View.GONE
+        }
+    }
+
     fun test(view: View) {
         Toast.makeText(this, "HAHA", Toast.LENGTH_SHORT).show()
     }

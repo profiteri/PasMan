@@ -7,6 +7,23 @@
     android:layout_height="match_parent"
     tools:context=".Cards"
     android:background="@color/teal_200">
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/cards_layout"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:layout_margin="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/card_big"
+        android:orientation="vertical">
+        <!--<TextView
+            android:id="@+id/text_nocards"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:text="No cards added"/> -->
+    </androidx.recyclerview.widget.RecyclerView>
+
+
     <ImageView
         android:id="@+id/card_big"
         android:layout_width="wrap_content"
@@ -166,6 +183,7 @@
         app:boxCornerRadiusTopStart="50dp"
         android:hint="Card Number">
         <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/et_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </com.google.android.material.textfield.TextInputLayout>
@@ -182,6 +200,7 @@
             app:boxCornerRadiusTopStart="50dp"
             android:hint="Cardholder">
             <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/et_holder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </com.google.android.material.textfield.TextInputLayout>
@@ -204,6 +223,7 @@
             android:layout_marginRight="10dp"
             android:hint="Expiry Date">
             <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/et_expiry"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </com.google.android.material.textfield.TextInputLayout>
@@ -221,6 +241,7 @@
                 app:boxCornerRadiusTopStart="50dp"
                 android:hint="CVC">
                 <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/et_cvc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             </com.google.android.material.textfield.TextInputLayout>
@@ -244,6 +265,7 @@
                 android:layout_marginRight="10dp"
                 android:hint="PIN">
                 <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/et_pin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             </com.google.android.material.textfield.TextInputLayout>
@@ -261,6 +283,7 @@
                 app:boxCornerRadiusTopStart="50dp"
                 android:hint="Other Info">
                 <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/et_comment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             </com.google.android.material.textfield.TextInputLayout>
@@ -274,6 +297,7 @@
             android:gravity="center"
             android:text="Add"
             android:textColor="@color/add_button_text"
-            android:background="@drawable/add_button"/>
+            android:background="@drawable/add_button"
+            android:onClick="addCard"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -78,8 +78,7 @@ open abstract class ButtonsFunctionality : AppCompatActivity() {
         iv_icon: Int,
         iv_plus_image: ImageView,
         main_layout: ConstraintLayout,
-        ll_add_menu: Int,
-        main_layout_int: Int
+        ll_add_menu: Int
     ) {
 
         val animator = ObjectAnimator.ofFloat(iv_plus_image, View.ROTATION, 135f)
@@ -106,7 +105,7 @@ open abstract class ButtonsFunctionality : AppCompatActivity() {
             animator.start()
         } else {
             addMenuOpen = true
-            c.connect(ll_add_menu, ConstraintSet.TOP, main_layout_int, ConstraintSet.BOTTOM)
+            c.connect(ll_add_menu, ConstraintSet.TOP, R.id.main_layout, ConstraintSet.BOTTOM)
             animator.setFloatValues(0f)
             animator.start()
         }

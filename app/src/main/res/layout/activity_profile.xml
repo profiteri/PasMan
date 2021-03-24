@@ -26,7 +26,7 @@
 
     <ImageView
         android:id="@+id/profile_big"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/main_image"
         app:layout_constraintTop_toTopOf="parent"
@@ -169,7 +169,7 @@
         android:id="@+id/add_menu"
         android:orientation="vertical"
         android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profile_big"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -219,10 +219,10 @@
             app:boxCornerRadiusTopEnd="50dp"
             app:boxCornerRadiusBottomEnd="50dp"
             app:boxCornerRadiusBottomStart="50dp"
-            app:boxCornerRadiusTopStart="50dp"
-            android:layout_marginRight="10dp"
-            android:hint="Other Information">
+            app:boxCornerRadiusTopStart="50dp">
             <androidx.appcompat.widget.AppCompatEditText
+                android:hint="@string/other_information"
+                android:gravity="start"
                 android:id="@+id/et_pin"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"/>

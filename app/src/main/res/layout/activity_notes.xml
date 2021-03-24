@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_layout_notes"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     tools:context=".NotesActivity">
 
     <ImageView
         android:id="@+id/iv_notes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="42dp"
+        android:layout_height="60dp"
         android:layout_marginTop="20dp"
+        android:background="@drawable/main_image"
         android:src="@drawable/notes"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -170,7 +171,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/add_menu"
+        android:id="@+id/ll_add_menu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
@@ -318,19 +319,32 @@
             android:textColor="@color/add_button_text" />
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btn_add_notesactivity"
+    <FrameLayout
+        android:id="@+id/layout_plus_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/plusbutton"
-        android:backgroundTint="@color/black"
-        android:text="+"
-        android:textColor="@color/white"
-        android:textSize="40dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/plus_button"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/plusbutton"
+                android:backgroundTint="@color/black"
+                />
+        </RelativeLayout>
+        <ImageView
+            android:id="@+id/iv_plus_image"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/plus_icon"
+            android:layout_gravity="center"/>
+    </FrameLayout>
 
     <LinearLayout
         android:id="@+id/add_menu1"

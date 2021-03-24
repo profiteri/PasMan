@@ -58,13 +58,14 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
+
         <Button
-            android:onClick="plusButton"
             android:id="@+id/plus_button"
             android:layout_width="80dp"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/plusbutton"
-            android:backgroundTint="@color/black"/>
+            android:backgroundTint="@color/black"
+             />
     </RelativeLayout>
     <ImageView
         android:onClick="plusButton"

@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.transition.AutoTransition
 import android.transition.TransitionManager
@@ -14,6 +15,7 @@ import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.AnimationUtils
 import android.widget.*
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
@@ -21,20 +23,23 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.app.database.DatabaseCards
 import com.example.app.models.CardModel
+import kotlinx.android.synthetic.main.activity_cards.*
 
 
 class Cards : AppCompatActivity() {
     var addMenuOpen = true
+    @RequiresApi(Build.VERSION_CODES.P)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cards)
-
         val bu = findViewById<ImageButton>(R.id.bu1)
         bu.setOnClickListener {
             val aniRotate = AnimationUtils.loadAnimation(applicationContext, R.anim.rotate)
             bu.startAnimation(aniRotate)
         }
-
+        plus_button.setOnClickListener {
+            plusButton(this.requireViewById(plus_button.id))
+        }
         var visible = false
         var alfha: Float
 

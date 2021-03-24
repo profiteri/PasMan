@@ -23,69 +23,35 @@ import com.happyplaces.adapters.NotesAdapter
 import com.happyplaces.utils.SwipeToDeleteCallback
 import kotlinx.android.synthetic.main.activity_notes.*
 import pl.kitek.rvswipetodelete.SwipeToEditCallback
+import com.example.app.ButtonsFunctionality
 
-class NotesActivity : AppCompatActivity() {
+class NotesActivity : ButtonsFunctionality() {
     override fun onCreate(savedInstanceState: Bundle?) {
         supportActionBar?.title = "Your Notes"
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_notes)
         getNotesListFromPrivateDB()
-        iv_animation_cards.setOnClickListener {
-            val intent = Intent(this, Cards::class.java)
-            startActivity(intent)
-            finish()
-        }
-        val btn_add = findViewById(R.id.btn_add_notesactivity) as Button
-        btn_add.setOnClickListener {
-            val intent = Intent(this, AddNoteActivity::class.java)
-            startActivityForResult(intent, ADD_NOTE_ACTIVITY_REQUEST_CODE)
-            finish()
-        }
-        val bu = findViewById<ImageButton>(R.id.btn_settingsInNotes)
-        bu.setOnClickListener {
-            val aniRotate = AnimationUtils.loadAnimation(applicationContext, R.anim.rotate)
-            bu.startAnimation(aniRotate)
+
+        /* val btn_add = findViewById(R.id.btn_add_notesactivity) as Button
+         btn_add.setOnClickListener {
+             val intent = Intent(this, AddNoteActivity::class.java)
+             startActivityForResult(intent, ADD_NOTE_ACTIVITY_REQUEST_CODE)
+             finish()
+         }
+
+         */
+        btn_settingsInNotes.setOnClickListener {
+            rotate(btn_settingsInNotes)
         }
 
-        var visible = false
-        var alfha: Float
-
-        val angle = findViewById<Button>(R.id.btn_angle)
-        angle.setOnClickListener {
-
-            val image = findViewById<ImageView>(R.id.iv_angle_image)
-            val animator = ObjectAnimator.ofFloat(image, View.TRANSLATION_Y, -10f)
-            animator.repeatCount = 1
-            animator.repeatMode = ObjectAnimator.REVERSE
-            animator.duration = 100;
-            animator.addListener(object : AnimatorListenerAdapter() {
-                override fun onAnimationStart(animation: Animator?) {
-                    angle.isEnabled = false;
-                }
-
-                override fun onAnimationEnd(animation: Animator?) {
-                    angle.isEnabled = true;
-                }
-            })
-            animator.start()
-
-            val layout = findViewById<LinearLayout>(R.id.ll_layout_menu)
-
-            if (!visible) {
-                alfha = 1f
-                visible = true
-            } else {
-                alfha = 0f
-                visible = false
-            }
-            val anim = ObjectAnimator.ofFloat(layout, View.ALPHA, alfha)
-            anim.addListener(object : AnimatorListenerAdapter() {
-                override fun onAnimationEnd(animation: Animator?) {
-                    layout.alpha = alfha
-                }
-            })
-            anim.duration = 50
-            anim.start()
+        btn_angle.setOnClickListener {
+            selectMenu(btn_angle, iv_angle_image, ll_layout_menu)
+        }
+        iv_plus_image.setOnClickListener {
+            plusButton(
+                this.findViewById(R.id.iv_plus_image), R.id.iv_notes
+                , iv_plus_image, main_layout_notes, R.id.ll_add_menu, R.id.main_layout_notes
+            )
         }
         /*btn_animation_cards.setOnClickListener {
             val intent = Intent(this, Cards::class.java)

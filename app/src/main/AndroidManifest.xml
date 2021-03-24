@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.App">
+        <activity android:name=".ProfileActivity"></activity>
         <activity android:name=".NoteDetailsActivity" />
         <activity android:name=".AddNoteActivity" />
         <activity android:name=".IdentityActivity" />

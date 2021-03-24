@@ -26,4 +26,10 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
+
+    fun startProfiles(view: View) {
+        val intent = Intent(this, ProfileActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
 }

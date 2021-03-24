@@ -50,7 +50,7 @@ class NotesActivity : ButtonsFunctionality() {
         iv_plus_image.setOnClickListener {
             plusButton(
                 this.findViewById(R.id.iv_plus_image), R.id.iv_notes
-                , iv_plus_image, main_layout_notes, R.id.ll_add_menu
+                , iv_plus_image, R.id.main_layout_notes, R.id.ll_add_menu
             )
         }
         /*btn_animation_cards.setOnClickListener {

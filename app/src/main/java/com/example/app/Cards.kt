@@ -3,15 +3,12 @@ package com.example.app
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
-import android.animation.ValueAnimator
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.transition.AutoTransition
 import android.transition.TransitionManager
-import android.transition.Visibility
 import android.view.View
-import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.AnimationUtils
 import android.widget.*
@@ -21,6 +18,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.app.adapters.ItemAdapter
 import com.example.app.database.DatabaseCards
 import com.example.app.models.CardModel
 import kotlinx.android.synthetic.main.activity_cards.*
@@ -149,7 +147,8 @@ class Cards : AppCompatActivity() {
         if (getCards().size > 0) {
             findViewById<RecyclerView>(R.id.cards_layout).visibility = View.VISIBLE
             findViewById<RecyclerView>(R.id.cards_layout).layoutManager = LinearLayoutManager(this)
-            val itemAdapter = ItemAdapter(this, getCards())
+            val itemAdapter =
+                ItemAdapter(this, getCards())
             findViewById<RecyclerView>(R.id.cards_layout).adapter = itemAdapter
         }
         else {

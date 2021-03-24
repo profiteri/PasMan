@@ -15,6 +15,7 @@
     <color name="blue">#03396c</color>
     <color name="lightblue">#005b96</color>
     <color name="verylightblue">#b3cde0</color>
+    <color name="text_stroke">#8c8c8c</color>
 
 <!--#011f4b • #03396c • #005b96 • #6497b1 • #b3cde0 -->
     <color name="add_button_background">#FF000000</color>

@@ -11,10 +11,10 @@ class NoteDetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_note_details)
         var noteDetailsModel: NoteModel? = null
-        if (intent.hasExtra(NotesActivity.EXTRA_NOTES_DETAILS)) {
-            noteDetailsModel =
-                intent.getSerializableExtra(NotesActivity.EXTRA_NOTES_DETAILS) as NoteModel
-        }
+       // if (intent.hasExtra(NotesActivity.EXTRA_NOTES_DETAILS)) {
+       //     noteDetailsModel =
+       //         intent.getSerializableExtra(NotesActivity.EXTRA_NOTES_DETAILS) as NoteModel
+       // }
         if (noteDetailsModel != null) {
             //setSupportActionBar()
             tv_text_details.text = noteDetailsModel.text

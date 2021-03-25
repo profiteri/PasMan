@@ -32,4 +32,10 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
+
+    fun startIdentity(view: View) {
+        val intent = Intent(this, IdentityActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
 }

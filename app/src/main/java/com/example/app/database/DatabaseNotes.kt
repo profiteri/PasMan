@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper
 import com.example.app.models.NoteModel
 import java.text.FieldPosition
 
-class DatabaseHandler(context: Context) :
+class DatabaseNotes(context: Context) :
     SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
     companion object {
         private const val DATABASE_VERSION = 1 // Database version

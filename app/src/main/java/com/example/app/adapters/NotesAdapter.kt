@@ -3,17 +3,15 @@ package com.happyplaces.adapters
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.app.AddNoteActivity
-import com.example.app.MainActivity
 import com.example.app.NotesActivity
 import com.example.app.models.NoteModel
 import com.example.app.R
-import com.example.app.database.DatabaseHandler
+import com.example.app.database.DatabaseNotes
 import kotlinx.android.synthetic.main.item_notes.view.*
 
 // TODO (Step 6: Creating an adapter class for binding it to the recyclerview in the new package which is adapters.)
@@ -80,7 +78,7 @@ open class NotesAdapter(
 
 
     fun removeAt(position: Int) {
-        val dbHandler = DatabaseHandler(context)
+        val dbHandler = DatabaseNotes(context)
         val isDeleted = dbHandler.deleteNote(list[position])
         if (isDeleted > 0) {
             list.removeAt(position)
@@ -95,6 +93,8 @@ open class NotesAdapter(
         activity.startActivityForResult(intent, requestCode)
         notifyItemChanged(position)
     }
+
+
 
 
     override fun getItemCount(): Int {

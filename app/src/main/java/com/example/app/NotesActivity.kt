@@ -1,29 +1,22 @@
 package com.example.app
 
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
-import android.animation.ObjectAnimator
 import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.view.animation.AnimationUtils
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.LinearLayout
+import android.widget.*
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.app.database.DatabaseHandler
+import com.example.app.database.DatabaseNotes
 import com.example.app.models.NoteModel
 import com.happyplaces.adapters.NotesAdapter
 import com.happyplaces.utils.SwipeToDeleteCallback
 import kotlinx.android.synthetic.main.activity_notes.*
 import pl.kitek.rvswipetodelete.SwipeToEditCallback
-import com.example.app.ButtonsFunctionality
+import com.example.app.database.DatabaseCards
+import com.example.app.models.CardModel
 
 class NotesActivity : ButtonsFunctionality() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,6 +33,12 @@ class NotesActivity : ButtonsFunctionality() {
          }
 
          */
+        iv_plus_image.setOnClickListener {
+            plusButton(
+                this.findViewById(R.id.iv_plus_image), R.id.iv_notes
+                , iv_plus_image, R.id.main_layout_notes, R.id.ll_add_menu
+            )
+        }
         btn_settingsInNotes.setOnClickListener {
             rotate(btn_settingsInNotes)
         }
@@ -53,13 +52,25 @@ class NotesActivity : ButtonsFunctionality() {
                 , iv_plus_image, R.id.main_layout_notes, R.id.ll_add_menu
             )
         }
-        /*btn_animation_cards.setOnClickListener {
-            val intent = Intent(this, Cards::class.java)
-            startActivity(intent)
-            finish()
-        }
 
-         */
+    }
+
+    fun addNote(view: View) {
+        val notesHandler = DatabaseNotes(this)
+        val status =
+            notesHandler.addNote(NoteModel(0, et_title1.text.toString(), et_text1.text.toString()))
+        if (status > -1) {
+            Toast.makeText(this, "Note added", Toast.LENGTH_SHORT).show()
+            findViewById<EditText>(R.id.et_title).text.clear()
+            findViewById<EditText>(R.id.et_text).text.clear()
+            val dbHandler = DatabaseNotes(this)
+
+            setupNotesRecyclerView(dbHandler.getNotesList())
+            plusButton(
+                this.findViewById(R.id.iv_plus_image), R.id.iv_notes
+                , iv_plus_image, R.id.main_layout_notes, R.id.ll_add_menu
+            )
+        }
     }
 
     private fun setupNotesRecyclerView(noteslist: ArrayList<NoteModel>) {
@@ -100,7 +111,7 @@ class NotesActivity : ButtonsFunctionality() {
     }
 
     private fun getNotesListFromPrivateDB() {
-        val dbHandler = DatabaseHandler(this)
+        val dbHandler = DatabaseNotes(this)
         val getNotesList: ArrayList<NoteModel> = dbHandler.getNotesList()
         if (getNotesList.size > 0) {
             rv_notes_list.visibility = View.VISIBLE
@@ -122,6 +133,30 @@ class NotesActivity : ButtonsFunctionality() {
             } else {
                 Log.i("Activity", "Cancelled or Back pressed")
             }
+    }
+
+    fun startCards(view: View) {
+        val intent = Intent(this, Cards::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+    fun startNotes(view: View) {
+        val intent = Intent(this, NotesActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+    fun startProfiles(view: View) {
+        val intent = Intent(this, ProfileActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+    fun startIdentity(view: View) {
+        val intent = Intent(this, IdentityActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
     companion object {

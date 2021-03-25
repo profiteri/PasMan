@@ -8,7 +8,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
-import com.example.app.database.DatabaseHandler
+import com.example.app.database.DatabaseNotes
 import com.example.app.models.NoteModel
 import kotlinx.android.synthetic.main.activity_add_note.*
 
@@ -57,7 +57,7 @@ class AddNoteActivity : AppCompatActivity(), View.OnClickListener {
                             tv_title.text.toString()
                             , tv_text.text.toString()
                         )
-                        val dbHandler = DatabaseHandler(this)
+                        val dbHandler = DatabaseNotes(this)
                         if (mNotesDetails == null) {
                             val addNoteResult = dbHandler.addNote(note)
                             if (addNoteResult > 0) {

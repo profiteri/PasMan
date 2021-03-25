@@ -3,6 +3,7 @@ package com.example.app
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
+import android.content.Intent
 import android.graphics.Color.alpha
 import android.media.Image
 import android.transition.AutoTransition
@@ -92,5 +93,29 @@ open abstract class ButtonsFunctionality : AppCompatActivity() {
         }
         TransitionManager.beginDelayedTransition(findViewById<ConstraintLayout>(main_layout), transition)
         c.applyTo(findViewById<ConstraintLayout>(main_layout)) //появление
+    }
+
+    fun toCards(view: View) {
+        val intent = Intent(this, Cards::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+    fun toAccounts(view: View) {
+        val intent = Intent(this, ProfileActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+    fun toIdent(view: View) {
+        val intent = Intent(this, IdentityActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+    fun toNotes(view: View) {
+        val intent = Intent(this, NotesActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 }

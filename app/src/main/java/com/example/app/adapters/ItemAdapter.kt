@@ -44,7 +44,6 @@ class ItemAdapter(val context: Context, val items: ArrayList<CardModel>) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val item = items[position]
-
         holder.number.text = item.number
         holder.holder.text = item.holder
         holder.expiry.text = item.expiry

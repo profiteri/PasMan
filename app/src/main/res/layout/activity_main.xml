@@ -55,7 +55,7 @@
         android:backgroundTint="@null"
         android:gravity="center_horizontal"
         android:onClick="startIdentity"
-        android:text="Profile"
+        android:text="Identity"
         android:textAlignment="center"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

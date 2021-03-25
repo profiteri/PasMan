@@ -135,29 +135,6 @@ class NotesActivity : ButtonsFunctionality() {
             }
     }
 
-    fun startCards(view: View) {
-        val intent = Intent(this, Cards::class.java)
-        startActivity(intent)
-        finish()
-    }
-
-    fun startNotes(view: View) {
-        val intent = Intent(this, NotesActivity::class.java)
-        startActivity(intent)
-        finish()
-    }
-
-    fun startProfiles(view: View) {
-        val intent = Intent(this, ProfileActivity::class.java)
-        startActivity(intent)
-        finish()
-    }
-
-    fun startIdentity(view: View) {
-        val intent = Intent(this, IdentityActivity::class.java)
-        startActivity(intent)
-        finish()
-    }
 
     companion object {
         var ADD_NOTE_ACTIVITY_REQUEST_CODE = 1

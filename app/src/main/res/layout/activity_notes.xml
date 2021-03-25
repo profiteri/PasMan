@@ -140,7 +140,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:onClick="startCards"
+            android:onClick="toCards"
             android:paddingLeft="12dp"
             android:paddingRight="12dp"
             android:src="@drawable/card" />
@@ -149,7 +149,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:onClick="startProfiles"
+            android:onClick="toAccounts"
             android:paddingLeft="12dp"
             android:paddingRight="12dp"
             android:src="@drawable/account" />
@@ -158,7 +158,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:onClick="startIdentity"
+            android:onClick="toIdent"
             android:paddingLeft="12dp"
             android:paddingRight="12dp"
             android:src="@drawable/identity" />
@@ -167,7 +167,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:onClick="startNotes"
+            android:onClick="toNotes"
             android:paddingStart="15dp"
             android:paddingEnd="12dp"
             android:src="@drawable/notes" />

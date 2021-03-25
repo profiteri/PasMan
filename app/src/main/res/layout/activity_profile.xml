@@ -8,7 +8,7 @@
     tools:context=".Cards"
     android:background="@color/teal_200">
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/cards_layout"
+        android:id="@+id/rv_profiles"
         android:layout_width="match_parent"
         android:layout_height="500dp"
         android:layout_margin="20dp"
@@ -58,7 +58,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <Button
-                android:onClick="plusButton"
                 android:id="@+id/plus_button"
                 android:layout_width="80dp"
                 android:layout_height="60dp"
@@ -66,7 +65,6 @@
                 android:backgroundTint="@color/black"/>
         </RelativeLayout>
         <ImageView
-            android:onClick="plusButton"
             android:id="@+id/plus_image"
             android:layout_width="50dp"
             android:layout_height="50dp"
@@ -240,6 +238,6 @@
             android:text="Add"
             android:textColor="@color/add_button_text"
             android:background="@drawable/add_button"
-            android:onClick="addCard"/>
+            android:onClick="addProfile"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

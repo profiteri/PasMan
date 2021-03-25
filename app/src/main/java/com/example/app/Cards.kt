@@ -95,7 +95,6 @@ class Cards : ButtonsFunctionality() {
         }
     }
 
-    //switchers
 
     fun test(view: View) {
         Toast.makeText(this, "HAHA", Toast.LENGTH_SHORT).show()

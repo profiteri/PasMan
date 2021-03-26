@@ -4,8 +4,10 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.app.ProfileActivity
 import com.example.app.R
 import com.example.app.models.ProfileModel
 
@@ -32,6 +34,11 @@ class ProfilesAdapter(val context: Context, val items: ArrayList<ProfileModel>) 
         holder.login.text = item.login
         holder.password.text = item.password
         holder.info.text = item.info
+
+        holder.delete.setOnClickListener {
+            if (context is ProfileActivity)
+                context.deleteItem(item)
+        }
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -40,5 +47,6 @@ class ProfilesAdapter(val context: Context, val items: ArrayList<ProfileModel>) 
         val login: TextView = view.findViewById<TextView>(R.id.tvLogin)
         val password: TextView = view.findViewById<TextView>(R.id.tvPassword)
         val info: TextView = view.findViewById<TextView>(R.id.tvInfo)
+        val delete: Button = view.findViewById<Button>(R.id.buDelete)
     }
 }

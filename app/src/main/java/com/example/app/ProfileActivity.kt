@@ -1,8 +1,12 @@
 package com.example.app
 
+import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MotionEvent
 import android.view.View
+import android.widget.EditText
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -32,6 +36,7 @@ class ProfileActivity : ButtonsFunctionality() {
                 , plus_image, R.id.main_layout_profile, R.id.add_menu
             )
         }
+        setupListOfDataIntoRecycleView()
     }
 
     fun addProfile(view: View) {
@@ -54,6 +59,15 @@ class ProfileActivity : ButtonsFunctionality() {
         }
     }
 
+    fun deleteItem(profile: ProfileModel) {
+        val handler = DatabaseProfile(this)
+        if (handler.deleteProfile(profile) == -1) {
+            Toast.makeText(this, "ErRorr", Toast.LENGTH_SHORT).show()
+        }
+        Toast.makeText(this, "Deleted", Toast.LENGTH_SHORT).show()
+        setupListOfDataIntoRecycleView()
+    }
+
     private fun getProfiles(): ArrayList<ProfileModel> {
         return DatabaseProfile(this).viewProfile()
     }
@@ -67,5 +81,34 @@ class ProfileActivity : ButtonsFunctionality() {
         else {
             rv_profiles.visibility = View.GONE
         }
+    }
+
+    fun changeBorder(view: View) {
+
+
+        (view as EditText).setOnTouchListener { v, event ->
+            val action = event.action
+            when (action) {
+
+                MotionEvent.ACTION_DOWN -> {
+                    (v.background as GradientDrawable).setStroke(5, Color.BLACK)
+                }
+                MotionEvent.ACTION_MOVE -> {
+                }
+
+                MotionEvent.ACTION_UP -> {
+                    (v.background as GradientDrawable).setStroke(5, Color.GREEN)
+                }
+
+                MotionEvent.ACTION_CANCEL -> {
+
+                }
+            }
+            true
+        }
+    }
+
+    private fun blackBorder(view: View) {
+        (view.background as GradientDrawable).setStroke(5, Color.BLACK)
     }
 }

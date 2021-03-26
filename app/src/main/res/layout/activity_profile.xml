@@ -180,6 +180,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/add_text_input">
             <EditText
+                android:onClick="changeBorder"
                 android:layout_marginHorizontal="15dp"
                 android:id="@+id/et_source"
                 android:hint="@string/source"

@@ -178,9 +178,9 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/add_text_input">
+            android:background="@drawable/add_text_input"
+            android:id="@+id/ll_source">
             <EditText
-                android:onClick="changeBorder"
                 android:layout_marginHorizontal="15dp"
                 android:id="@+id/et_source"
                 android:hint="@string/source"

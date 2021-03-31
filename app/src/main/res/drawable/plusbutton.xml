@@ -4,5 +4,15 @@
     <corners
         android:bottomLeftRadius="0dp"
         android:bottomRightRadius="0dp"
-        android:radius="100dp"/>
+        android:radius="30dp"/>
+    <gradient
+        android:type="radial"
+        android:startColor="@color/plusbutton_startcolor"
+        android:endColor="@color/plusbutton_endcolor"
+        android:centerX="0.2"
+        android:centerY="0.1"
+        android:gradientRadius="150%"/>
+    <stroke
+        android:color="@color/white"
+        android:width="0.5dp"/>
 </shape>

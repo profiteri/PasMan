@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Cards"
-    android:background="@color/teal_200">
+    android:background="@drawable/gradient_background">
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_profiles"
         android:layout_width="match_parent"
@@ -32,7 +32,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginTop="20dp"
-        android:src="@drawable/account"
+        android:src="@drawable/account_gradient"
         />
     <!--<Button
         android:id="@+id/plus_button"
@@ -59,10 +59,9 @@
             android:layout_height="wrap_content">
             <Button
                 android:id="@+id/plus_button"
-                android:layout_width="80dp"
+                android:layout_width="100dp"
                 android:layout_height="60dp"
-                android:background="@drawable/plusbutton"
-                android:backgroundTint="@color/black"/>
+                android:background="@drawable/plusbutton"/>
         </RelativeLayout>
         <ImageView
             android:id="@+id/plus_image"
@@ -78,7 +77,6 @@
         android:layout_height="60dp"
         android:layout_margin="20dp"
         android:background="@drawable/round"
-        android:backgroundTint="@color/black"
         android:padding="12dp"
         android:scaleType="fitXY"
         android:src="@drawable/settings"
@@ -98,8 +96,7 @@
                 android:id="@+id/angle"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:background="@drawable/round"
-                android:backgroundTint="@color/black"/>
+                android:background="@drawable/round"/>
         </RelativeLayout>
         <ImageView
             android:id="@+id/angle_image"

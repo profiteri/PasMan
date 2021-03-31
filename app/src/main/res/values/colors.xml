@@ -18,6 +18,11 @@
     <color name="text_stroke">#8c8c8c</color>
     <color name="text_stroke_focused">#FF000000</color>
     <color name="profile_item_background">#ffdab9</color>
+    <color name="gradient_start">#0E0A41</color>
+    <color name="gradient_center">#611313</color>
+    <color name="gradient_end">#000000</color>
+    <color name="plusbutton_startcolor">#0A042D</color>
+    <color name="plusbutton_endcolor">#B90000</color>
 
 <!--#011f4b • #03396c • #005b96 • #6497b1 • #b3cde0 -->
     <color name="add_button_background">#FF000000</color>

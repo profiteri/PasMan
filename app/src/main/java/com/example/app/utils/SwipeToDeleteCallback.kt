@@ -3,6 +3,8 @@ package com.happyplaces.utils
 import android.content.Context
 import android.graphics.*
 import android.graphics.drawable.ColorDrawable
+import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -15,15 +17,18 @@ import com.example.app.R
 /**
  * A abstract class which we will use for delete feature.
  */
-abstract class SwipeToDeleteCallback(context: Context) :
+abstract class SwipeToDeleteCallback(val context: Context) :
     ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
 
     private val deleteIcon = ContextCompat.getDrawable(context, R.drawable.ic_delete_white_24dp)
     private val intrinsicWidth = deleteIcon!!.intrinsicWidth
     private val intrinsicHeight = deleteIcon!!.intrinsicHeight
-    private val background = ColorDrawable()
-    private val backgroundColor = Color.parseColor("#f44336")
+    val background = ColorDrawable()
+    private val backgroundColor = Color.RED
     private val clearPaint = Paint().apply { xfermode = PorterDuffXfermode(PorterDuff.Mode.CLEAR) }
+
+    var params: Float = -1f
+
 
 
     override fun getMovementFlags(
@@ -36,6 +41,8 @@ abstract class SwipeToDeleteCallback(context: Context) :
          * if (viewHolder?.itemViewType == YourAdapter.SOME_TYPE) return 0
          * if (viewHolder?.adapterPosition == 0) return 0
          */
+        //Toast.makeText(context, "aaa", Toast.LENGTH_SHORT).show()
+
         if (viewHolder.adapterPosition == 10) return 0
         return super.getMovementFlags(recyclerView, viewHolder)
     }
@@ -48,10 +55,13 @@ abstract class SwipeToDeleteCallback(context: Context) :
         return false
     }
 
+
     override fun onChildDraw(
         c: Canvas, recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder,
         dX: Float, dY: Float, actionState: Int, isCurrentlyActive: Boolean
     ) {
+        if (params == -1f)
+            params = viewHolder.itemView.x
 
         val itemView = viewHolder.itemView
         val itemHeight = itemView.bottom - itemView.top

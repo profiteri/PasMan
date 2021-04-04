@@ -2,6 +2,7 @@ package com.example.app.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
@@ -15,7 +16,8 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class ProfilesAdapter(val context: Context, val items: ArrayList<ProfileModel>) :
-    RecyclerView.Adapter<ProfilesAdapter.ViewHolder>() {
+    RecyclerView.Adapter<ProfilesAdapter.ViewHolder>()
+{
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProfilesAdapter.ViewHolder {
         return ProfilesAdapter.ViewHolder(
             LayoutInflater.from(context).inflate(
@@ -29,6 +31,7 @@ class ProfilesAdapter(val context: Context, val items: ArrayList<ProfileModel>) 
     override fun getItemCount(): Int {
         return items.size
     }
+
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items[position]
@@ -50,10 +53,17 @@ class ProfilesAdapter(val context: Context, val items: ArrayList<ProfileModel>) 
             else -> R.drawable.all
         })
 
-        holder.delete.setOnClickListener {
-            if (context is ProfileActivity)
-                context.deleteItem(item)
-        }
+
+
+      //  holder.delete.setOnClickListener {
+      //      if (context is ProfileActivity)
+      //          context.deleteItem(item)
+      //  }
+    }
+
+    fun deleteProfile(holder: ViewHolder) {
+       if (context is ProfileActivity)
+           context.deleteItem(items[holder.adapterPosition])
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -65,4 +75,5 @@ class ProfilesAdapter(val context: Context, val items: ArrayList<ProfileModel>) 
         val info: TextView = view.findViewById<TextView>(R.id.tvInfo)
         val delete: Button = view.findViewById<Button>(R.id.buDelete)
     }
+
 }

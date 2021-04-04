@@ -4,4 +4,7 @@
     <string name="password">Password</string>
     <string name="source">Source</string>
     <string name="login">Login</string>
+    <string name="delete_profile_dialog">Are you sure?</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
 </resources>

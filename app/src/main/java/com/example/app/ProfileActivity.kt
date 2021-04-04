@@ -1,6 +1,9 @@
 package com.example.app
 
+import android.app.ActionBar
+import android.content.Intent
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.GradientDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,19 +12,25 @@ import android.text.TextWatcher
 import android.util.TypedValue
 import android.view.MotionEvent
 import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.app.adapters.ItemAdapter
 import com.example.app.adapters.ProfilesAdapter
 import com.example.app.database.DatabaseProfile
+import com.example.app.dialogs.DeleteProfile
 import com.example.app.models.ProfileModel
+import com.happyplaces.adapters.NotesAdapter
+import com.happyplaces.utils.SwipeToDeleteCallback
 import kotlinx.android.synthetic.main.activity_notes.*
 import kotlinx.android.synthetic.main.activity_profile.*
+import pl.kitek.rvswipetodelete.SwipeToEditCallback
 
 class ProfileActivity : ButtonsFunctionality() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -100,5 +109,21 @@ class ProfileActivity : ButtonsFunctionality() {
         else {
             rv_profiles.visibility = View.GONE
         }
+
+
+        val deleteSwipeHandler = object : SwipeToDeleteCallback(this) {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val a = viewHolder.itemView.layoutParams
+                DeleteProfile(rv_profiles.adapter as ProfilesAdapter, viewHolder as ProfilesAdapter.ViewHolder).show(supportFragmentManager, "delete_dialog")
+                //viewHolder.itemView.translationX = 0f
+                //viewHolder.itemView.translationY = 0f
+                    viewHolder.itemView.x = super.params
+                //viewHolder.itemView.layoutParams = (rv_profiles.adapter as ProfilesAdapter).params
+               // val adapter = rv_profiles.adapter as ProfilesAdapter
+                //adapter.deleteItem(viewHolder as ProfilesAdapter.ViewHolder)
+            }
+        }
+        val deleteItemTouchHelper = ItemTouchHelper(deleteSwipeHandler)
+        deleteItemTouchHelper.attachToRecyclerView(rv_profiles)
     }
 }

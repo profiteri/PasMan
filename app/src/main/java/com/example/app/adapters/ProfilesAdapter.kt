@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.app.ProfileActivity
 import com.example.app.R
@@ -74,6 +76,8 @@ class ProfilesAdapter(val context: Context, val items: ArrayList<ProfileModel>) 
         val password: TextView = view.findViewById<TextView>(R.id.tvPassword)
         val info: TextView = view.findViewById<TextView>(R.id.tvInfo)
         val delete: Button = view.findViewById<Button>(R.id.buDelete)
+        val background: RelativeLayout = view.findViewById(R.id.card_background)
+        val foreground: CardView = view.findViewById(R.id.card_foreground)
     }
 
 }

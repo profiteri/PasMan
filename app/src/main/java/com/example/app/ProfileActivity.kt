@@ -1,18 +1,8 @@
 package com.example.app
 
-import android.app.ActionBar
-import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
-import android.graphics.drawable.GradientDrawable
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Context
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.util.TypedValue
-import android.view.MotionEvent
 import android.view.View
-import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.ImageView
@@ -21,6 +11,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.app.SwipeHelpers.ProfileSwipeHelper
 import com.example.app.adapters.ItemAdapter
 import com.example.app.adapters.ProfilesAdapter
 import com.example.app.database.DatabaseProfile
@@ -111,19 +102,82 @@ class ProfileActivity : ButtonsFunctionality() {
         }
 
 
-        val deleteSwipeHandler = object : SwipeToDeleteCallback(this) {
+        /*val deleteSwipeHandler = object : SwipeToDeleteCallback(this) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val a = viewHolder.itemView.layoutParams
                 DeleteProfile(rv_profiles.adapter as ProfilesAdapter, viewHolder as ProfilesAdapter.ViewHolder).show(supportFragmentManager, "delete_dialog")
                 //viewHolder.itemView.translationX = 0f
                 //viewHolder.itemView.translationY = 0f
-                    viewHolder.itemView.x = super.params
+                    //viewHolder.itemView.x = super.params
                 //viewHolder.itemView.layoutParams = (rv_profiles.adapter as ProfilesAdapter).params
                // val adapter = rv_profiles.adapter as ProfilesAdapter
                 //adapter.deleteItem(viewHolder as ProfilesAdapter.ViewHolder)
             }
+
+            override fun clearView(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder
+            ) {
+                viewHolder.itemView.x = super.params
+            }
         }
         val deleteItemTouchHelper = ItemTouchHelper(deleteSwipeHandler)
-        deleteItemTouchHelper.attachToRecyclerView(rv_profiles)
+        deleteItemTouchHelper.attachToRecyclerView(rv_profiles)*/
+
+        var attached = false
+        val context : Context  = this
+        val deleteSwipeHandler1 = object : ProfileSwipeHelper() {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                //Toast.makeText(context, viewHolder.itemView.layoutParams.toString(), Toast.LENGTH_SHORT).show()
+
+                //viewHolder.itemView.layoutParams.width = 0
+                DeleteProfile(rv_profiles.adapter as ProfilesAdapter, viewHolder as ProfilesAdapter.ViewHolder).show(supportFragmentManager, "delete_dialog")
+                //
+                this.bol = true
+                //this.clearView(rv_profiles, viewHolder)
+                attached = true
+
+                /*val anim = ObjectAnimator.ofFloat(viewHolder.foreground, View.TRANSLATION_X, 0f)
+                anim.duration = 300
+                anim.addListener(object : AnimatorListenerAdapter() {
+                    override fun onAnimationStart(animation: Animator?) {
+                        viewHolder.foreground.isEnabled = false
+                    }
+                    override fun onAnimationEnd(animation: Animator?) {
+                        viewHolder.foreground.isEnabled = true
+                    }
+                })
+
+
+                anim.start()*/
+
+                viewHolder.foreground.alpha = 1f
+
+                /*val anim = Thread(Runnable {
+                    viewHolder.foreground.animate().translationX(0f)
+                })
+                anim.start()
+                anim.join()*/
+
+                viewHolder.foreground.animate().translationX(0f)
+                Thread.sleep(1000)
+
+                setupListOfDataIntoRecycleView()
+                //ItemTouchHelper(this).attachToRecyclerView(null)
+            }
+        }
+        //if (!attached)
+           ItemTouchHelper(deleteSwipeHandler1).attachToRecyclerView(rv_profiles)
+        //else
+        //   ItemTouchHelper(deleteSwipeHandler1).attachToRecyclerView(null)
+
     }
+
+    class AnimationThread(view: View) : Runnable {
+        val v = view
+        override fun run() {
+            v.animate().translationX(0f)
+        }
+    }
+
 }

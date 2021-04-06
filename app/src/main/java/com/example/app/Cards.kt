@@ -50,6 +50,9 @@ class Cards : ButtonsFunctionality() {
         }
 
         setupListOfDataIntoRecycleView()
+        plus_image.setOnClickListener {
+
+        }
     }
 
     fun addCard(view: View) {

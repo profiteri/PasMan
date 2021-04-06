@@ -5,23 +5,22 @@
     android:id="@+id/main_layout_identity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
-    tools:context=".NotesActivity">
+    android:background="@color/verylightblue">
+    tools:context=".IdentityActivity">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/cards_layout"
+        android:id="@+id/rv_identities"
         android:layout_width="match_parent"
         android:layout_height="500dp"
         android:layout_margin="20dp"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/iv_identity">
-    </androidx.recyclerview.widget.RecyclerView>
+        app:layout_constraintTop_toBottomOf="@+id/iv_identity" />
 
 
     <ImageView
         android:id="@+id/iv_identity"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="42dp"
+        android:layout_height="60dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/main_image"
         android:src="@drawable/identity"
@@ -124,11 +123,11 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/ll_add_menu_identity"
+        android:id="@+id/ll_add_menu_identity1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="500dp"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/add_layout_background"
         android:orientation="vertical"
         android:padding="20dp"
@@ -139,7 +138,8 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Title"
+            android:layout_marginTop="10dp"
+            android:hint="Name"
             app:boxCornerRadiusBottomEnd="50dp"
             app:boxCornerRadiusBottomStart="50dp"
             app:boxCornerRadiusTopEnd="50dp"
@@ -148,7 +148,7 @@
             app:boxStrokeWidth="5dp">
 
             <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/et_title1"
+                android:id="@+id/et_name_identity1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -156,9 +156,9 @@
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="20dp"
-            android:hint="Text"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="Surname"
             app:boxCornerRadiusBottomEnd="50dp"
             app:boxCornerRadiusBottomStart="50dp"
             app:boxCornerRadiusTopEnd="50dp"
@@ -167,21 +167,151 @@
             app:boxStrokeWidth="5dp">
 
             <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/et_text1"
+                android:id="@+id/et_surname_identity1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:hint="Street"
+                app:boxCornerRadiusBottomEnd="50dp"
+                app:boxCornerRadiusBottomStart="50dp"
+                app:boxCornerRadiusTopEnd="50dp"
+                app:boxCornerRadiusTopStart="50dp"
+                app:boxStrokeColor="@color/input_box"
+                app:boxStrokeWidth="5dp">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/et_street_identity1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_weight="0.5"
+                android:hint="Appartement"
+                app:boxCornerRadiusBottomEnd="50dp"
+                app:boxCornerRadiusBottomStart="50dp"
+                app:boxCornerRadiusTopEnd="50dp"
+                app:boxCornerRadiusTopStart="50dp"
+                app:boxStrokeColor="@color/input_box"
+                app:boxStrokeWidth="5dp">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/et_apartement_identity1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:hint="Country"
+                app:boxCornerRadiusBottomEnd="50dp"
+                app:boxCornerRadiusBottomStart="50dp"
+                app:boxCornerRadiusTopEnd="50dp"
+                app:boxCornerRadiusTopStart="50dp"
+                app:boxStrokeColor="@color/input_box"
+                app:boxStrokeWidth="5dp">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/et_country_identity1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_weight="0.5"
+                android:hint="Postcode"
+                app:boxCornerRadiusBottomEnd="50dp"
+                app:boxCornerRadiusBottomStart="50dp"
+                app:boxCornerRadiusTopEnd="50dp"
+                app:boxCornerRadiusTopStart="50dp"
+                app:boxStrokeColor="@color/input_box"
+                app:boxStrokeWidth="5dp">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/et_postcode_identity1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="Phone"
+                app:boxCornerRadiusBottomEnd="50dp"
+                app:boxCornerRadiusBottomStart="50dp"
+                app:boxCornerRadiusTopEnd="50dp"
+                app:boxCornerRadiusTopStart="50dp"
+                app:boxStrokeColor="@color/input_box"
+                app:boxStrokeWidth="5dp">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/et_phone_identity1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="Email"
+                app:boxCornerRadiusBottomEnd="50dp"
+                app:boxCornerRadiusBottomStart="50dp"
+                app:boxCornerRadiusTopEnd="50dp"
+                app:boxCornerRadiusTopStart="50dp"
+                app:boxStrokeColor="@color/input_box"
+                app:boxStrokeWidth="5dp">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/et_email_identity1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:id="@+id/add_button"
+            android:id="@+id/btn_add_identity1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="70dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="15dp"
             android:background="@drawable/add_button"
             android:gravity="center"
-            android:onClick="addNote"
+            android:onClick="addIdentity"
             android:text="Add"
             android:textColor="@color/add_button_text" />
     </LinearLayout>
@@ -215,11 +345,11 @@
     </FrameLayout>
 
     <LinearLayout
-        android:id="@+id/add_menu1"
+        android:id="@+id/ll_add_menu_identity2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="500dp"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/add_layout_background"
         android:orientation="vertical"
         android:padding="20dp"
@@ -230,7 +360,8 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Title"
+            android:layout_marginTop="20dp"
+            android:hint="Name"
             app:boxCornerRadiusBottomEnd="50dp"
             app:boxCornerRadiusBottomStart="50dp"
             app:boxCornerRadiusTopEnd="50dp"
@@ -239,21 +370,17 @@
             app:boxStrokeWidth="5dp">
 
             <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/et_title"
+                android:id="@+id/et_name_identity"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text=""
-
-                />
+                android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:hint="Text"
-            android:orientation="vertical"
+            android:hint="Surname"
             app:boxCornerRadiusBottomEnd="50dp"
             app:boxCornerRadiusBottomStart="50dp"
             app:boxCornerRadiusTopEnd="50dp"
@@ -262,22 +389,150 @@
             app:boxStrokeWidth="5dp">
 
             <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/et_text"
+                android:id="@+id/et_surname_identity"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="" />
+                android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:hint="Street"
+                app:boxCornerRadiusBottomEnd="50dp"
+                app:boxCornerRadiusBottomStart="50dp"
+                app:boxCornerRadiusTopEnd="50dp"
+                app:boxCornerRadiusTopStart="50dp"
+                app:boxStrokeColor="@color/input_box"
+                app:boxStrokeWidth="5dp">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/et_street_identity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_weight="1"
+                android:hint="Appartement"
+                app:boxCornerRadiusBottomEnd="50dp"
+                app:boxCornerRadiusBottomStart="50dp"
+                app:boxCornerRadiusTopEnd="50dp"
+                app:boxCornerRadiusTopStart="50dp"
+                app:boxStrokeColor="@color/input_box"
+                app:boxStrokeWidth="5dp">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/et_apartement_identity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:hint="Country"
+                app:boxCornerRadiusBottomEnd="50dp"
+                app:boxCornerRadiusBottomStart="50dp"
+                app:boxCornerRadiusTopEnd="50dp"
+                app:boxCornerRadiusTopStart="50dp"
+                app:boxStrokeColor="@color/input_box"
+                app:boxStrokeWidth="5dp">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/et_country_identity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_weight="2"
+                android:hint="Postcode"
+                app:boxCornerRadiusBottomEnd="50dp"
+                app:boxCornerRadiusBottomStart="50dp"
+                app:boxCornerRadiusTopEnd="50dp"
+                app:boxCornerRadiusTopStart="50dp"
+                app:boxStrokeColor="@color/input_box"
+                app:boxStrokeWidth="5dp">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/et_postcode_identity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:hint="Phone"
+                app:boxCornerRadiusBottomEnd="50dp"
+                app:boxCornerRadiusBottomStart="50dp"
+                app:boxCornerRadiusTopEnd="50dp"
+                app:boxCornerRadiusTopStart="50dp"
+                app:boxStrokeColor="@color/input_box"
+                app:boxStrokeWidth="5dp">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/et_phone_identity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:hint="Email"
+                app:boxCornerRadiusBottomEnd="50dp"
+                app:boxCornerRadiusBottomStart="50dp"
+                app:boxCornerRadiusTopEnd="50dp"
+                app:boxCornerRadiusTopStart="50dp"
+                app:boxStrokeColor="@color/input_box"
+                app:boxStrokeWidth="5dp">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/et_email_identity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
         <Button
-            android:id="@+id/add_button1"
+            android:id="@+id/add_button123"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="70dp"
             android:layout_marginTop="25dp"
             android:background="@drawable/add_button"
             android:gravity="center"
-            android:onClick="addNote"
+            android:onClick="addIdentity"
             android:text="Add"
             android:textColor="@color/add_button_text" />
     </LinearLayout>

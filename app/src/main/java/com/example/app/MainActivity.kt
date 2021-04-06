@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
 
     fun startIdentity(view: View) {
         val intent = Intent(this, IdentityActivity::class.java)
-        startActivity(intent)
+       startActivity(intent)
         finish()
     }
 }

@@ -32,10 +32,10 @@
             android:id="@+id/ll_node_title"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.5"
             android:layout_marginLeft="25dp"
             android:layout_marginTop="25dp"
             android:layout_marginRight="25dp"
+            android:layout_weight="0.4"
             android:background="@drawable/roundedblack"
             android:hint="Enter title"
             android:inputType="textCapWords"
@@ -52,10 +52,12 @@
                 android:layout_marginRight="25dp"
                 android:background="@drawable/roundedblack"
                 android:hint="Enter title"
-                android:inputType="textCapWords"
+                android:inputType="text"
+                android:maxLength="19"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
-                android:textSize="22dp" />
+                android:textSize="22dp"
+                android:textStyle="bold" />
         </LinearLayout>
 
 
@@ -63,10 +65,11 @@
             android:id="@+id/ll_node_text"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="5"
             android:layout_marginLeft="25dp"
             android:layout_marginTop="25dp"
             android:layout_marginRight="25dp"
+            android:layout_marginBottom="20dp"
+            android:layout_weight="5"
             android:background="@drawable/roundedblack"
             android:hint="Enter title"
             android:inputType="textCapWords"
@@ -84,7 +87,7 @@
                 android:layout_marginRight="20dp"
                 android:gravity="top"
                 android:hint="Enter note"
-                android:inputType="textCapWords"
+                android:inputType="textCapSentences|textMultiLine"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
                 android:textSize="22dp" />
@@ -92,29 +95,15 @@
         </LinearLayout>
 
 
-        <Button
-            android:id="@+id/btn_add"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_marginLeft="135dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/roundedblack"
-            android:text="ADD"
-            android:textColor="@color/white"
-            android:textSize="25dp" />
-
-
     </LinearLayout>
 
     <Button
-        android:id="@+id/btn_cancel"
+        android:id="@+id/btn_ok"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/plusbutton"
         android:backgroundTint="@color/blue"
-        android:text="x"
+        android:text="✓"
         android:textColor="@color/white"
         android:textSize="25dp"
         android:textStyle="bold"

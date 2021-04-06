@@ -7,19 +7,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.app.AddNoteActivity
-import com.example.app.NotesActivity
-import com.example.app.models.NoteModel
-import com.example.app.R
-import com.example.app.database.DatabaseNotes
-import kotlinx.android.synthetic.main.item_notes.view.*
+import com.example.app.*
+import com.example.app.database.DatabaseIdentity
+import com.example.app.models.IdentityModel
+import kotlinx.android.synthetic.main.item_identity.view.*
 
 // TODO (Step 6: Creating an adapter class for binding it to the recyclerview in the new package which is adapters.)
 // START
-open class NotesAdapter(
+open class IdentityAdapter(
 
     private val context: Context,
-    private var list: ArrayList<NoteModel>
+    private var list: ArrayList<IdentityModel>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var onClickListener: OnClickListener? = null
 
@@ -33,7 +31,7 @@ open class NotesAdapter(
 
         return MyViewHolder(
             LayoutInflater.from(context).inflate(
-                R.layout.item_notes,
+                R.layout.item_identity,
                 parent,
                 false
             )
@@ -58,8 +56,8 @@ open class NotesAdapter(
         val model = list[position]
 
         if (holder is MyViewHolder) {
-            holder.itemView.tv_title_item.text = model.titel
-            holder.itemView.tv_shorttext_item.text = model.text
+            holder.itemView.tv_title_item_identity.text = model.name
+            holder.itemView.tv_email_item_identity.text = model.email
             holder.itemView.setOnClickListener {
                 if (onClickListener != null) {
                     onClickListener!!.OnClick(position, model)
@@ -69,7 +67,7 @@ open class NotesAdapter(
     }
 
     interface OnClickListener {
-        fun OnClick(position: Int, model: NoteModel)
+        fun OnClick(position: Int, model: IdentityModel)
     }
 
     /**
@@ -78,18 +76,18 @@ open class NotesAdapter(
 
 
     fun removeAt(position: Int) {
-        val dbHandler = DatabaseNotes(context)
-        val isDeleted = dbHandler.deleteNote(list[position])
+        val dbHandler = DatabaseIdentity(context)
+        val isDeleted = dbHandler.deleteIdentity(list[position])
         if (isDeleted > 0) {
             list.removeAt(position)
             notifyItemRemoved(position)
         }
     }
 
-
+    // Edit needs fix blyat
     fun notifyEditItem(activity: Activity, position: Int, requestCode: Int) {
-        val intent = Intent(context, AddNoteActivity::class.java)
-        intent.putExtra(NotesActivity.EXTRA_NOTES_DETAILS, list[position])
+        val intent = Intent(context, AddIdentityActivity::class.java)
+        intent.putExtra(IdentityActivity.EXTRA_IDENTITIES_DETAILS, list[position])
         activity.startActivityForResult(intent, requestCode)
         notifyItemChanged(position)
     }

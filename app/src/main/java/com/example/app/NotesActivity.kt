@@ -46,12 +46,14 @@ class NotesActivity : ButtonsFunctionality() {
         btn_angle.setOnClickListener {
             selectMenu(btn_angle, iv_angle_image, ll_layout_menu)
         }
-        iv_plus_image.setOnClickListener {
+        /*iv_plus_image.setOnClickListener {
             plusButton(
                 this.findViewById(R.id.iv_plus_image), R.id.iv_notes
                 , iv_plus_image, R.id.main_layout_notes, R.id.ll_add_menu
             )
         }
+
+         */
 
     }
 
@@ -63,6 +65,7 @@ class NotesActivity : ButtonsFunctionality() {
             Toast.makeText(this, "Note added", Toast.LENGTH_SHORT).show()
             findViewById<EditText>(R.id.et_title).text.clear()
             findViewById<EditText>(R.id.et_text).text.clear()
+
             val dbHandler = DatabaseNotes(this)
 
             setupNotesRecyclerView(dbHandler.getNotesList())
@@ -70,6 +73,12 @@ class NotesActivity : ButtonsFunctionality() {
                 this.findViewById(R.id.iv_plus_image), R.id.iv_notes
                 , iv_plus_image, R.id.main_layout_notes, R.id.ll_add_menu
             )
+            /*val intent = Intent(this,NotesActivity::class.java)
+            startActivity(intent)
+            finish()
+
+             */
+
         }
     }
 
@@ -82,9 +91,9 @@ class NotesActivity : ButtonsFunctionality() {
         rv_notes_list.adapter = notesAdapter
         notesAdapter.setOnClickListener(object : NotesAdapter.OnClickListener {
             override fun OnClick(position: Int, model: NoteModel) {
-                val intent = Intent(this@NotesActivity, NoteDetailsActivity::class.java)
-                intent.putExtra(EXTRA_NOTES_DETAILS, model)
-                startActivity(intent)
+         //       val intent = Intent(this@NotesActivity, NoteDetailsActivity::class.java)
+          //      intent.putExtra(EXTRA_NOTES_DETAILS, model)
+          //      startActivity(intent)
 
             }
         })
@@ -107,7 +116,6 @@ class NotesActivity : ButtonsFunctionality() {
         }
         val deleteItemTouchHelper = ItemTouchHelper(deleteSwipeHandler)
         deleteItemTouchHelper.attachToRecyclerView(rv_notes_list)
-
     }
 
     private fun getNotesListFromPrivateDB() {
@@ -115,13 +123,12 @@ class NotesActivity : ButtonsFunctionality() {
         val getNotesList: ArrayList<NoteModel> = dbHandler.getNotesList()
         if (getNotesList.size > 0) {
             rv_notes_list.visibility = View.VISIBLE
-            tv_norecord_available.visibility = View.GONE
+            //tv_norecord_available.visibility = View.GONE
             setupNotesRecyclerView(getNotesList)
         } else {
             rv_notes_list.visibility = View.GONE
-            tv_norecord_available.visibility = View.VISIBLE
+        //    tv_norecord_available.visibility = View.VISIBLE
         }
-
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -134,7 +141,6 @@ class NotesActivity : ButtonsFunctionality() {
                 Log.i("Activity", "Cancelled or Back pressed")
             }
     }
-
 
     companion object {
         var ADD_NOTE_ACTIVITY_REQUEST_CODE = 1

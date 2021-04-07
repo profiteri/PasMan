@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.app.ProfileActivity
 import com.example.app.R
@@ -68,6 +69,16 @@ class ProfilesAdapter(val context: Context, val items: ArrayList<ProfileModel>) 
            context.deleteItem(items[holder.adapterPosition])
     }
 
+    fun updateProfile(holder: ViewHolder) {
+        if (context is ProfileActivity) {
+            context.updateItem(ProfileModel(items[holder.adapterPosition].id,
+                holder.source.text.toString(),
+                holder.login.text.toString(),
+                holder.password.text.toString(),
+                holder.info.text.toString() ))
+        }
+    }
+
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         // Holds the TextView that will add each item to
         val source: TextView = view.findViewById<TextView>(R.id.tvSource)
@@ -76,7 +87,7 @@ class ProfilesAdapter(val context: Context, val items: ArrayList<ProfileModel>) 
         val password: TextView = view.findViewById<TextView>(R.id.tvPassword)
         val info: TextView = view.findViewById<TextView>(R.id.tvInfo)
         val delete: Button = view.findViewById<Button>(R.id.buDelete)
-        val background: RelativeLayout = view.findViewById(R.id.card_background)
+        val background: ConstraintLayout = view.findViewById(R.id.card_background)
         val foreground: CardView = view.findViewById(R.id.card_foreground)
     }
 

@@ -3,12 +3,14 @@ package com.example.app
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
+import android.app.ActionBar
 import android.content.Intent
 import android.graphics.Color.alpha
 import android.media.Image
 import android.transition.AutoTransition
 import android.transition.TransitionManager
 import android.view.View
+import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils

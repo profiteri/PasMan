@@ -5,21 +5,34 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.example.app.R
 import com.example.app.adapters.ProfilesAdapter
+import kotlinx.android.synthetic.main.item_profile.view.*
 
-abstract class ProfileSwipeHelper : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT)  {
+abstract class ProfileSwipeHelper(private val dir: Int) : ItemTouchHelper.SimpleCallback(0, dir)  {
 
     override fun onMove(
         recyclerView: RecyclerView,
         viewHolder: RecyclerView.ViewHolder,
         target: RecyclerView.ViewHolder
     ): Boolean {
+        val i = 1
         return true
     }
 
     override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
         if (viewHolder != null) {
-            ItemTouchHelper.Callback.getDefaultUIUtil().onSelected((viewHolder as ProfilesAdapter.ViewHolder).foreground)
+            if (dir == ItemTouchHelper.RIGHT) {
+                (viewHolder as ProfilesAdapter.ViewHolder).background.setBackgroundResource(R.drawable.card_background_edit)
+                viewHolder.background.icon_delete.visibility = View.GONE
+                viewHolder.background.icon_eye.visibility = View.VISIBLE
+            }
+            else {
+                (viewHolder as ProfilesAdapter.ViewHolder).background.setBackgroundResource(R.drawable.card_background)
+                viewHolder.background.icon_delete.visibility = View.VISIBLE
+                viewHolder.background.icon_eye.visibility = View.GONE
+            }
+            ItemTouchHelper.Callback.getDefaultUIUtil().onSelected(viewHolder.foreground)
         }
     }
 
@@ -33,11 +46,6 @@ abstract class ProfileSwipeHelper : ItemTouchHelper.SimpleCallback(0, ItemTouchH
         actionState: Int,
         isCurrentlyActive: Boolean
     ) {
-        //if (a)
-        //    params = (viewHolder as ProfilesAdapter.ViewHolder).itemView.layoutParams
-        //a = false
-        ///System.out.println((viewHolder as ProfilesAdapter.ViewHolder).foreground.translationX)
-        //System.out.println((viewHolder as ProfilesAdapter.ViewHolder).foreground.x)
         (viewHolder as ProfilesAdapter.ViewHolder).foreground.alpha = 1 - Math.abs(dX/viewHolder.itemView.width)
         getDefaultUIUtil().onDraw(c, recyclerView,
             (viewHolder as ProfilesAdapter.ViewHolder).foreground, dX, dY,
@@ -59,7 +67,6 @@ abstract class ProfileSwipeHelper : ItemTouchHelper.SimpleCallback(0, ItemTouchH
             actionState, isCurrentlyActive)
     }*/
 
-    var bol = false
     override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
         getDefaultUIUtil().clearView((viewHolder as ProfilesAdapter.ViewHolder).foreground)
     }

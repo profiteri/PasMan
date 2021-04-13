@@ -16,9 +16,12 @@ import com.example.app.ProfileActivity
 import com.example.app.R
 import com.example.app.models.ProfileModel
 import java.util.*
+import javax.crypto.Cipher
+import javax.crypto.SecretKey
+import javax.crypto.spec.GCMParameterSpec
 import kotlin.collections.ArrayList
 
-class ProfilesAdapter(val context: Context, val items: ArrayList<ProfileModel>) :
+class ProfilesAdapter(val context: Context, val items: ArrayList<ProfileModel>, val secretKey: SecretKey, val iv1 : ByteArray?) :
     RecyclerView.Adapter<ProfilesAdapter.ViewHolder>()
 {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProfilesAdapter.ViewHolder {
@@ -39,11 +42,15 @@ class ProfilesAdapter(val context: Context, val items: ArrayList<ProfileModel>) 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items[position]
 
-        holder.source.text = item.source
-        holder.login.text = item.login
-        holder.password.text = item.password
-        holder.info.text = item.info
-        holder.icon.setImageResource(when(item.source.toLowerCase(Locale.ROOT)){
+        val cipher : Cipher = Cipher.getInstance("AES/GCM/NoPadding")
+        val iv = item.iv
+        cipher.init(Cipher.DECRYPT_MODE, secretKey, GCMParameterSpec(iv!!.size*8, iv))
+
+        holder.source.text = String(cipher.doFinal(item.source), Charsets.UTF_8)
+        holder.login.text = String(cipher.doFinal(item.login), Charsets.UTF_8)
+        holder.password.text = String(cipher.doFinal(item.password), Charsets.UTF_8)
+        holder.info.text = String(cipher.doFinal(item.info), Charsets.UTF_8)
+        holder.icon.setImageResource(when((holder.source.text as String).toLowerCase(Locale.ROOT)){
             "amazon" -> R.drawable.icon_amazon
             "adobe" -> R.drawable.icon_adobe
             "facebook" -> R.drawable.icon_facebook
@@ -72,10 +79,10 @@ class ProfilesAdapter(val context: Context, val items: ArrayList<ProfileModel>) 
     fun updateProfile(holder: ViewHolder) {
         if (context is ProfileActivity) {
             context.updateItem(ProfileModel(items[holder.adapterPosition].id,
-                holder.source.text.toString(),
-                holder.login.text.toString(),
-                holder.password.text.toString(),
-                holder.info.text.toString() ))
+                ByteArray(1),
+                ByteArray(1),
+                ByteArray(1),
+                ByteArray(1), ByteArray(1) ))
         }
     }
 

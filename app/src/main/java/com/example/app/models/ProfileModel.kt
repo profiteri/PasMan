@@ -2,8 +2,9 @@ package com.example.app.models
 
 data class ProfileModel (
     val id: Int,
-    val source: String,
-    val login: String,
-    val password: String,
-    val info: String
+    val source: ByteArray,
+    val login: ByteArray,
+    val password: ByteArray,
+    val info: ByteArray,
+    val iv: ByteArray
 )

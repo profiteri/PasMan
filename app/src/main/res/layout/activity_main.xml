@@ -1,64 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".activity_main.MainActivity"
+    android:id="@+id/cl_main">
 
-    <Button
-        android:id="@+id/btn_cards"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:backgroundTint="@null"
-        android:gravity="center_horizontal"
-        android:onClick="startCards"
-        android:text="Cards"
-        android:textAlignment="center"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:gravity="center"
+        android:id="@+id/ll_fragment_registration"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+    </LinearLayout>
 
-    <Button
-        android:id="@+id/btn_notes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:backgroundTint="@null"
-        android:gravity="center_horizontal"
-        android:onClick="startNotes"
-        android:text="Notes"
-        android:textAlignment="center"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_cards"  />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <Button
+            android:id="@+id/btn_cards"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:backgroundTint="@null"
+            android:gravity="center_horizontal"
+            android:onClick="startCards"
+            android:text="Cards"
+            android:textAlignment="center"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btn_profile"
+        <Button
+            android:id="@+id/btn_notes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:backgroundTint="@null"
+            android:gravity="center_horizontal"
+            android:onClick="startNotes"
+            android:text="Notes"
+            android:textAlignment="center"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_cards"  />
+
+        <Button
+            android:id="@+id/btn_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:backgroundTint="@null"
+            android:gravity="center_horizontal"
+            android:onClick="startProfiles"
+            android:text="Profile"
+            android:textAlignment="center"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_notes"  />
+        <Button
+            android:id="@+id/btn_identity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:backgroundTint="@null"
+            android:gravity="center_horizontal"
+            android:onClick="startIdentity"
+            android:text="Identity"
+            android:textAlignment="center"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_profile"  />
+        <EditText
+            android:id="@+id/et_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Password"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_identity"/>
+        <Button
+            android:id="@+id/btn_singin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sing in"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_login"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--
+    <EditText
+        android:layout_marginTop="50dp"
+        android:id="@+id/et_create_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:backgroundTint="@null"
-        android:gravity="center_horizontal"
-        android:onClick="startProfiles"
-        android:text="Profile"
-        android:textAlignment="center"
+        android:hint="Password"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_notes"  />
+        app:layout_constraintTop_toBottomOf="@id/btn_singin"/>
     <Button
-        android:id="@+id/btn_identity"
+        android:id="@+id/btn_create_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:backgroundTint="@null"
-        android:gravity="center_horizontal"
-        android:onClick="startIdentity"
-        android:text="Identity"
-        android:textAlignment="center"
+        android:text="Create Password"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_profile"  />
+        app:layout_constraintTop_toBottomOf="@id/et_create_password"/>
+        -->
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

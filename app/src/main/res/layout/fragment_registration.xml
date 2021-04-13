@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:context=".activity_main.RegistrationFragment"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:layout_gravity="center">
+    <TextView
+        android:id="@+id/tv_greeting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome to Password Manager!" />
+    <EditText
+        android:id="@+id/et_create_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Password"
+        android:autofillHints=""
+        android:inputType="textPassword" />
+    <Button
+        android:id="@+id/btn_create_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create Password" />
+
+</LinearLayout>

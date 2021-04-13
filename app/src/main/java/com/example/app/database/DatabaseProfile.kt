@@ -22,13 +22,14 @@ class DatabaseProfile(context: Context) :
         private const val KEY_LOGIN = "login"
         private const val KEY_PASSWORD = "password"
         private const val KEY_INFO = "info"
+        private const val KEY_IV = "iv"
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
         val create = ("CREATE TABLE " + TABLE_CONTACTS +
                 "(" + KEY_ID + " INTEGER PRIMARY KEY," + KEY_SOURCE +
-                " TEXT," + KEY_LOGIN + " TEXT," + KEY_PASSWORD + " TEXT," +
-                KEY_INFO + " TEXT" + ")")
+                " BLOB," + KEY_LOGIN + " BLOB," + KEY_PASSWORD + " BLOB," +
+                KEY_INFO + " BLOB," + KEY_IV + " BLOB" + ")")
         db?.execSQL(create)
     }
 
@@ -45,6 +46,7 @@ class DatabaseProfile(context: Context) :
         contentValues.put(KEY_LOGIN, profile.login)
         contentValues.put(KEY_PASSWORD, profile.password)
         contentValues.put(KEY_INFO, profile.info)
+        contentValues.put(KEY_IV, profile.iv)
 
         val success = db.insert(TABLE_CONTACTS, null, contentValues)
         db.close()
@@ -64,20 +66,21 @@ class DatabaseProfile(context: Context) :
         }
 
         var id: Int
-        var source: String
-        var login: String
-        var password: String
-        var info: String
+        var source: ByteArray
+        var login: ByteArray
+        var password: ByteArray
+        var info: ByteArray
+        var iv: ByteArray
 
         if (cursor.moveToFirst()) {
             do {
                 id = cursor.getInt(cursor.getColumnIndex(KEY_ID))
-                source = cursor.getString(cursor.getColumnIndex(KEY_SOURCE))
-                login = cursor.getString(cursor.getColumnIndex(KEY_LOGIN))
-                password = cursor.getString(cursor.getColumnIndex(KEY_PASSWORD))
-                info = cursor.getString(cursor.getColumnIndex(KEY_INFO))
-
-                profile.add(ProfileModel(id, source, login, password, info))
+                source = cursor.getBlob(cursor.getColumnIndex(KEY_SOURCE))
+                login = cursor.getBlob(cursor.getColumnIndex(KEY_LOGIN))
+                password = cursor.getBlob(cursor.getColumnIndex(KEY_PASSWORD))
+                info = cursor.getBlob(cursor.getColumnIndex(KEY_INFO))
+                iv = cursor.getBlob(cursor.getColumnIndex(KEY_IV))
+                profile.add(ProfileModel(id, source, login, password, info, iv))
             } while (cursor.moveToNext())
         }
         return profile

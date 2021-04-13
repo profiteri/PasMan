@@ -16,7 +16,7 @@
         <activity android:name=".IdentityActivity" />
         <activity android:name=".NotesActivity" />
         <activity android:name=".Cards" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".activity_main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -3,6 +3,7 @@ package com.example.app
 import android.app.Dialog
 import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.HandlerThread
@@ -22,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.app.SwipeHelpers.ProfileSwipeHelper
 import com.example.app.adapters.ItemAdapter
 import com.example.app.adapters.ProfilesAdapter
+import com.example.app.crypto.Encrypter
 import com.example.app.database.DatabaseProfile
 import com.example.app.dialogs.CancelException
 import com.example.app.dialogs.DeleteProfile
@@ -31,15 +33,22 @@ import com.happyplaces.utils.SwipeToDeleteCallback
 import kotlinx.android.synthetic.main.activity_notes.*
 import kotlinx.android.synthetic.main.activity_profile.*
 import pl.kitek.rvswipetodelete.SwipeToEditCallback
+import java.nio.charset.Charset
+import javax.crypto.Cipher
+import javax.crypto.SecretKey
+import javax.crypto.spec.GCMParameterSpec
 import kotlin.concurrent.thread
 
 open class ProfileActivity : ButtonsFunctionality() {
 
     private var currentItem : ProfilesAdapter.ViewHolder? = null
+    private var secretKey : SecretKey? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
+
+        secretKey = intent.extras?.get("KEY") as SecretKey
 
         settingsInProfile.setOnClickListener {
             rotate(settingsInProfile)
@@ -76,14 +85,24 @@ open class ProfileActivity : ButtonsFunctionality() {
         setupListOfDataIntoRecycleView()
     }
 
+    var iv : ByteArray? = null
     fun addProfile(view: View) {
+        val encrypter = Encrypter(secretKey!!, null)
+        //val cipher : Cipher = Cipher.getInstance("AES/GCM/NoPadding")
+        //cipher.init(Cipher.ENCRYPT_MODE, secretKey, GCMParameterSpec(128, "000000000000".toByteArray()))
+        //iv = cipher.iv
+
         if (add_button_profile.text == resources.getString(R.string.add)) {
-            val source = et_source.text.toString()
-            val login = et_login.text.toString()
-            val password = et_password.text.toString()
-            val info = et_info.text.toString()
+            val source = encrypter.encryptString(et_source.text.toString())
+            val login = Encrypter(secretKey!!, encrypter.getIv()).encryptString(et_login.text.toString())
+            val password = Encrypter(secretKey!!, encrypter.getIv()).encryptString(et_password.text.toString())
+            val info = Encrypter(secretKey!!, encrypter.getIv()).encryptString(et_info.text.toString())
+            iv = encrypter.getIv()
+            /*val login = String(cipher.doFinal(et_login.text.toString().toByteArray(Charsets.UTF_8)), Charsets.UTF_8)
+            val password = String(cipher.doFinal(et_password.text.toString().toByteArray(Charsets.UTF_8)), Charsets.UTF_8)
+            val info = String(cipher.doFinal(et_info.text.toString().toByteArray(Charsets.UTF_8)), Charsets.UTF_8)*/
             val handler = DatabaseProfile(this)
-            if (handler.addProfile(ProfileModel(0, source, login, password, info)) > -1) {
+            if (handler.addProfile(ProfileModel(0, source, login, password, info, encrypter.getIv())) > -1) {
                 Toast.makeText(this, "Profile added", Toast.LENGTH_SHORT).show()
             }
         }
@@ -136,7 +155,7 @@ open class ProfileActivity : ButtonsFunctionality() {
         if (getProfiles().size > 0) {
             rv_profiles.visibility = View.VISIBLE
             rv_profiles.layoutManager = LinearLayoutManager(this)
-            rv_profiles.adapter = ProfilesAdapter(this, getProfiles())
+            rv_profiles.adapter = ProfilesAdapter(this, getProfiles(), secretKey!!, iv)
         }
         else {
             rv_profiles.visibility = View.GONE

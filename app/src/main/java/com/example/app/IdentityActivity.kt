@@ -82,6 +82,7 @@ class IdentityActivity : ButtonsFunctionality() {
                 , iv_plus_image_identity, R.id.main_layout_identity, R.id.ll_add_menu_identity1, true
             )
         }
+        getIdentitiesListFromPrivateDB()
     }
 
 
@@ -94,7 +95,7 @@ class IdentityActivity : ButtonsFunctionality() {
         rv_identities.adapter = identityAdapter
         identityAdapter.setOnClickListener(object : IdentityAdapter.OnClickListener {
             override fun OnClick(position: Int, model: IdentityModel) {
-               // val intent = Intent(this@IdentityActivity, NoteDetailsActivity::class.java)
+                // val intent = Intent(this@IdentityActivity, NoteDetailsActivity::class.java)
                 //intent.putExtra(NotesActivity.EXTRA_NOTES_DETAILS, model)
                 //startActivity(intent)
 

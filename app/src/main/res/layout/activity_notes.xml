@@ -166,7 +166,7 @@
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:hint="Title"
             android:maxLength="19"
             app:boxCornerRadiusBottomEnd="50dp"
@@ -179,7 +179,7 @@
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/et_title"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:maxLength="19" />
         </com.google.android.material.textfield.TextInputLayout>
 

@@ -78,7 +78,7 @@ class NotesActivity : ButtonsFunctionality() {
             finish()
 
              */
-
+            getNotesListFromPrivateDB()
         }
     }
 

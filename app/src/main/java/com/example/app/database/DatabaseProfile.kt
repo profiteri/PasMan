@@ -93,6 +93,7 @@ class DatabaseProfile(context: Context) :
         contentValues.put(KEY_LOGIN, profile.login)
         contentValues.put(KEY_PASSWORD, profile.password)
         contentValues.put(KEY_INFO, profile.info)
+        contentValues.put(KEY_IV, profile.iv)
 
         val success = db.update(TABLE_CONTACTS, contentValues, KEY_ID + "=" + profile.id, null)
         db.close()

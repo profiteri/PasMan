@@ -125,10 +125,6 @@ class RegistrationFragment : Fragment() {
     }
 
 
-    fun click(view: View) {
-
-    }
-
     companion object {
         @JvmStatic
         fun newInstance(keyStore: KeyStore) =

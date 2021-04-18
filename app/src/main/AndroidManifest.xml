@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.App">
-        <activity android:name=".AddIdentityActivity"></activity>
+        <activity android:name=".activity_main.EnableBiometricLoginActivity"></activity>
+        <activity android:name=".AddIdentityActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".NoteDetailsActivity" />
         <activity android:name=".AddNoteActivity" />

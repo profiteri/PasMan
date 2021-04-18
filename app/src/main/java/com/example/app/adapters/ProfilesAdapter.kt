@@ -14,14 +14,16 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.app.ProfileActivity
 import com.example.app.R
+import com.example.app.crypto.Decrypter
 import com.example.app.models.ProfileModel
+import java.security.KeyStore
 import java.util.*
 import javax.crypto.Cipher
 import javax.crypto.SecretKey
 import javax.crypto.spec.GCMParameterSpec
 import kotlin.collections.ArrayList
 
-class ProfilesAdapter(val context: Context, val items: ArrayList<ProfileModel>, val secretKey: SecretKey, val iv1 : ByteArray?) :
+class ProfilesAdapter(val context: Context, val items: ArrayList<ProfileModel>, val alias: String) :
     RecyclerView.Adapter<ProfilesAdapter.ViewHolder>()
 {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProfilesAdapter.ViewHolder {
@@ -39,17 +41,16 @@ class ProfilesAdapter(val context: Context, val items: ArrayList<ProfileModel>, 
     }
 
 
+    @Synchronized
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items[position]
 
-        val cipher : Cipher = Cipher.getInstance("AES/GCM/NoPadding")
-        val iv = item.iv
-        cipher.init(Cipher.DECRYPT_MODE, secretKey, GCMParameterSpec(iv!!.size*8, iv))
+        val d = Decrypter(alias, item.iv)
 
-        holder.source.text = String(cipher.doFinal(item.source), Charsets.UTF_8)
-        holder.login.text = String(cipher.doFinal(item.login), Charsets.UTF_8)
-        holder.password.text = String(cipher.doFinal(item.password), Charsets.UTF_8)
-        holder.info.text = String(cipher.doFinal(item.info), Charsets.UTF_8)
+        holder.source.text = d.decryptString(item.source)
+        holder.login.text = d.decryptString(item.login)
+        holder.password.text = d.decryptString(item.password)
+        holder.info.text = d.decryptString(item.info)
         holder.icon.setImageResource(when((holder.source.text as String).toLowerCase(Locale.ROOT)){
             "amazon" -> R.drawable.icon_amazon
             "adobe" -> R.drawable.icon_adobe
@@ -76,13 +77,14 @@ class ProfilesAdapter(val context: Context, val items: ArrayList<ProfileModel>, 
            context.deleteItem(items[holder.adapterPosition])
     }
 
-    fun updateProfile(holder: ViewHolder) {
+    fun updateProfile(holder: ViewHolder, profileModel: ProfileModel) {
         if (context is ProfileActivity) {
             context.updateItem(ProfileModel(items[holder.adapterPosition].id,
-                ByteArray(1),
-                ByteArray(1),
-                ByteArray(1),
-                ByteArray(1), ByteArray(1) ))
+                profileModel.source,
+                profileModel.login,
+                profileModel.password,
+                profileModel.info,
+                profileModel.iv))
         }
     }
 

@@ -9,6 +9,15 @@
     <string name="cancel">Cancel</string>
     <string name="add">Add</string>
     <string name="update">Update</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="start">Start</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="prompt_info_title">Password Manager</string>
+    <string name="prompt_info_subtitle">Please PALEZ PRILOZHY</string>
+    <string name="prompt_info_description">a hule ty dumal, tut vse seryozno</string>
+    <string name="prompt_info_use_app_password">Use app password</string>
+    <string name="enable_biometric_login">Enable Biometric Login</string>
+    <string name="desc_biometrics_authorization">Enter your login ID and password to confirm activation of Biometric Login.</string>
+    <string name="btn_authorize">Authorize</string>
+    <string name="welcome">Welcome to Password Manager</string>
+    <string name="crete_password">First of all, create a password,\n which you will you to log in </string>
 </resources>

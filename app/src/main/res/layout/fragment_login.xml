@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:context=".activity_main.RegistrationFragment"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:layout_gravity="center">
+    <TextView
+        android:id="@+id/tv_hello_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enter your password, please" />
+    <EditText
+        android:id="@+id/et_enter_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Password"
+        android:autofillHints=""
+        android:inputType="textPassword" />
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Log in" />
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Use Biometrics"
+        android:textColor="#0000EE"
+        android:textSize="16sp"
+        android:id="@+id/tv_use_biometrics"
+        />
+
+</LinearLayout>

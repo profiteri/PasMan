@@ -1,54 +1,32 @@
 package com.example.app
 
-import android.app.Dialog
-import android.content.Context
-import android.content.DialogInterface
-import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.HandlerThread
-import android.os.Looper
-import android.text.Editable
 import android.view.View
-import android.view.inputmethod.EditorInfo
-import android.widget.EditText
-import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
-import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.app.SwipeHelpers.DeleteProfile
+import com.example.app.SwipeHelpers.DeleteSwipe
 import com.example.app.SwipeHelpers.ProfileSwipeHelper
-import com.example.app.adapters.ItemAdapter
 import com.example.app.adapters.ProfilesAdapter
 import com.example.app.crypto.Encrypter
 import com.example.app.database.DatabaseProfile
-import com.example.app.dialogs.CancelException
-import com.example.app.dialogs.DeleteProfile
 import com.example.app.models.ProfileModel
-import com.happyplaces.adapters.NotesAdapter
-import com.happyplaces.utils.SwipeToDeleteCallback
-import kotlinx.android.synthetic.main.activity_notes.*
 import kotlinx.android.synthetic.main.activity_profile.*
-import pl.kitek.rvswipetodelete.SwipeToEditCallback
-import java.nio.charset.Charset
-import javax.crypto.Cipher
-import javax.crypto.SecretKey
-import javax.crypto.spec.GCMParameterSpec
-import kotlin.concurrent.thread
 
 open class ProfileActivity : ButtonsFunctionality() {
 
     private var currentItem : ProfilesAdapter.ViewHolder? = null
-    private var secretKey : SecretKey? = null
+    private var alias : String? = null
+    private var updateFormOpened = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
 
-        secretKey = intent.extras?.get("KEY") as SecretKey
+        alias = intent.extras?.get("KEY") as String
 
         settingsInProfile.setOnClickListener {
             rotate(settingsInProfile)
@@ -69,10 +47,15 @@ open class ProfileActivity : ButtonsFunctionality() {
                 this.findViewById(R.id.plus_image), R.id.profile_big
                 , plus_image, R.id.main_layout_profile, R.id.add_menu
             )
+            if (updateFormOpened) {
+                currentItem?.foreground?.alpha = 1f
+                currentItem?.foreground?.animate()?.translationX(0f)
+                rv_profiles.layoutManager = LinearLayoutManager(this)
+                updateFormOpened = false
+            }
         }
 
-        val ss = et_source
-        ss.setOnFocusChangeListener { v, focus ->
+        val focusListener = View.OnFocusChangeListener {v, focus ->
             val ll: LinearLayout = v.parent as LinearLayout
             if(focus){
                 ll.setBackgroundResource(R.drawable.add_text_input_focused)
@@ -81,46 +64,37 @@ open class ProfileActivity : ButtonsFunctionality() {
                 ll.setBackgroundResource(R.drawable.add_text_input)
             }
         }
+        et_source.onFocusChangeListener = focusListener
+        et_login.onFocusChangeListener = focusListener
+        et_password.onFocusChangeListener = focusListener
+        et_info.onFocusChangeListener = focusListener
 
         setupListOfDataIntoRecycleView()
     }
 
-    var iv : ByteArray? = null
+    @Synchronized
     fun addProfile(view: View) {
-        val encrypter = Encrypter(secretKey!!, null)
-        //val cipher : Cipher = Cipher.getInstance("AES/GCM/NoPadding")
-        //cipher.init(Cipher.ENCRYPT_MODE, secretKey, GCMParameterSpec(128, "000000000000".toByteArray()))
-        //iv = cipher.iv
+        val encrypter = Encrypter(alias!!, null)
+        val source = encrypter.encryptString(et_source.text.toString())
+        val login = Encrypter(alias!!, encrypter.getIv()).encryptString(et_login.text.toString())
+        val password = Encrypter(alias!!, encrypter.getIv()).encryptString(et_password.text.toString())
+        val info = Encrypter(alias!!, encrypter.getIv()).encryptString(et_info.text.toString())
 
         if (add_button_profile.text == resources.getString(R.string.add)) {
-            val source = encrypter.encryptString(et_source.text.toString())
-            val login = Encrypter(secretKey!!, encrypter.getIv()).encryptString(et_login.text.toString())
-            val password = Encrypter(secretKey!!, encrypter.getIv()).encryptString(et_password.text.toString())
-            val info = Encrypter(secretKey!!, encrypter.getIv()).encryptString(et_info.text.toString())
-            iv = encrypter.getIv()
-            /*val login = String(cipher.doFinal(et_login.text.toString().toByteArray(Charsets.UTF_8)), Charsets.UTF_8)
-            val password = String(cipher.doFinal(et_password.text.toString().toByteArray(Charsets.UTF_8)), Charsets.UTF_8)
-            val info = String(cipher.doFinal(et_info.text.toString().toByteArray(Charsets.UTF_8)), Charsets.UTF_8)*/
             val handler = DatabaseProfile(this)
             if (handler.addProfile(ProfileModel(0, source, login, password, info, encrypter.getIv())) > -1) {
                 Toast.makeText(this, "Profile added", Toast.LENGTH_SHORT).show()
             }
         }
-
         else if (currentItem != null) {
-            currentItem!!.source.text = et_source.text
-            currentItem!!.login.text = et_login.text
-            currentItem!!.password.text = et_password.text
-            currentItem!!.info.text = et_info.text
-            (rv_profiles.adapter as ProfilesAdapter).updateProfile(currentItem!!)
+            (rv_profiles.adapter as ProfilesAdapter)
+                .updateProfile(currentItem!!, ProfileModel(-1, source, login, password, info, encrypter.getIv()))
         }
-
         et_source.text.clear()
         et_login.text.clear()
         et_password.text.clear()
         et_info.text.clear()
         add_button_profile.setText(R.string.add)
-        setupListOfDataIntoRecycleView()
         plusButton(
             this.findViewById(R.id.plus_image), R.id.profile_big
             , plus_image, R.id.main_layout_profile, R.id.add_menu
@@ -155,28 +129,14 @@ open class ProfileActivity : ButtonsFunctionality() {
         if (getProfiles().size > 0) {
             rv_profiles.visibility = View.VISIBLE
             rv_profiles.layoutManager = LinearLayoutManager(this)
-            rv_profiles.adapter = ProfilesAdapter(this, getProfiles(), secretKey!!, iv)
+            rv_profiles.adapter = ProfilesAdapter(this, getProfiles(), alias!!)
         }
         else {
             rv_profiles.visibility = View.GONE
         }
 
-
-        val deleteSwipeHandlerLeft = object : ProfileSwipeHelper(ItemTouchHelper.LEFT) {
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                DeleteProfile(
-                    rv_profiles.adapter as ProfilesAdapter,
-                    viewHolder as ProfilesAdapter.ViewHolder,
-                    rv_profiles,
-                    context
-                ).showAndReturn(supportFragmentManager, "delete_dialog")
-
-                //viewHolder.foreground.alpha = 1f
-                //viewHolder.foreground.animate().translationX(0f)
-                //rv_profiles.layoutManager = LinearLayoutManager(context)
-            }
-        }
-        ItemTouchHelper(deleteSwipeHandlerLeft).attachToRecyclerView(rv_profiles)
+        val d = DeleteSwipe(rv_profiles, this, supportFragmentManager)
+        ItemTouchHelper(d).attachToRecyclerView(rv_profiles)
 
         val deleteSwipeHelperRight = object : ProfileSwipeHelper(ItemTouchHelper.RIGHT) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
@@ -184,6 +144,7 @@ open class ProfileActivity : ButtonsFunctionality() {
                     findViewById(R.id.plus_image), R.id.profile_big
                     , plus_image, R.id.main_layout_profile, R.id.add_menu
                 )
+                updateFormOpened = true
                 et_source.setText((viewHolder as ProfilesAdapter.ViewHolder).source.text)
                 et_login.setText(viewHolder.login.text)
                 et_password.setText(viewHolder.password.text)
@@ -195,13 +156,4 @@ open class ProfileActivity : ButtonsFunctionality() {
         ItemTouchHelper(deleteSwipeHelperRight).attachToRecyclerView(rv_profiles)
     }
 
-
-   /* @Synchronized fun getAnswer(viewHolder: ProfilesAdapter.ViewHolder) : Boolean {
-        runOnUiThread(Runnable{
-            val bo = DeleteProfile(
-                rv_profiles.adapter as ProfilesAdapter,
-                viewHolder)
-                .showAndReturn(supportFragmentManager, "delete_dialog")
-        })
-    }*/
 }

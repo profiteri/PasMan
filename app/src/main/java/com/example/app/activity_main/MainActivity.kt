@@ -14,36 +14,38 @@ import javax.crypto.SecretKey
 
 class MainActivity : AppCompatActivity() {
 
-    var secretKey : SecretKey? = null
-    var secretKey1 : SecretKey? = null
+    var alias : String? = null
+    val keyStore = KeyStore.getInstance("AndroidKeyStore")
 
+    @Synchronized
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
-        val keyStore = KeyStore.getInstance("AndroidKeyStore")
         keyStore.load(null)
-
 
         if (keyStore.size() == 0) {
             supportFragmentManager.beginTransaction()
                 .add(R.id.ll_fragment_registration, RegistrationFragment.newInstance(keyStore))
                 .commit()
-            //ll_fragment_registration.visibility = View.VISIBLE
+
+            cl_navigation.visibility = View.GONE
+        }
+        else {
+            supportFragmentManager.beginTransaction()
+                .add(R.id.ll_fragment_registration, LoginFragment.newInstance())
+                .commit()
+
             cl_navigation.visibility = View.GONE
         }
 
+        /*btn_singin.setOnClickListener {
+            if ((keyStore.getKey(et_login.text.toString(), null) as SecretKey?) != null) {
+                Toast.makeText(this, "Password correct", Toast.LENGTH_SHORT).show()
+                alias = et_login.text.toString()
+            }
 
-        //Collections.list(keyStore.aliases()).size.toString()
-        //(keyStore.getKey(et_login.text.toString(), null) == null)
-
-        btn_singin.setOnClickListener {
-            secretKey = keyStore.getKey(et_login.text.toString(), null) as SecretKey?
-            if (secretKey != null)
-            //(keyStore.getKey(et_login.text.toString(), null) != null).toString()
-            Toast.makeText(this, keyStore.size().toString(), Toast.LENGTH_SHORT).show()
-        }
+        }*/
 
     }
 
@@ -61,7 +63,7 @@ class MainActivity : AppCompatActivity() {
 
     fun startProfiles(view: View) {
         val intent = Intent(this, ProfileActivity::class.java)
-        intent.putExtra("KEY", secretKey)
+        intent.putExtra("KEY", alias)
         startActivity(intent)
         finish()
     }

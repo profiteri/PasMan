@@ -9,16 +9,20 @@ import android.widget.*
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.app.SwipeHelpers.DeleteSwipe
+import com.example.app.SwipeHelpers.ProfileSwipeHelper
+import com.example.app.adapters.ProfilesAdapter
 import com.example.app.database.DatabaseNotes
 import com.example.app.models.NoteModel
 import com.happyplaces.adapters.NotesAdapter
-import com.happyplaces.utils.SwipeToDeleteCallback
 import kotlinx.android.synthetic.main.activity_notes.*
-import pl.kitek.rvswipetodelete.SwipeToEditCallback
 import com.example.app.database.DatabaseCards
 import com.example.app.models.CardModel
+import kotlinx.android.synthetic.main.activity_profile.*
 
 class NotesActivity : ButtonsFunctionality() {
+    private var updateFormOpened = false
+    private var currentItem : NotesAdapter.ViewHolder? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         supportActionBar?.title = "Your Notes"
         super.onCreate(savedInstanceState)
@@ -97,25 +101,24 @@ class NotesActivity : ButtonsFunctionality() {
 
             }
         })
-        val editSwipeHandler = object : SwipeToEditCallback(this) {
+        val d = DeleteSwipe(rv_notes_list, this, supportFragmentManager)
+        ItemTouchHelper(d).attachToRecyclerView(rv_notes_list)
+        val deleteSwipeHelperRight = object : ProfileSwipeHelper(ItemTouchHelper.RIGHT) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                val adapter = rv_notes_list.adapter as NotesAdapter
-                adapter.notifyEditItem(
-                    this@NotesActivity, viewHolder.adapterPosition,
-                    ADD_NOTE_ACTIVITY_REQUEST_CODE
+                plusButton(
+                    findViewById(R.id.iv_plus_image), R.id.iv_notes
+                    , iv_plus_image, R.id.main_layout_notes, R.id.add_menu1, false
                 )
+                updateFormOpened = true
+                et_source.setText((viewHolder as ProfilesAdapter.ViewHolder).source.text)
+                et_login.setText(viewHolder.login.text)
+                et_password.setText(viewHolder.password.text)
+                et_info.setText(viewHolder.info.text)
+                add_button_profile.setText(R.string.update)
+                currentItem = viewHolder
             }
         }
-        val editItemTouchHelper = ItemTouchHelper(editSwipeHandler)
-        editItemTouchHelper.attachToRecyclerView(rv_notes_list)
-        val deleteSwipeHandler = object : SwipeToDeleteCallback(this) {
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                val adapter = rv_notes_list.adapter as NotesAdapter
-                adapter.removeAt(viewHolder.adapterPosition)
-            }
-        }
-        val deleteItemTouchHelper = ItemTouchHelper(deleteSwipeHandler)
-        deleteItemTouchHelper.attachToRecyclerView(rv_notes_list)
+        ItemTouchHelper(deleteSwipeHelperRight).attachToRecyclerView(rv_profiles)
     }
 
     private fun getNotesListFromPrivateDB() {

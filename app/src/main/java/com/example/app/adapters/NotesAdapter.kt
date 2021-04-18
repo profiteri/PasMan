@@ -6,6 +6,8 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.app.AddNoteActivity
 import com.example.app.NotesActivity
@@ -31,7 +33,7 @@ open class NotesAdapter(
      */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
-        return MyViewHolder(
+        return ViewHolder(
             LayoutInflater.from(context).inflate(
                 R.layout.item_notes,
                 parent,
@@ -57,7 +59,7 @@ open class NotesAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val model = list[position]
 
-        if (holder is MyViewHolder) {
+        if (holder is ViewHolder) {
             holder.itemView.tv_title_item.text = model.titel
             holder.itemView.tv_shorttext_item.text = model.text
             holder.itemView.setOnClickListener {
@@ -102,6 +104,9 @@ open class NotesAdapter(
     /**
      * A ViewHolder describes an item view and metadata about its place within the RecyclerView.
      */
-    private class MyViewHolder(view: View) : RecyclerView.ViewHolder(view)
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view){
+        val background: ConstraintLayout = view.findViewById(R.id.notes_background)
+        val foreground: CardView = view.findViewById(R.id.notes_foreground)
+    }
 }
 // END

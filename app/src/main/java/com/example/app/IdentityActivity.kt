@@ -13,10 +13,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.app.database.DatabaseIdentity
 import com.example.app.models.IdentityModel
 import com.happyplaces.adapters.IdentityAdapter
-import com.happyplaces.utils.SwipeToDeleteCallback
 import kotlinx.android.synthetic.main.activity_identity.*
 import kotlinx.android.synthetic.main.activity_notes.*
-import pl.kitek.rvswipetodelete.SwipeToEditCallback
 
 class IdentityActivity : ButtonsFunctionality() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -103,25 +101,6 @@ class IdentityActivity : ButtonsFunctionality() {
         })
 
 
-        val editSwipeHandler = object : SwipeToEditCallback(this) {
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                val adapter = rv_identities.adapter as IdentityAdapter
-                adapter.notifyEditItem(
-                    this@IdentityActivity, viewHolder.adapterPosition,
-                    IdentityActivity.ADD_IDENTITY_ACTIVITY_REQUEST_CODE
-                )
-            }
-        }
-        val editItemTouchHelper = ItemTouchHelper(editSwipeHandler)
-        editItemTouchHelper.attachToRecyclerView(rv_identities)
-        val deleteSwipeHandler = object : SwipeToDeleteCallback(this) {
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                val adapter = rv_identities.adapter as IdentityAdapter
-                adapter.removeAt(viewHolder.adapterPosition)
-            }
-        }
-        val deleteItemTouchHelper = ItemTouchHelper(deleteSwipeHandler)
-        deleteItemTouchHelper.attachToRecyclerView(rv_identities)
 
 
     }

@@ -10,13 +10,20 @@ import android.widget.Toast
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.app.SwipeHelpers.DeleteSwipe
+import com.example.app.SwipeHelpers.ProfileSwipeHelper
+import com.example.app.adapters.ProfilesAdapter
 import com.example.app.database.DatabaseIdentity
 import com.example.app.models.IdentityModel
 import com.happyplaces.adapters.IdentityAdapter
+import com.happyplaces.adapters.NotesAdapter
 import kotlinx.android.synthetic.main.activity_identity.*
 import kotlinx.android.synthetic.main.activity_notes.*
+import kotlinx.android.synthetic.main.activity_profile.*
 
 class IdentityActivity : ButtonsFunctionality() {
+    private var updateFormOpened = false
+    private var currentItem: NotesAdapter.ViewHolder? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_identity)
@@ -24,8 +31,13 @@ class IdentityActivity : ButtonsFunctionality() {
         getIdentitiesListFromPrivateDB()
         iv_plus_image_identity.setOnClickListener {
             plusButton(
-                this.findViewById(R.id.iv_plus_image_identity), R.id.iv_identit12321313y
-                , iv_plus_image_identity, R.id.main_layout_identity, R.id.ll_add_menu_identity1, true
+                this.findViewById(R.id.iv_plus_image_identity),
+                R.id.iv_identit12321313y
+                ,
+                iv_plus_image_identity,
+                R.id.main_layout_identity,
+                R.id.ll_add_menu_identity1,
+                true
             )
         }
 
@@ -76,8 +88,13 @@ class IdentityActivity : ButtonsFunctionality() {
             val dbHandler = DatabaseIdentity(this)
             setupIdentitiesRecyclerView(dbHandler.getIdentitiesList())
             plusButton(
-                this.findViewById(R.id.iv_plus_image_identity), R.id.iv_identity
-                , iv_plus_image_identity, R.id.main_layout_identity, R.id.ll_add_menu_identity1, true
+                this.findViewById(R.id.iv_plus_image_identity),
+                R.id.iv_identity
+                ,
+                iv_plus_image_identity,
+                R.id.main_layout_identity,
+                R.id.ll_add_menu_identity1,
+                true
             )
         }
         getIdentitiesListFromPrivateDB()
@@ -99,8 +116,29 @@ class IdentityActivity : ButtonsFunctionality() {
 
             }
         })
-
-
+        val d = DeleteSwipe(rv_identities, this, supportFragmentManager)
+        ItemTouchHelper(d).attachToRecyclerView(rv_identities)
+        val deleteSwipeHelperRight = object : ProfileSwipeHelper(ItemTouchHelper.RIGHT) {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                plusButton(
+                    findViewById(R.id.iv_plus_image_identity),
+                    R.id.iv_identit12321313y
+                    ,
+                    iv_plus_image_identity,
+                    R.id.main_layout_identity,
+                    R.id.ll_add_menu_identity1,
+                    true
+                )
+                updateFormOpened = true
+                et_source.setText((viewHolder as ProfilesAdapter.ViewHolder).source.text)
+                et_login.setText(viewHolder.login.text)
+                et_password.setText(viewHolder.password.text)
+                et_info.setText(viewHolder.info.text)
+                add_button_profile.setText(R.string.update)
+                currentItem = viewHolder
+            }
+        }
+        ItemTouchHelper(deleteSwipeHelperRight).attachToRecyclerView(rv_profiles)
 
 
     }

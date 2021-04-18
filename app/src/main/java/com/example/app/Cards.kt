@@ -45,7 +45,7 @@ class Cards : ButtonsFunctionality() {
         plus_image.setOnClickListener {
             plusButton(
                 this.findViewById(R.id.plus_image), R.id.card_big
-                , plus_image, R.id.main_layout_cards, R.id.add_menu
+                , plus_image, R.id.main_layout_cards, R.id.add_menu, false
             )
         }
 
@@ -76,7 +76,7 @@ class Cards : ButtonsFunctionality() {
             setupListOfDataIntoRecycleView()
             plusButton(
                 this.findViewById(R.id.plus_image), R.id.card_big
-                , plus_image, R.id.main_layout_cards, R.id.add_menu
+                , plus_image, R.id.main_layout_cards, R.id.add_menu, false
             )
         }
     }

@@ -36,7 +36,7 @@ class NotesActivity : ButtonsFunctionality() {
         iv_plus_image.setOnClickListener {
             plusButton(
                 this.findViewById(R.id.iv_plus_image), R.id.iv_notes
-                , iv_plus_image, R.id.main_layout_notes, R.id.add_menu1
+                , iv_plus_image, R.id.main_layout_notes, R.id.add_menu1, false
             )
         }
         btn_settingsInNotes.setOnClickListener {
@@ -71,7 +71,7 @@ class NotesActivity : ButtonsFunctionality() {
             setupNotesRecyclerView(dbHandler.getNotesList())
             plusButton(
                 this.findViewById(R.id.iv_plus_image), R.id.iv_notes
-                , iv_plus_image, R.id.main_layout_notes, R.id.add_menu1
+                , iv_plus_image, R.id.main_layout_notes, R.id.add_menu1, false
             )
             /*val intent = Intent(this,NotesActivity::class.java)
             startActivity(intent)

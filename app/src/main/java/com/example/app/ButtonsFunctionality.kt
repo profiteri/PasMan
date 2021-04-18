@@ -63,7 +63,8 @@ open abstract class ButtonsFunctionality : AppCompatActivity() {
         iv_icon: Int,
         iv_plus_image: ImageView,
         main_layout: Int,
-        ll_add_menu: Int
+        ll_add_menu: Int,
+        toCenter: Boolean
     ) {
         val animator = ObjectAnimator.ofFloat(iv_plus_image, View.ROTATION, 135f)
         animator.duration = 300;
@@ -85,10 +86,18 @@ open abstract class ButtonsFunctionality : AppCompatActivity() {
         transition.interpolator = AccelerateDecelerateInterpolator()
         if (addMenuOpen) {
             addMenuOpen = false
-            c.connect(ll_add_menu, ConstraintSet.TOP, iv_icon, ConstraintSet.BOTTOM)
+            if (toCenter) {
+                c.clear(ll_add_menu, ConstraintSet.TOP)
+                c.connect(ll_add_menu, ConstraintSet.TOP, main_layout, ConstraintSet.TOP)
+                c.connect(ll_add_menu, ConstraintSet.BOTTOM, main_layout, ConstraintSet.BOTTOM)
+            }
+            else
+                c.connect(ll_add_menu, ConstraintSet.TOP, iv_icon, ConstraintSet.BOTTOM)
             animator.start()
         } else {
             addMenuOpen = true
+            if (toCenter)
+                c.clear(ll_add_menu, ConstraintSet.BOTTOM)
             c.connect(ll_add_menu, ConstraintSet.TOP, main_layout, ConstraintSet.BOTTOM)
             animator.setFloatValues(0f)
             animator.start()

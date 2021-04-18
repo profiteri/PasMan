@@ -1,5 +1,7 @@
 package com.example.app.SwipeHelpers
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.app.Dialog
 import android.content.Context
 import android.content.DialogInterface
@@ -49,8 +51,11 @@ class DeleteProfile(private val adapter: ProfilesAdapter,
                     R.string.cancel,
                     DialogInterface.OnClickListener { dialog, id ->
                         (holder as ProfilesAdapter.ViewHolder).foreground.alpha = 1f
-                        holder.foreground.animate().translationX(0f)
-                        profile.layoutManager = LinearLayoutManager(context)
+                        holder.foreground.animate().translationX(0f).setListener(object : AnimatorListenerAdapter() {
+                            override fun onAnimationEnd(animation: Animator?) {
+                                profile.layoutManager = LinearLayoutManager(context)
+                            }
+                        }).start()
                         dialog.cancel()
                     })
             // Create the AlertDialog object and return it

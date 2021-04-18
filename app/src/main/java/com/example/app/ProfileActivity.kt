@@ -35,7 +35,6 @@ open class ProfileActivity : ButtonsFunctionality() {
         }
 
         plus_image.setOnClickListener {
-
             et_source.setText("")
             et_login.setText("")
             et_password.setText("")
@@ -47,7 +46,7 @@ open class ProfileActivity : ButtonsFunctionality() {
             )
             if (updateFormOpened) {
                 currentItem?.foreground?.alpha = 1f
-                currentItem?.foreground?.animate()?.translationX(0f)
+                //currentItem?.foreground?.animate()?.translationX(0f)
                 rv_profiles.layoutManager = LinearLayoutManager(this)
                 updateFormOpened = false
             }
@@ -93,11 +92,11 @@ open class ProfileActivity : ButtonsFunctionality() {
         et_password.text.clear()
         et_info.text.clear()
         add_button_profile.setText(R.string.add)
-        setupListOfDataIntoRecycleView()
         plusButton(
-            this.findViewById(R.id.plus_image), R.id.profile_big
-            , plus_image, R.id.main_layout_profile, R.id.add_menu, false
+            this.findViewById(R.id.plus_image), R.id.profile_big,
+            plus_image, R.id.main_layout_profile, R.id.add_menu, false
         )
+        setupListOfDataIntoRecycleView()
     }
 
     fun deleteItem(profile: ProfileModel) {

@@ -36,7 +36,7 @@ class NotesActivity : ButtonsFunctionality() {
         iv_plus_image.setOnClickListener {
             plusButton(
                 this.findViewById(R.id.iv_plus_image), R.id.iv_notes
-                , iv_plus_image, R.id.main_layout_notes, R.id.ll_add_menu
+                , iv_plus_image, R.id.main_layout_notes, R.id.add_menu1
             )
         }
         btn_settingsInNotes.setOnClickListener {
@@ -60,7 +60,7 @@ class NotesActivity : ButtonsFunctionality() {
     fun addNote(view: View) {
         val notesHandler = DatabaseNotes(this)
         val status =
-            notesHandler.addNote(NoteModel(0, et_title1.text.toString(), et_text1.text.toString()))
+            notesHandler.addNote(NoteModel(0, et_title.text.toString(), et_text.text.toString()))
         if (status > -1) {
             Toast.makeText(this, "Note added", Toast.LENGTH_SHORT).show()
             findViewById<EditText>(R.id.et_title).text.clear()
@@ -71,7 +71,7 @@ class NotesActivity : ButtonsFunctionality() {
             setupNotesRecyclerView(dbHandler.getNotesList())
             plusButton(
                 this.findViewById(R.id.iv_plus_image), R.id.iv_notes
-                , iv_plus_image, R.id.main_layout_notes, R.id.ll_add_menu
+                , iv_plus_image, R.id.main_layout_notes, R.id.add_menu1
             )
             /*val intent = Intent(this,NotesActivity::class.java)
             startActivity(intent)

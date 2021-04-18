@@ -26,7 +26,7 @@ class IdentityActivity : ButtonsFunctionality() {
         getIdentitiesListFromPrivateDB()
         iv_plus_image_identity.setOnClickListener {
             plusButton(
-                this.findViewById(R.id.iv_plus_image_identity), R.id.iv_identity
+                this.findViewById(R.id.iv_plus_image_identity), R.id.iv_identit12321313y
                 , iv_plus_image_identity, R.id.main_layout_identity, R.id.ll_add_menu_identity1
             )
         }

@@ -19,14 +19,12 @@ import kotlinx.android.synthetic.main.activity_profile.*
 open class ProfileActivity : ButtonsFunctionality() {
 
     private var currentItem : ProfilesAdapter.ViewHolder? = null
-    private var alias : String? = null
     private var updateFormOpened = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
 
-        alias = intent.extras?.get("KEY") as String
 
         settingsInProfile.setOnClickListener {
             rotate(settingsInProfile)
@@ -74,11 +72,11 @@ open class ProfileActivity : ButtonsFunctionality() {
 
     @Synchronized
     fun addProfile(view: View) {
-        val encrypter = Encrypter(alias!!, null)
+        val encrypter = Encrypter(null)
         val source = encrypter.encryptString(et_source.text.toString())
-        val login = Encrypter(alias!!, encrypter.getIv()).encryptString(et_login.text.toString())
-        val password = Encrypter(alias!!, encrypter.getIv()).encryptString(et_password.text.toString())
-        val info = Encrypter(alias!!, encrypter.getIv()).encryptString(et_info.text.toString())
+        val login = Encrypter(encrypter.getIv()).encryptString(et_login.text.toString())
+        val password = Encrypter(encrypter.getIv()).encryptString(et_password.text.toString())
+        val info = Encrypter(encrypter.getIv()).encryptString(et_info.text.toString())
 
         if (add_button_profile.text == resources.getString(R.string.add)) {
             val handler = DatabaseProfile(this)
@@ -95,6 +93,7 @@ open class ProfileActivity : ButtonsFunctionality() {
         et_password.text.clear()
         et_info.text.clear()
         add_button_profile.setText(R.string.add)
+        setupListOfDataIntoRecycleView()
         plusButton(
             this.findViewById(R.id.plus_image), R.id.profile_big
             , plus_image, R.id.main_layout_profile, R.id.add_menu
@@ -129,7 +128,7 @@ open class ProfileActivity : ButtonsFunctionality() {
         if (getProfiles().size > 0) {
             rv_profiles.visibility = View.VISIBLE
             rv_profiles.layoutManager = LinearLayoutManager(this)
-            rv_profiles.adapter = ProfilesAdapter(this, getProfiles(), alias!!)
+            rv_profiles.adapter = ProfilesAdapter(this, getProfiles())
         }
         else {
             rv_profiles.visibility = View.GONE

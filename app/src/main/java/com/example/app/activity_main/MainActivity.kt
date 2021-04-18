@@ -14,7 +14,7 @@ import javax.crypto.SecretKey
 
 class MainActivity : AppCompatActivity() {
 
-    var alias : String? = null
+    //var alias : String? = null
     val keyStore = KeyStore.getInstance("AndroidKeyStore")
 
     @Synchronized
@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
 
     fun startProfiles(view: View) {
         val intent = Intent(this, ProfileActivity::class.java)
-        intent.putExtra("KEY", alias)
+        //intent.putExtra("KEY", alias)
         startActivity(intent)
         finish()
     }

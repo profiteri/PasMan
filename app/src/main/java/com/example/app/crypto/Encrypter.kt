@@ -7,15 +7,17 @@ import javax.crypto.SecretKey
 import javax.crypto.spec.GCMParameterSpec
 import javax.crypto.spec.IvParameterSpec
 
-class Encrypter(alias : String, customIv : ByteArray?) {
+class Encrypter(customIv : ByteArray?) {
     private val cipher : Cipher = Cipher.getInstance("AES/GCM/NoPadding")
+    private var alias : String
     init {
         val keyStore = KeyStore.getInstance("AndroidKeyStore")
         keyStore.load(null)
+        this.alias = keyStore.aliases().nextElement()
         if (customIv == null)
-            cipher.init(Cipher.ENCRYPT_MODE, keyStore.getKey(alias, null))
+            cipher.init(Cipher.ENCRYPT_MODE, keyStore.getKey(this.alias, null))
         else
-            cipher.init(Cipher.ENCRYPT_MODE, keyStore.getKey(alias, null), GCMParameterSpec(128, customIv))
+            cipher.init(Cipher.ENCRYPT_MODE, keyStore.getKey(this.alias, null), GCMParameterSpec(128, customIv))
     }
 
     fun encryptString(string : String) : ByteArray {

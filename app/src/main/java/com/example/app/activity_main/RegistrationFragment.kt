@@ -58,7 +58,6 @@ class RegistrationFragment : Fragment() {
         view?.viewTreeObserver?.addOnWindowFocusChangeListener { hasFocus ->
             val c = ConstraintSet()
             c.clone(view.main_layout_welcome)
-            //val transition = AutoTransition()
             transition.duration = 1000
             transition.interpolator = DecelerateInterpolator(2f)
             c.connect(R.id.tv_welcome, ConstraintSet.TOP, R.id.main_layout_welcome, ConstraintSet.TOP)
@@ -86,15 +85,6 @@ class RegistrationFragment : Fragment() {
                         }
                     })
                     .start()
-                /*val c = ConstraintSet()
-                c.clone(view.main_layout_welcome)
-                val newTransition = AutoTransition()
-                newTransition.duration = 1000
-                newTransition.interpolator = DecelerateInterpolator(2f)
-                c.connect(R.id.tv_welcome, ConstraintSet.TOP, R.id.main_layout_welcome, ConstraintSet.TOP)
-                c.clear(R.id.tv_welcome, ConstraintSet.BOTTOM)
-                TransitionManager.beginDelayedTransition(view.main_layout_welcome, transition)
-                c.applyTo(view.main_layout_welcome)*/
             }
         )
 
@@ -114,7 +104,7 @@ class RegistrationFragment : Fragment() {
                 "AndroidKeyStore")
             keyGenerator.init(keyGenParams)
             keyGenerator.generateKey()
-            (activity as MainActivity).alias = et_create_password.text.toString()
+            //(activity as MainActivity).alias = et_create_password.text.toString()
             //(activity as MainActivity).cl_navigation.visibility = View.VISIBLE
             (activity as MainActivity).supportFragmentManager.beginTransaction()
                 .remove(this)

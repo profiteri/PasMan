@@ -41,6 +41,7 @@ class LoginFragment : Fragment() {
         mainActivity = (activity as MainActivity)
         view.btn_login.setOnClickListener {
             if (mainActivity.keyStore.getKey(et_enter_password.text.toString(), null) != null) {
+                //mainActivity.alias = et_enter_password.text.toString()
                 mainActivity.cl_navigation.visibility = View.VISIBLE
                 mainActivity.supportFragmentManager.beginTransaction().remove(this)
                     .commit()
@@ -79,7 +80,7 @@ class LoginFragment : Fragment() {
     private fun success(authResult: BiometricPrompt.AuthenticationResult) {
         mainActivity.supportFragmentManager.beginTransaction().remove(this).commit()
         mainActivity.cl_navigation.visibility = View.VISIBLE
-        mainActivity.alias = mainActivity.keyStore.aliases().nextElement()
+        //mainActivity.alias = mainActivity.keyStore.aliases().nextElement()
     }
 
     companion object {

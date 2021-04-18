@@ -23,7 +23,7 @@ import javax.crypto.SecretKey
 import javax.crypto.spec.GCMParameterSpec
 import kotlin.collections.ArrayList
 
-class ProfilesAdapter(val context: Context, val items: ArrayList<ProfileModel>, val alias: String) :
+class ProfilesAdapter(val context: Context, val items: ArrayList<ProfileModel>) :
     RecyclerView.Adapter<ProfilesAdapter.ViewHolder>()
 {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProfilesAdapter.ViewHolder {
@@ -45,7 +45,7 @@ class ProfilesAdapter(val context: Context, val items: ArrayList<ProfileModel>, 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items[position]
 
-        val d = Decrypter(alias, item.iv)
+        val d = Decrypter(item.iv)
 
         holder.source.text = d.decryptString(item.source)
         holder.login.text = d.decryptString(item.login)

@@ -1,13 +1,14 @@
 package com.example.app
 
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.view.View
+import android.view.WindowMetrics
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.app.SwipeHelpers.DeleteProfile
 import com.example.app.SwipeHelpers.DeleteSwipe
 import com.example.app.SwipeHelpers.ProfileSwipeHelper
 import com.example.app.SwipeHelpers.SwipeParamsHolder
@@ -17,6 +18,7 @@ import com.example.app.database.DatabaseProfile
 import com.example.app.models.ProfileModel
 import kotlinx.android.synthetic.main.activity_profile.*
 
+
 open class ProfileActivity : ButtonsFunctionality() {
 
     private var currentItem : ProfilesAdapter.ViewHolder? = null
@@ -25,8 +27,6 @@ open class ProfileActivity : ButtonsFunctionality() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
-
-        ll_info.layoutParams.height = main_layout_profile.layoutParams.height/5
 
         settingsInProfile.setOnClickListener {
             rotate(settingsInProfile)

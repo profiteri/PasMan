@@ -26,17 +26,10 @@ class DeleteSwipe(private val paramsHolder: SwipeParamsHolder) : ProfileSwipeHel
             viewHolder,
             paramsHolder.recyclerView
         ).show(paramsHolder.supportFragmentManager, "delete_dialog")
-        /*DeleteProfile(
-            //recyclerView.adapter as ProfilesAdapter,
-            viewHolder,// as ProfilesAdapter.ViewHolder,
-            recyclerView,
-            context
-        ).show(supportFragmentManager, "delete_dialog")*/
     }
 }
 
-class DeleteProfile(//private val adapter: ProfilesAdapter,
-                    private val holder: RecyclerView.ViewHolder,
+class DeleteProfile(private val holder: RecyclerView.ViewHolder,
                     private val recyclerView: RecyclerView
 ) : DialogFragment() {
 
@@ -84,49 +77,39 @@ class DeleteProfile(//private val adapter: ProfilesAdapter,
             val builder = AlertDialog.Builder(it)
             builder.setMessage(R.string.delete_profile_dialog)
                 .setPositiveButton(
-                    R.string.delete,
-                    DialogInterface.OnClickListener { dialog, id ->
-                        //val adapter = rv_profiles.adapter as ProfilesAdapter
-                        profileHolder?.let { profileAdapter?.deleteProfile(it) }
-                        cardsHolder?.let {cardsAdapter?.deleteCard(it) }
-                        notesHolder?.let { notesAdapter?.deleteNote(it) }
-                        identityHolder?.let { identityAdapter?.deleteIdentity(it) }
-                    })
+                    R.string.delete
+                ) { _, _ ->
+                    profileHolder?.let { profileAdapter?.deleteProfile(it) }
+                    cardsHolder?.let {cardsAdapter?.deleteCard(it) }
+                    notesHolder?.let { notesAdapter?.deleteNote(it) }
+                    identityHolder?.let { identityAdapter?.deleteIdentity(it) }
+                }
                 .setNegativeButton(
-                    R.string.cancel,
-                    DialogInterface.OnClickListener { dialog, id ->
-                        val animatorListener = object : AnimatorListenerAdapter() {
-                            override fun onAnimationEnd(animation: Animator?) {
-                                recyclerView.layoutManager = LinearLayoutManager(context)
-                            }
+                    R.string.cancel
+                ) { dialog, _ ->
+                    val animatorListener = object : AnimatorListenerAdapter() {
+                        override fun onAnimationEnd(animation: Animator?) {
+                            recyclerView.layoutManager = LinearLayoutManager(context)
                         }
-                        //paramsHolder.foreground.alpha = 1f
-                        //paramsHolder.foreground.animate().translationX(0f).setListener(animatorListener).start()
-                        profileHolder?.let {
-                            it.foreground.alpha = 1f
-                            it.foreground.animate().translationX(0f).setListener(animatorListener).start()
-                        }
-                        cardsHolder?.let {
-                            it.foreground.alpha = 1f
-                            it.foreground.animate().translationX(0f).setListener(animatorListener).start()
-                        }
-                        notesHolder?.let {
-                            it.foreground.alpha = 1f
-                            it.foreground.animate().translationX(0f).setListener(animatorListener).start()
-                        }
-                        identityHolder?.let {
-                            it.foreground.alpha = 1f
-                            it.foreground.animate().translationX(0f).setListener(animatorListener).start()
-                        }
-                        /*(holder as ProfilesAdapter.ViewHolder).foreground.alpha = 1f
-                        holder.foreground.animate().translationX(0f).setListener(object : AnimatorListenerAdapter() {
-                            override fun onAnimationEnd(animation: Animator?) {
-                                recyclerView.layoutManager = LinearLayoutManager(context)
-                            }
-                        }).start()*/
-                        dialog.cancel()
-                    })
-            // Create the AlertDialog object and return it
+                    }
+                    profileHolder?.let {
+                        it.foreground.alpha = 1f
+                        it.foreground.animate().translationX(0f).setListener(animatorListener).start()
+                    }
+                    cardsHolder?.let {
+                        it.foreground.alpha = 1f
+                        it.foreground.animate().translationX(0f).setListener(animatorListener).start()
+                    }
+                    notesHolder?.let {
+                        it.foreground.alpha = 1f
+                        it.foreground.animate().translationX(0f).setListener(animatorListener).start()
+                    }
+                    identityHolder?.let {
+                        it.foreground.alpha = 1f
+                        it.foreground.animate().translationX(0f).setListener(animatorListener).start()
+                    }
+                    dialog.cancel()
+                }
             builder.create()
         } ?: throw IllegalStateException("Activity cannot be null")
     }

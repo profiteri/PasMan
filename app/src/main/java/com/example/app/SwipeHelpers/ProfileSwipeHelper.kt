@@ -100,10 +100,6 @@ abstract class ProfileSwipeHelper(private val dir: Int)
             ItemTouchHelper.Callback.getDefaultUIUtil().onSelected(it.foreground)
         }
 
-
-            //(viewHolder as ProfilesAdapter.ViewHolder).background.setBackgroundResource(R.drawable.card_background_edit)
-            //viewHolder.background.icon_delete.visibility = View.GONE
-            //viewHolder.background.icon_eye.visibility = View.VISIBLE
     }
 
 

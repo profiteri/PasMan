@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Cards"
+    tools:context=".CardActivity"
     android:background="@color/white">
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_profiles"
@@ -214,8 +214,9 @@
         </LinearLayout>
         <LinearLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:id="@+id/ll_info"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="150dp"
             android:background="@drawable/add_text_input">
             <EditText
                 android:gravity="top"

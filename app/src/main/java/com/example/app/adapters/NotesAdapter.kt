@@ -13,6 +13,7 @@ import com.example.app.AddNoteActivity
 import com.example.app.NotesActivity
 import com.example.app.models.NoteModel
 import com.example.app.R
+import com.example.app.adapters.ProfilesAdapter
 import com.example.app.database.DatabaseNotes
 import kotlinx.android.synthetic.main.item_notes.view.*
 
@@ -79,12 +80,12 @@ open class NotesAdapter(
      */
 
 
-    fun removeAt(position: Int) {
+    fun deleteNote(holder: ViewHolder) {
         val dbHandler = DatabaseNotes(context)
-        val isDeleted = dbHandler.deleteNote(list[position])
+        val isDeleted = dbHandler.deleteNote(list[holder.adapterPosition])
         if (isDeleted > 0) {
-            list.removeAt(position)
-            notifyItemRemoved(position)
+            list.removeAt(holder.adapterPosition)
+            notifyItemRemoved(holder.adapterPosition)
         }
     }
 

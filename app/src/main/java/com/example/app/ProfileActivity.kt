@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.app.SwipeHelpers.DeleteProfile
 import com.example.app.SwipeHelpers.DeleteSwipe
 import com.example.app.SwipeHelpers.ProfileSwipeHelper
+import com.example.app.SwipeHelpers.SwipeParamsHolder
 import com.example.app.adapters.ProfilesAdapter
 import com.example.app.crypto.Encrypter
 import com.example.app.database.DatabaseProfile
@@ -25,6 +26,7 @@ open class ProfileActivity : ButtonsFunctionality() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
 
+        ll_info.layoutParams.height = main_layout_profile.layoutParams.height/5
 
         settingsInProfile.setOnClickListener {
             rotate(settingsInProfile)
@@ -133,7 +135,7 @@ open class ProfileActivity : ButtonsFunctionality() {
             rv_profiles.visibility = View.GONE
         }
 
-        val d = DeleteSwipe(rv_profiles, this, supportFragmentManager)
+        val d = DeleteSwipe(SwipeParamsHolder(rv_profiles, supportFragmentManager))
         ItemTouchHelper(d).attachToRecyclerView(rv_profiles)
 
         val deleteSwipeHelperRight = object : ProfileSwipeHelper(ItemTouchHelper.RIGHT) {

@@ -64,12 +64,6 @@ class ProfilesAdapter(val context: Context, val items: ArrayList<ProfileModel>) 
             else -> R.drawable.all
         })
 
-
-
-      //  holder.delete.setOnClickListener {
-      //      if (context is ProfileActivity)
-      //          context.deleteItem(item)
-      //  }
     }
 
     fun deleteProfile(holder: ViewHolder) {

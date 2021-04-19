@@ -4,13 +4,9 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
-import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.app.*
-import com.google.crypto.tink.KeysetHandle
 import kotlinx.android.synthetic.main.activity_main.*
 import java.security.KeyStore
-import javax.crypto.SecretKey
 
 class MainActivity : AppCompatActivity() {
 
@@ -50,7 +46,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun startCards(view: View) {
-        val intent = Intent(this, Cards::class.java)
+        val intent = Intent(this, CardActivity::class.java)
         startActivity(intent)
         finish()
     }

@@ -7,13 +7,16 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
+import com.example.app.CardActivity
+import com.example.app.ProfileActivity
 import com.example.app.R
 
-class ItemAdapter(val context: Context, val items: ArrayList<CardModel>) :
-    RecyclerView.Adapter<ItemAdapter.ViewHolder>() {
+class CardsAdapter(val context: Context, val items: ArrayList<CardModel>) :
+    RecyclerView.Adapter<CardsAdapter.ViewHolder>() {
 
     /**
      * Inflates the item views which is designed in xml layout file
@@ -52,6 +55,11 @@ class ItemAdapter(val context: Context, val items: ArrayList<CardModel>) :
         holder.comment.text = item.comment
     }
 
+    fun deleteCard(holder: CardsAdapter.ViewHolder) {
+        if (context is CardActivity)
+            context.deleteItem(items[holder.adapterPosition])
+    }
+
     /**
      * Gets the number of items in the list
      */
@@ -64,12 +72,14 @@ class ItemAdapter(val context: Context, val items: ArrayList<CardModel>) :
      */
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         // Holds the TextView that will add each item to
-        val llMain: LinearLayout = view.findViewById<LinearLayout>(R.id.llMain)
+        //val llMain: LinearLayout = view.findViewById<LinearLayout>(R.id.llMain)
         val number: TextView = view.findViewById<TextView>(R.id.tvNumber)
         val holder: TextView = view.findViewById<TextView>(R.id.tvHolder)
         val expiry: TextView = view.findViewById<TextView>(R.id.tvExpiry)
         val cvc: TextView = view.findViewById<TextView>(R.id.tvCVC)
         val pin: TextView = view.findViewById<TextView>(R.id.tvPIN)
         val comment: TextView = view.findViewById<TextView>(R.id.tvComment)
+        val background: ConstraintLayout = view.findViewById(R.id.card_background)
+        val foreground: CardView = view.findViewById(R.id.card_foreground)
     }
 }

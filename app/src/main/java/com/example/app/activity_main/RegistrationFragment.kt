@@ -105,10 +105,10 @@ class RegistrationFragment : Fragment() {
             keyGenerator.init(keyGenParams)
             keyGenerator.generateKey()
             //(activity as MainActivity).alias = et_create_password.text.toString()
-            //(activity as MainActivity).cl_navigation.visibility = View.VISIBLE
+            (activity as MainActivity).cl_navigation.visibility = View.VISIBLE
             (activity as MainActivity).supportFragmentManager.beginTransaction()
                 .remove(this)
-                .add(R.id.ll_fragment_registration, LoginFragment.newInstance())
+                //.add(R.id.ll_fragment_registration, LoginFragment.newInstance())
                 .commit()
         }
         return view

@@ -77,12 +77,12 @@ open class IdentityAdapter(
      */
 
 
-    fun removeAt(position: Int) {
+    fun deleteIdentity(holder: ViewHolder) {
         val dbHandler = DatabaseIdentity(context)
-        val isDeleted = dbHandler.deleteIdentity(list[position])
+        val isDeleted = dbHandler.deleteIdentity(list[holder.adapterPosition])
         if (isDeleted > 0) {
-            list.removeAt(position)
-            notifyItemRemoved(position)
+            list.removeAt(holder.adapterPosition)
+            notifyItemRemoved(holder.adapterPosition)
         }
     }
 

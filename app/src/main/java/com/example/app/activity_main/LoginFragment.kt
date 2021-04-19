@@ -67,6 +67,12 @@ class LoginFragment : Fragment() {
         return view
     }
 
+   // override fun onResume() {
+   //     super.onResume()
+   //     mainActivity.supportFragmentManager.beginTransaction().remove(this)
+   //         .commit()
+   // }
+
     private fun showBiometricPromptForDecryption() {
             biometricPrompt =
                 BiometricPromptUtils.createBiometricPrompt(

@@ -3,14 +3,10 @@ package com.example.app
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
-import android.app.ActionBar
 import android.content.Intent
-import android.graphics.Color.alpha
-import android.media.Image
 import android.transition.AutoTransition
 import android.transition.TransitionManager
 import android.view.View
-import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -21,9 +17,6 @@ import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
-import androidx.core.view.isVisible
-import androidx.recyclerview.widget.RecyclerView
-import com.example.app.R
 
 open abstract class ButtonsFunctionality : AppCompatActivity() {
     var addMenuOpen = true
@@ -107,7 +100,7 @@ open abstract class ButtonsFunctionality : AppCompatActivity() {
     }
 
     fun toCards(view: View) {
-        val intent = Intent(this, Cards::class.java)
+        val intent = Intent(this, CardActivity::class.java)
         startActivity(intent)
         finish()
     }

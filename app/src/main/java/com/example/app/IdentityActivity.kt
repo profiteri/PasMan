@@ -12,13 +12,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.app.SwipeHelpers.DeleteSwipe
 import com.example.app.SwipeHelpers.ProfileSwipeHelper
+import com.example.app.SwipeHelpers.SwipeParamsHolder
 import com.example.app.adapters.ProfilesAdapter
 import com.example.app.database.DatabaseIdentity
 import com.example.app.models.IdentityModel
 import com.happyplaces.adapters.IdentityAdapter
 import com.happyplaces.adapters.NotesAdapter
 import kotlinx.android.synthetic.main.activity_identity.*
-import kotlinx.android.synthetic.main.activity_notes.*
 import kotlinx.android.synthetic.main.activity_profile.*
 
 class IdentityActivity : ButtonsFunctionality() {
@@ -116,9 +116,9 @@ class IdentityActivity : ButtonsFunctionality() {
 
             }
         })
-        val d = DeleteSwipe(rv_identities, this, supportFragmentManager)
+        val d = DeleteSwipe(SwipeParamsHolder(rv_identities, supportFragmentManager))
         ItemTouchHelper(d).attachToRecyclerView(rv_identities)
-        val deleteSwipeHelperRight = object : ProfileSwipeHelper(ItemTouchHelper.RIGHT) {
+        /*val deleteSwipeHelperRight = object : ProfileSwipeHelper(ItemTouchHelper.RIGHT) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 plusButton(
                     findViewById(R.id.iv_plus_image_identity),
@@ -138,7 +138,7 @@ class IdentityActivity : ButtonsFunctionality() {
                 currentItem = viewHolder
             }
         }
-        ItemTouchHelper(deleteSwipeHelperRight).attachToRecyclerView(rv_profiles)
+        ItemTouchHelper(deleteSwipeHelperRight).attachToRecyclerView(rv_profiles)*/
 
 
     }
@@ -173,7 +173,7 @@ class IdentityActivity : ButtonsFunctionality() {
     }
 
     fun startCards(view: View) {
-        val intent = Intent(this, Cards::class.java)
+        val intent = Intent(this, CardActivity::class.java)
         startActivity(intent)
         finish()
     }

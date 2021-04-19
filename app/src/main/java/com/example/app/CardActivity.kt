@@ -1,35 +1,27 @@
 package com.example.app
 
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
-import android.animation.ObjectAnimator
-import android.content.Intent
-import android.os.Build
 import android.os.Bundle
-import android.transition.AutoTransition
-import android.transition.TransitionManager
 import android.view.View
-import android.view.animation.AccelerateDecelerateInterpolator
-import android.view.animation.AnimationUtils
 import android.widget.*
-import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.constraintlayout.widget.ConstraintSet
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.app.adapters.ItemAdapter
+import com.example.app.SwipeHelpers.DeleteSwipe
+import com.example.app.SwipeHelpers.SwipeParamsHolder
+import com.example.app.adapters.CardsAdapter
 import com.example.app.database.DatabaseCards
+import com.example.app.database.DatabaseProfile
 import com.example.app.models.CardModel
+import com.example.app.models.ProfileModel
 import kotlinx.android.synthetic.main.activity_cards.*
 import kotlinx.android.synthetic.main.activity_cards.angle
 import kotlinx.android.synthetic.main.activity_cards.angle_image
 import kotlinx.android.synthetic.main.activity_cards.layout_menu
 import kotlinx.android.synthetic.main.activity_cards.plus_image
-import kotlinx.android.synthetic.main.activity_profile.*
+import kotlinx.android.synthetic.main.activity_identity.*
 
 
-class Cards : ButtonsFunctionality() {
+class CardActivity : ButtonsFunctionality() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,6 +73,15 @@ class Cards : ButtonsFunctionality() {
         }
     }
 
+    fun deleteItem(card: CardModel) {
+        val handler = DatabaseCards(this)
+        if (handler.deleteCard(card) == -1) {
+            Toast.makeText(this, "ErRorr", Toast.LENGTH_SHORT).show()
+        }
+        Toast.makeText(this, "Deleted", Toast.LENGTH_SHORT).show()
+        setupListOfDataIntoRecycleView()
+    }
+
     private fun getCards(): ArrayList<CardModel> {
         return DatabaseCards(this).viewCards()
     }
@@ -90,16 +91,14 @@ class Cards : ButtonsFunctionality() {
             findViewById<RecyclerView>(R.id.cards_layout).visibility = View.VISIBLE
             findViewById<RecyclerView>(R.id.cards_layout).layoutManager = LinearLayoutManager(this)
             val itemAdapter =
-                ItemAdapter(this, getCards())
+                CardsAdapter(this, getCards())
             findViewById<RecyclerView>(R.id.cards_layout).adapter = itemAdapter
         }
         else {
             findViewById<RecyclerView>(R.id.cards_layout).visibility = View.GONE
         }
+        //val d = DeleteSwipe(SwipeParamsHolder(rv_ca, supportFragmentManager))
+        //ItemTouchHelper(d).attachToRecyclerView(rv_identities)
     }
 
-
-    fun test(view: View) {
-        Toast.makeText(this, "HAHA", Toast.LENGTH_SHORT).show()
-    }
 }

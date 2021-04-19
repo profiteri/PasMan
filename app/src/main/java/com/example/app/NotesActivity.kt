@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.app.SwipeHelpers.DeleteSwipe
 import com.example.app.SwipeHelpers.ProfileSwipeHelper
+import com.example.app.SwipeHelpers.SwipeParamsHolder
 import com.example.app.adapters.ProfilesAdapter
 import com.example.app.database.DatabaseNotes
 import com.example.app.models.NoteModel
@@ -101,9 +102,9 @@ class NotesActivity : ButtonsFunctionality() {
 
             }
         })
-        val d = DeleteSwipe(rv_notes_list, this, supportFragmentManager)
+        val d = DeleteSwipe(SwipeParamsHolder(rv_notes_list, supportFragmentManager))
         ItemTouchHelper(d).attachToRecyclerView(rv_notes_list)
-        val deleteSwipeHelperRight = object : ProfileSwipeHelper(ItemTouchHelper.RIGHT) {
+        /*val deleteSwipeHelperRight = object : ProfileSwipeHelper(ItemTouchHelper.RIGHT) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 plusButton(
                     findViewById(R.id.iv_plus_image), R.id.iv_notes
@@ -118,7 +119,7 @@ class NotesActivity : ButtonsFunctionality() {
                 currentItem = viewHolder
             }
         }
-        ItemTouchHelper(deleteSwipeHelperRight).attachToRecyclerView(rv_profiles)
+        ItemTouchHelper(deleteSwipeHelperRight).attachToRecyclerView(rv_profiles)*/
     }
 
     private fun getNotesListFromPrivateDB() {

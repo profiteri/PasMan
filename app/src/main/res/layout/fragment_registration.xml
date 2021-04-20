@@ -5,7 +5,7 @@
     tools:context=".activity_main.RegistrationFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_register"
+    android:background="@drawable/bg_register_texture"
     android:id="@+id/main_layout_welcome">
     <TextView
         android:id="@+id/tv_welcome"
@@ -19,6 +19,10 @@
         android:textColor="@color/white"
         android:textSize="40sp"
         android:gravity="center"
+        android:shadowColor="@color/shadow_text"
+        android:shadowDx="8"
+        android:shadowDy="15"
+        android:shadowRadius="10"
         android:layout_marginHorizontal="30dp"
         android:layout_marginTop="40dp"/>
     <LinearLayout

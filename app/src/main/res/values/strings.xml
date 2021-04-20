@@ -15,9 +15,15 @@
     <string name="prompt_info_subtitle">Please PALEZ PRILOZHY</string>
     <string name="prompt_info_description">a hule ty dumal, tut vse seryozno</string>
     <string name="prompt_info_use_app_password">Use app password</string>
-    <string name="enable_biometric_login">Enable Biometric Login</string>
-    <string name="desc_biometrics_authorization">Enter your login ID and password to confirm activation of Biometric Login.</string>
-    <string name="btn_authorize">Authorize</string>
     <string name="welcome">Welcome to Password Manager</string>
-    <string name="crete_password">First of all, create a password,\n which you will you to log in </string>
+    <string name="singin">Sing in</string>
+    <string name="or">Or</string>
+    <string name="go">Go</string>
+    <string name="authorize">Authorize</string>
+    <string name="use_biom">Use biometrics</string>
+    <string name="enter_password">Enter your password</string>
+    <string name="crete_password">First of all, create a password,\n which you will use to log in </string>
+    <string name="enable_login">Enable Biometric\nLogic</string>
+    <string name="enter_password_to_confirm">Enter your password to confirm activation</string>
+
 </resources>

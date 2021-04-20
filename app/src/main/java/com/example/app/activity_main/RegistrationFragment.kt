@@ -9,10 +9,7 @@ import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties
 import android.transition.AutoTransition
 import android.transition.TransitionManager
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.ViewTreeObserver
+import android.view.*
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.DecelerateInterpolator
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -55,16 +52,22 @@ class RegistrationFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_registration, container, false)
 
         val transition = AutoTransition()
-        view?.viewTreeObserver?.addOnWindowFocusChangeListener { hasFocus ->
+        val listener = ViewTreeObserver.OnWindowFocusChangeListener { _ ->
             val c = ConstraintSet()
             c.clone(view.main_layout_welcome)
             transition.duration = 1000
             transition.interpolator = DecelerateInterpolator(2f)
-            c.connect(R.id.tv_welcome, ConstraintSet.TOP, R.id.main_layout_welcome, ConstraintSet.TOP)
+            c.connect(
+                R.id.tv_welcome,
+                ConstraintSet.TOP,
+                R.id.main_layout_welcome,
+                ConstraintSet.TOP
+            )
             c.clear(R.id.tv_welcome, ConstraintSet.BOTTOM)
             TransitionManager.beginDelayedTransition(view.main_layout_welcome, transition)
             c.applyTo(view.main_layout_welcome)
         }
+        view?.viewTreeObserver?.addOnWindowFocusChangeListener(listener)
         transition.addListener(
             onEnd = {
                 view.ll_password.x = -1000f
@@ -85,9 +88,33 @@ class RegistrationFragment : Fragment() {
                         }
                     })
                     .start()
+                view?.viewTreeObserver?.removeOnWindowFocusChangeListener(listener)
             }
         )
 
+        val touchListener = View.OnTouchListener { v, event ->
+            when(event.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    v.setBackgroundResource(R.drawable.button_start_touched)
+                    true
+                }
+                MotionEvent.ACTION_UP -> {
+                    v.setBackgroundResource(R.drawable.button_start)
+                    v.performClick()
+                    true
+                }
+                MotionEvent.ACTION_CANCEL -> {
+                    v.setBackgroundResource(R.drawable.button_start)
+                    true
+                }
+                MotionEvent.ACTION_MOVE -> {
+                    v.setBackgroundResource(R.drawable.button_start)
+                    false
+                }
+                else -> false
+            }
+        }
+        view.btn_create_password.setOnTouchListener(touchListener)
         view.btn_create_password.setOnClickListener {
             val paramsBuilder = KeyGenParameterSpec.Builder(
                 et_create_password.text.toString(),

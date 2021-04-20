@@ -23,8 +23,10 @@
     <color name="gradient_end">#000000</color>
     <color name="plusbutton_startcolor">#0A042D</color>
     <color name="plusbutton_endcolor">#B90000</color>
+    <color name="btn_cancel">#55B90000</color>
     <color name="item_delete">#B90000</color>
     <color name="item_edit">#005b96</color>
+    <color name="shadow_text">#88000000</color>
 
 <!--#011f4b • #03396c • #005b96 • #6497b1 • #b3cde0 -->
     <color name="add_button_background">#FF000000</color>

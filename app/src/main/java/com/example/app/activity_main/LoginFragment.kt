@@ -1,8 +1,7 @@
 package com.example.app.activity_main
 
-import android.app.Activity
+import android.animation.ObjectAnimator
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,11 +10,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
+import androidx.core.animation.addListener
 import com.example.app.R
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.fragment_login.view.*
-import java.net.Authenticator
 
 class LoginFragment : Fragment() {
 
@@ -38,6 +37,11 @@ class LoginFragment : Fragment() {
     ): View? {
         val view =  inflater.inflate(R.layout.fragment_login, container, false)
 
+        val anim = ObjectAnimator
+            .ofFloat(view.cl_login_main,"alpha", 0f, 1f)
+            .setDuration(300)
+        anim.start()
+
         mainActivity = (activity as MainActivity)
         view.btn_login.setOnClickListener {
             if (mainActivity.keyStore.getKey(et_enter_password.text.toString(), null) != null) {
@@ -57,7 +61,16 @@ class LoginFragment : Fragment() {
                 if (biomenricEnabled != null) {
                     showBiometricPromptForDecryption()
                 } else {
-                    startActivity(Intent(mainActivity, EnableBiometricLoginActivity::class.java))
+                    anim.addListener(
+                        onEnd = {
+                            mainActivity.supportFragmentManager.beginTransaction()
+                                .remove(this)
+                                .add(R.id.ll_fragment_registration, EnableBiomFragment.newInstance())
+                                .commit()
+                        }
+                    )
+                    anim.reverse()
+                    //startActivity(Intent(mainActivity, EnableBiometricLoginActivity::class.java))
                 }
             }
         } else {

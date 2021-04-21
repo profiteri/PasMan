@@ -1,32 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cl_login_main"
+    android:id="@+id/cl_enable_biom_main"
+    android:alpha="0"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".activity_main.RegistrationFragment">
+    tools:context=".activity_main.EnableBiometricLoginActivity">
+
     <TextView
-        android:id="@+id/tv_singig"
+        android:id="@+id/tv_enable"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/singin"
+        android:text="@string/enable_login"
         android:textStyle="bold"
         android:textColor="@color/white"
         android:textSize="40sp"
+        android:gravity="center"
         android:shadowColor="@color/shadow_text"
         android:shadowDx="8"
         android:shadowDy="15"
         android:shadowRadius="10"
-        android:gravity="center"
         android:layout_marginHorizontal="30dp"
-        android:layout_marginTop="40dp"/>
+        android:layout_marginTop="40dp"
+        android:lines="2"
+        android:maxLines="3"/>
     <LinearLayout
         android:id="@+id/ll_password"
-        app:layout_constraintTop_toBottomOf="@id/tv_singig"
+        app:layout_constraintTop_toBottomOf="@id/tv_enable"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_width="match_parent"
@@ -34,58 +38,55 @@
         android:orientation="vertical"
         android:gravity="center_horizontal"
         android:background="@drawable/rounded"
-        android:layout_marginVertical="70dp"
+        android:layout_marginTop="40dp"
         android:layout_marginHorizontal="40dp"
         android:paddingVertical="10dp"
         android:paddingHorizontal="40dp">
         <TextView
-            android:id="@+id/tv_greeting"
+            android:id="@+id/tv_enter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/enter_password"
+            android:text="@string/enter_password_to_confirm"
             android:textColor="@color/black"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:lines="2"/>
         <EditText
-            android:id="@+id/et_enter_password"
+            android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
             android:autofillHints=""
             android:background="@drawable/welcome_password_field"
             android:inputType="textPassword"
             android:paddingVertical="10dp"
             android:paddingHorizontal="10dp"
             android:hint="@string/password"/>
-        <TextView
-            android:id="@+id/tv_or"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/or"
-            android:layout_marginVertical="5dp"
-            android:textColor="@color/black"
-            android:textAlignment="center" />
-        <TextView
-            android:background="@drawable/text_pressed_bg"
-            android:id="@+id/tv_use_biometrics"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/use_biom"
-            android:layout_marginTop="10dp"
-            android:textSize="18sp"
-            android:textColor="@color/blue"
-            android:textAlignment="center" />
     </LinearLayout>
     <Button
-        android:alpha="1"
+        android:id="@+id/authorize"
         app:layout_constraintTop_toBottomOf="@id/ll_password"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:background="@drawable/button_pressed"
-        android:id="@+id/btn_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/go"
+        android:text="@string/authorize"
+        android:paddingHorizontal="10dp"
         android:textSize="20sp"
         android:textAllCaps="false"/>
+    <Button
+        android:id="@+id/cancel"
+        app:layout_constraintTop_toBottomOf="@id/authorize"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/button_cancel_manager"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cancel"
+        android:textSize="20sp"
+        android:textAllCaps="false"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

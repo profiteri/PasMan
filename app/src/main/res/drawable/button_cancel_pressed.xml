@@ -3,7 +3,7 @@
     <corners
         android:radius="25dp"/>
     <solid
-        android:color="#00ff0000"/>
+        android:color="@color/btn_cancel_more_transp"/>
     <stroke
         android:width="2dp"
         android:color="@color/black"/>

@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity_main.MainActivity"
-    android:id="@+id/cl_main">
+    android:id="@+id/cl_main"
+    android:background="@drawable/bg_register_texture">
 
     <LinearLayout
         android:gravity="center"

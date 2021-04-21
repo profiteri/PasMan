@@ -4,6 +4,7 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.LayoutTransition
 import android.animation.ObjectAnimator
+import android.graphics.Color
 import android.os.Bundle
 import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties
@@ -92,29 +93,6 @@ class RegistrationFragment : Fragment() {
             }
         )
 
-        val touchListener = View.OnTouchListener { v, event ->
-            when(event.action) {
-                MotionEvent.ACTION_DOWN -> {
-                    v.setBackgroundResource(R.drawable.button_start_touched)
-                    true
-                }
-                MotionEvent.ACTION_UP -> {
-                    v.setBackgroundResource(R.drawable.button_start)
-                    v.performClick()
-                    true
-                }
-                MotionEvent.ACTION_CANCEL -> {
-                    v.setBackgroundResource(R.drawable.button_start)
-                    true
-                }
-                MotionEvent.ACTION_MOVE -> {
-                    v.setBackgroundResource(R.drawable.button_start)
-                    false
-                }
-                else -> false
-            }
-        }
-        view.btn_create_password.setOnTouchListener(touchListener)
         view.btn_create_password.setOnClickListener {
             val paramsBuilder = KeyGenParameterSpec.Builder(
                 et_create_password.text.toString(),

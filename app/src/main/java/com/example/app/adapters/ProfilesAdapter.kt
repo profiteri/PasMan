@@ -5,16 +5,14 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.RelativeLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.app.ProfileActivity
 import com.example.app.R
 import com.example.app.crypto.Decrypter
+import com.example.app.database.DatabaseProfile
 import com.example.app.models.ProfileModel
 import java.security.KeyStore
 import java.util.*
@@ -67,18 +65,36 @@ class ProfilesAdapter(val context: Context, val items: ArrayList<ProfileModel>) 
     }
 
     fun deleteProfile(holder: ViewHolder) {
+        if (DatabaseProfile(context).deleteProfile(items[holder.adapterPosition]) == -1) {
+            Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
+        }
+        Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show()
        if (context is ProfileActivity)
-           context.deleteItem(items[holder.adapterPosition])
+           context.setupListOfDataIntoRecycleView()
+           //context.deleteItem(items[holder.adapterPosition])
     }
 
     fun updateProfile(holder: ViewHolder, profileModel: ProfileModel) {
+        if (DatabaseProfile(context).updateProfile(ProfileModel(items[holder.adapterPosition].id,
+                profileModel.source,
+                profileModel.login,
+                profileModel.password,
+                profileModel.info,
+                profileModel.iv)) == -1) {
+            Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
+        }
+        Toast.makeText(context, "Updated", Toast.LENGTH_SHORT).show()
         if (context is ProfileActivity) {
+            context.setupListOfDataIntoRecycleView()
+            /*
             context.updateItem(ProfileModel(items[holder.adapterPosition].id,
                 profileModel.source,
                 profileModel.login,
                 profileModel.password,
                 profileModel.info,
                 profileModel.iv))
+
+             */
         }
     }
 

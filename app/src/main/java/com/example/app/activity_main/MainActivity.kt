@@ -8,6 +8,11 @@ import com.example.app.*
 import kotlinx.android.synthetic.main.activity_main.*
 import java.security.KeyStore
 
+/*TODO 1. Transfer all activities to one fragment
+       2. Leave buttons only in main activity
+       3. Copy design from profiles
+       4. Design entry profiles
+*/
 class MainActivity : AppCompatActivity() {
 
     //var alias : String? = null

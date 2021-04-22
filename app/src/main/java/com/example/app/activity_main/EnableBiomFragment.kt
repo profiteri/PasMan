@@ -13,9 +13,8 @@ import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
 import androidx.core.animation.addListener
 import com.example.app.R
-import kotlinx.android.synthetic.main.activity_enable_biometric_login.*
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_enaable_biom.view.*
+import kotlinx.android.synthetic.main.fragment_enable_biom.view.*
 import java.security.KeyStore
 
 class EnableBiomFragment : Fragment() {
@@ -40,7 +39,7 @@ class EnableBiomFragment : Fragment() {
         keyStore.load(null)
 
         view.authorize.setOnClickListener{
-            if (keyStore.getKey(password.text.toString(), null) != null) {
+            if (keyStore.getKey(view.password.text.toString(), null) != null) {
                 showBiometricPromptForEncryption()
             }
             else

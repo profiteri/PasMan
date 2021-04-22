@@ -118,27 +118,8 @@ class IdentityActivity : ButtonsFunctionality() {
         })
         val d = DeleteSwipe(SwipeParamsHolder(rv_identities, supportFragmentManager))
         ItemTouchHelper(d).attachToRecyclerView(rv_identities)
-        /*val deleteSwipeHelperRight = object : ProfileSwipeHelper(ItemTouchHelper.RIGHT) {
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                plusButton(
-                    findViewById(R.id.iv_plus_image_identity),
-                    R.id.iv_identit12321313y
-                    ,
-                    iv_plus_image_identity,
-                    R.id.main_layout_identity,
-                    R.id.ll_add_menu_identity1,
-                    true
-                )
-                updateFormOpened = true
-                et_source.setText((viewHolder as ProfilesAdapter.ViewHolder).source.text)
-                et_login.setText(viewHolder.login.text)
-                et_password.setText(viewHolder.password.text)
-                et_info.setText(viewHolder.info.text)
-                add_button_profile.setText(R.string.update)
-                currentItem = viewHolder
-            }
-        }
-        ItemTouchHelper(deleteSwipeHelperRight).attachToRecyclerView(rv_profiles)*/
+
+
 
 
     }

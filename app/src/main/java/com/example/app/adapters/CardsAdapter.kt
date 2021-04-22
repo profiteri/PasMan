@@ -8,12 +8,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.app.CardActivity
 import com.example.app.ProfileActivity
 import com.example.app.R
+import com.example.app.database.DatabaseCards
+import com.example.app.database.DatabaseProfile
+import com.example.app.models.ProfileModel
 
 class CardsAdapter(val context: Context, val items: ArrayList<CardModel>) :
     RecyclerView.Adapter<CardsAdapter.ViewHolder>() {
@@ -53,6 +57,27 @@ class CardsAdapter(val context: Context, val items: ArrayList<CardModel>) :
         holder.cvc.text = item.cvc.toString()
         holder.pin.text = item.pin.toString()
         holder.comment.text = item.comment
+    }
+
+    fun updateCard(holder: ViewHolder, cardModel: CardModel) {
+        if (DatabaseCards(context).updateCard(
+                CardModel(
+                    items[holder.adapterPosition].id,
+                    cardModel.number,
+                    cardModel.holder,
+                    cardModel.expiry,
+                    cardModel.cvc,
+                    cardModel.pin,
+                    cardModel.comment
+                )
+            ) == -1
+        ) {
+            Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
+        }
+        Toast.makeText(context, "Updated", Toast.LENGTH_SHORT).show()
+        if (context is CardActivity) {
+            context.setupListOfDataIntoRecycleView()
+        }
     }
 
     fun deleteCard(holder: CardsAdapter.ViewHolder) {

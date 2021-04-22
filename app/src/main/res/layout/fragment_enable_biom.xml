@@ -6,7 +6,7 @@
     android:alpha="0"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity_main.EnableBiometricLoginActivity">
+    tools:context=".activity_main.EnableBiomFragment">
 
     <TextView
         android:id="@+id/tv_enable"

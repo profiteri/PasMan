@@ -101,7 +101,7 @@ open class ProfileActivity : ButtonsFunctionality() {
         setupListOfDataIntoRecycleView()
     }
 
-    fun deleteItem(profile: ProfileModel) {
+  /*  fun deleteItem(profile: ProfileModel) {
         val handler = DatabaseProfile(this)
         if (handler.deleteProfile(profile) == -1) {
             Toast.makeText(this, "ErRorr", Toast.LENGTH_SHORT).show()
@@ -117,7 +117,7 @@ open class ProfileActivity : ButtonsFunctionality() {
         }
         Toast.makeText(this, "Updated", Toast.LENGTH_SHORT).show()
         setupListOfDataIntoRecycleView()
-    }
+    }*/
 
     private fun getProfiles(): ArrayList<ProfileModel> {
         return DatabaseProfile(this).viewProfile()
@@ -125,7 +125,7 @@ open class ProfileActivity : ButtonsFunctionality() {
 
 
     val context = this
-    private fun setupListOfDataIntoRecycleView() {
+    fun setupListOfDataIntoRecycleView() {
         if (getProfiles().size > 0) {
             rv_profiles.visibility = View.VISIBLE
             rv_profiles.layoutManager = LinearLayoutManager(this)

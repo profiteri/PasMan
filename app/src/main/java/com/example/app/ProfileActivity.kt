@@ -48,7 +48,6 @@ open class ProfileActivity : ButtonsFunctionality() {
             )
             if (updateFormOpened) {
                 currentItem?.foreground?.alpha = 1f
-                //currentItem?.foreground?.animate()?.translationX(0f)
                 rv_profiles.layoutManager = LinearLayoutManager(this)
                 updateFormOpened = false
             }
@@ -88,6 +87,7 @@ open class ProfileActivity : ButtonsFunctionality() {
         else if (currentItem != null) {
             (rv_profiles.adapter as ProfilesAdapter)
                 .updateProfile(currentItem!!, ProfileModel(-1, source, login, password, info, encrypter.getIv()))
+            updateFormOpened = false
         }
         et_source.text.clear()
         et_login.text.clear()

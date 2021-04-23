@@ -38,26 +38,36 @@ class CardActivity : ButtonsFunctionality() {
         }
 
         plus_image.setOnClickListener {
-            //TODO manage plus button if update form is opened
             plusButton(
                 this.findViewById(R.id.plus_image), R.id.card_big
                 , plus_image, R.id.main_layout_cards, R.id.add_menu, false
             )
+            if (updateFormOpened) {
+                et_number.setText("")
+                et_holder.setText("")
+                et_expiry.setText("")
+                et_cvc.setText("")
+                et_pin.setText("")
+                et_comment.setText("")
+                currentItem?.foreground?.alpha = 1f
+                cards_layout.layoutManager = LinearLayoutManager(this)
+                updateFormOpened = false
+            }
+            else add_button.setText(R.string.add)
         }
 
         setupListOfDataIntoRecycleView()
     }
 
     var updateFormOpened = false
-    var currentItem : CardsAdapter.ViewHolder? = null
     fun addCard(view: View) {
 
-        val number = findViewById<EditText>(R.id.et_number).text.toString()
-        val holder = findViewById<EditText>(R.id.et_holder).text.toString()
-        val date = findViewById<EditText>(R.id.et_expiry).text.toString()
-        val cvc = findViewById<EditText>(R.id.et_cvc).text.toString().toIntOrNull()
-        val pin = findViewById<EditText>(R.id.et_pin).text.toString().toIntOrNull()
-        val comment = findViewById<EditText>(R.id.et_comment).text.toString()
+        val number = et_number.text.toString()
+        val holder = et_holder.text.toString()
+        val date = et_expiry.text.toString()
+        val cvc = et_cvc.text.toString().toIntOrNull()
+        val pin = et_pin.text.toString().toIntOrNull()
+        val comment = et_comment.text.toString()
         val cardsHandler = DatabaseCards(this)
 
         if (!updateFormOpened) {
@@ -77,42 +87,34 @@ class CardActivity : ButtonsFunctionality() {
             }
             updateFormOpened = false
         }
-        findViewById<EditText>(R.id.et_number).text.clear()
-        findViewById<EditText>(R.id.et_holder).text.clear()
-        findViewById<EditText>(R.id.et_expiry).text.clear()
-        findViewById<EditText>(R.id.et_cvc).text.clear()
-        findViewById<EditText>(R.id.et_pin).text.clear()
-        findViewById<EditText>(R.id.et_comment).text.clear()
+        et_number.text?.clear()
+        et_holder.text?.clear()
+        et_expiry.text?.clear()
+        et_cvc.text?.clear()
+        et_pin.text?.clear()
+        et_comment.text?.clear()
         setupListOfDataIntoRecycleView()
         plusButton(
             this.findViewById(R.id.plus_image), R.id.card_big
             , plus_image, R.id.main_layout_cards, R.id.add_menu, false)
     }
 
-    //TODO get rid of this method!
-    fun deleteItem(card: CardModel) {
-        val handler = DatabaseCards(this)
-        if (handler.deleteCard(card) == -1) {
-            Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
-        }
-        Toast.makeText(this, "Deleted", Toast.LENGTH_SHORT).show()
-        setupListOfDataIntoRecycleView()
-    }
 
     private fun getCards(): ArrayList<CardModel> {
         return DatabaseCards(this).viewCards()
     }
 
+    var currentItem : CardsAdapter.ViewHolder? = null
     fun setupListOfDataIntoRecycleView() {
         if (getCards().size > 0) {
-            findViewById<RecyclerView>(R.id.cards_layout).visibility = View.VISIBLE
-            findViewById<RecyclerView>(R.id.cards_layout).layoutManager = LinearLayoutManager(this)
+            cards_layout.visibility = View.VISIBLE
+            cards_layout.layoutManager = LinearLayoutManager(this)
             val itemAdapter =
                 CardsAdapter(this, getCards())
-            findViewById<RecyclerView>(R.id.cards_layout).adapter = itemAdapter
+            cards_layout.adapter = itemAdapter
         }
         else {
-            findViewById<RecyclerView>(R.id.cards_layout).visibility = View.GONE
+            cards_layout.visibility = View.GONE
         }
         val d = DeleteSwipe(SwipeParamsHolder(cards_layout, supportFragmentManager))
         ItemTouchHelper(d).attachToRecyclerView(cards_layout)
@@ -131,8 +133,7 @@ class CardActivity : ButtonsFunctionality() {
                 et_cvc.setText(viewHolder.cvc.text)
                 et_pin.setText(viewHolder.pin.text)
                 et_comment.setText(viewHolder.comment.text)
-                //add_button_profile.setText(R.string.update)
-                //TODO change button text correctly
+                add_button.setText(R.string.update)
             }
         }
         ItemTouchHelper(deleteSwipeHelperRight).attachToRecyclerView(cards_layout)

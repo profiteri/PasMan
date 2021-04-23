@@ -23,14 +23,15 @@ class DatabaseCards(context: Context) :
         private const val KEY_CVC = "cvc"
         private const val KEY_PIN = "pin"
         private const val KEY_COMMENT = "comment"
+        private const val KEY_IV = "iv"
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
         val create = ("CREATE TABLE " + TABLE_CONTACTS +
                 "(" + KEY_ID + " INTEGER PRIMARY KEY," + KEY_NUMBER +
-                " TEXT," + KEY_HOLDER + " TEXT," + KEY_EXPIRY + " TEXT," +
-                KEY_CVC + " INTEGER," + KEY_PIN + " INTEGER," +
-                KEY_COMMENT + " TEXT" + ")")
+                " BLOB," + KEY_HOLDER + " BLOB," + KEY_EXPIRY + " BLOB," +
+                KEY_CVC + " BLOB," + KEY_PIN + " BLOB," +
+                KEY_COMMENT + " BLOB," + KEY_IV + " BLOB" + ")")
         db?.execSQL(create)
     }
 
@@ -49,6 +50,7 @@ class DatabaseCards(context: Context) :
         contentValues.put(KEY_CVC, card.cvc)
         contentValues.put(KEY_PIN, card.pin)
         contentValues.put(KEY_COMMENT, card.comment)
+        contentValues.put(KEY_IV, card.iv)
 
         val success = db.insert(TABLE_CONTACTS, null, contentValues)
         db.close()
@@ -68,24 +70,26 @@ class DatabaseCards(context: Context) :
         }
 
         var id: Int
-        var number: String
-        var holder: String
-        var expiry: String
-        var cvc: Int
-        var pin: Int
-        var comment: String
+        var number: ByteArray
+        var holder: ByteArray
+        var expiry: ByteArray
+        var cvc: ByteArray
+        var pin: ByteArray
+        var comment: ByteArray
+        var iv: ByteArray
 
         if (cursor.moveToFirst()) {
             do {
                 id = cursor.getInt(cursor.getColumnIndex(KEY_ID))
-                number = cursor.getString(cursor.getColumnIndex(KEY_NUMBER))
-                holder = cursor.getString(cursor.getColumnIndex(KEY_HOLDER))
-                expiry = cursor.getString(cursor.getColumnIndex(KEY_EXPIRY))
-                cvc = cursor.getInt(cursor.getColumnIndex(KEY_CVC))
-                pin = cursor.getInt(cursor.getColumnIndex(KEY_PIN))
-                comment = cursor.getString(cursor.getColumnIndex(KEY_COMMENT))
+                number = cursor.getBlob(cursor.getColumnIndex(KEY_NUMBER))
+                holder = cursor.getBlob(cursor.getColumnIndex(KEY_HOLDER))
+                expiry = cursor.getBlob(cursor.getColumnIndex(KEY_EXPIRY))
+                cvc = cursor.getBlob(cursor.getColumnIndex(KEY_CVC))
+                pin = cursor.getBlob(cursor.getColumnIndex(KEY_PIN))
+                comment = cursor.getBlob(cursor.getColumnIndex(KEY_COMMENT))
+                iv = cursor.getBlob(cursor.getColumnIndex(KEY_IV))
 
-                card.add(CardModel(id, number, holder, expiry, cvc, pin, comment))
+                card.add(CardModel(id, number, holder, expiry, cvc, pin, comment, iv))
             } while (cursor.moveToNext())
         }
         return card
@@ -100,6 +104,7 @@ class DatabaseCards(context: Context) :
         contentValues.put(KEY_CVC, card.cvc)
         contentValues.put(KEY_PIN, card.pin)
         contentValues.put(KEY_COMMENT, card.comment)
+        contentValues.put(KEY_IV, card.iv)
 
         val success = db.update(TABLE_CONTACTS, contentValues, KEY_ID + "=" + card.id, null)
         db.close()

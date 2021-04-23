@@ -6,6 +6,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
@@ -15,6 +16,7 @@ import com.example.app.models.NoteModel
 import com.example.app.R
 import com.example.app.adapters.ProfilesAdapter
 import com.example.app.database.DatabaseNotes
+import kotlinx.android.synthetic.main.activity_notes.view.*
 import kotlinx.android.synthetic.main.item_notes.view.*
 
 // TODO (Step 6: Creating an adapter class for binding it to the recyclerview in the new package which is adapters.)
@@ -106,6 +108,8 @@ open class NotesAdapter(
      * A ViewHolder describes an item view and metadata about its place within the RecyclerView.
      */
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view){
+        val title : TextView = view.tv_title_item
+        val text : TextView = view.tv_shorttext_item
         val background: ConstraintLayout = view.findViewById(R.id.notes_background)
         val foreground: CardView = view.findViewById(R.id.notes_foreground)
     }

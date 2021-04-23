@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.app.CardActivity
 import com.example.app.ProfileActivity
 import com.example.app.R
+import com.example.app.crypto.Decrypter
 import com.example.app.database.DatabaseCards
 import com.example.app.database.DatabaseProfile
 import com.example.app.models.ProfileModel
@@ -35,12 +36,15 @@ class CardsAdapter(val context: Context, val items: ArrayList<CardModel>) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val item = items[position]
-        holder.number.text = item.number
-        holder.holder.text = item.holder
-        holder.expiry.text = item.expiry
-        holder.cvc.text = item.cvc.toString()
-        holder.pin.text = item.pin.toString()
-        holder.comment.text = item.comment
+
+        val d = Decrypter(item.iv)
+
+        holder.number.text = d.decryptString(item.number)
+        holder.holder.text = d.decryptString(item.holder)
+        holder.expiry.text = d.decryptString(item.expiry)
+        holder.cvc.text = d.decryptString(item.cvc)
+        holder.pin.text = d.decryptString(item.pin)
+        holder.comment.text = d.decryptString(item.comment)
     }
 
     fun updateCard(holder: ViewHolder, cardModel: CardModel) {
@@ -52,7 +56,8 @@ class CardsAdapter(val context: Context, val items: ArrayList<CardModel>) :
                     cardModel.expiry,
                     cardModel.cvc,
                     cardModel.pin,
-                    cardModel.comment
+                    cardModel.comment,
+                    cardModel.iv
                 )
             ) == -1
         ) {

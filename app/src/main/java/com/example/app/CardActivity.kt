@@ -11,6 +11,7 @@ import com.example.app.SwipeHelpers.ProfileSwipeHelper
 import com.example.app.SwipeHelpers.SwipeParamsHolder
 import com.example.app.adapters.CardsAdapter
 import com.example.app.adapters.ProfilesAdapter
+import com.example.app.crypto.Encrypter
 import com.example.app.database.DatabaseCards
 import com.example.app.database.DatabaseProfile
 import com.example.app.models.CardModel
@@ -55,24 +56,22 @@ class CardActivity : ButtonsFunctionality() {
             }
             else add_button.setText(R.string.add)
         }
-
-        setupListOfDataIntoRecycleView()
     }
 
     var updateFormOpened = false
     fun addCard(view: View) {
-
-        val number = et_number.text.toString()
-        val holder = et_holder.text.toString()
-        val date = et_expiry.text.toString()
-        val cvc = et_cvc.text.toString().toIntOrNull()
-        val pin = et_pin.text.toString().toIntOrNull()
-        val comment = et_comment.text.toString()
+        val encrypter = Encrypter(null)
+        val number = encrypter.encryptString(et_number.text.toString())
+        val holder = Encrypter(encrypter.getIv()).encryptString(et_holder.text.toString())
+        val date = Encrypter(encrypter.getIv()).encryptString(et_expiry.text.toString())
+        val cvc = Encrypter(encrypter.getIv()).encryptString(et_cvc.text.toString())
+        val pin = Encrypter(encrypter.getIv()).encryptString(et_pin.text.toString())
+        val comment = Encrypter(encrypter.getIv()).encryptString(et_comment.text.toString())
         val cardsHandler = DatabaseCards(this)
 
         if (!updateFormOpened) {
             val status =
-                cardsHandler.addCard(CardModel(0, number, holder, date, cvc!!, pin!!, comment))
+                cardsHandler.addCard(CardModel(0, number, holder, date, cvc, pin, comment, encrypter.getIv()))
             if (status > -1) {
                 Toast.makeText(this, "Card added", Toast.LENGTH_SHORT).show()
             }
@@ -82,7 +81,7 @@ class CardActivity : ButtonsFunctionality() {
                 (cards_layout.adapter as CardsAdapter)
                     .updateCard(
                         currentItem!!,
-                        CardModel(-1, number, holder, date, cvc!!, pin!!, comment)
+                        CardModel(-1, number, holder, date, cvc, pin, comment, encrypter.getIv())
                     )
             }
             updateFormOpened = false
@@ -109,9 +108,7 @@ class CardActivity : ButtonsFunctionality() {
         if (getCards().size > 0) {
             cards_layout.visibility = View.VISIBLE
             cards_layout.layoutManager = LinearLayoutManager(this)
-            val itemAdapter =
-                CardsAdapter(this, getCards())
-            cards_layout.adapter = itemAdapter
+            cards_layout.adapter = CardsAdapter(this, getCards())
         }
         else {
             cards_layout.visibility = View.GONE

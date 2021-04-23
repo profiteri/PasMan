@@ -22,6 +22,8 @@ import kotlinx.android.synthetic.main.activity_identity.*
 import kotlinx.android.synthetic.main.activity_profile.*
 
 class IdentityActivity : ButtonsFunctionality() {
+
+
     private var updateFormOpened = false
     private var currentItem: NotesAdapter.ViewHolder? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,8 +34,7 @@ class IdentityActivity : ButtonsFunctionality() {
         iv_plus_image_identity.setOnClickListener {
             plusButton(
                 this.findViewById(R.id.iv_plus_image_identity),
-                R.id.iv_identit12321313y
-                ,
+                R.id.iv_identit12321313y,
                 iv_plus_image_identity,
                 R.id.main_layout_identity,
                 R.id.ll_add_menu_identity1,
@@ -48,18 +49,10 @@ class IdentityActivity : ButtonsFunctionality() {
         btn_angle_identity.setOnClickListener {
             selectMenu(btn_angle_identity, iv_angle_image_identity, ll_layout_menu_identity)
         }
-        /*iv_plus_image.setOnClickListener {
-        plusButton(
-            this.findViewById(R.id.iv_plus_image), R.id.iv_notes
-            , iv_plus_image, R.id.main_layout_notes, R.id.ll_add_menu
-        )
-    }
-
-     */
     }
 
     fun addIdentity(view: View) {
-        //Toast.makeText(this, "TEST", Toast.LENGTH_SHORT).show()
+
         val identityHandler = DatabaseIdentity(this)
         val status =
             identityHandler.addIdentity(
@@ -77,20 +70,19 @@ class IdentityActivity : ButtonsFunctionality() {
             )
         if (status > -1) {
             Toast.makeText(this, "Identity added", Toast.LENGTH_SHORT).show()
-            findViewById<EditText>(R.id.et_name_identity1).text.clear()
-            findViewById<EditText>(R.id.et_surname_identity1).text.clear()
-            findViewById<EditText>(R.id.et_street_identity1).text.clear()
-            findViewById<EditText>(R.id.et_apartement_identity1).text.clear()
-            findViewById<EditText>(R.id.et_country_identity1).text.clear()
-            findViewById<EditText>(R.id.et_postcode_identity1).text.clear()
-            findViewById<EditText>(R.id.et_phone_identity1).text.clear()
-            findViewById<EditText>(R.id.et_email_identity1).text.clear()
+            et_name_identity1.text?.clear()
+            et_surname_identity1.text?.clear()
+            et_street_identity1.text?.clear()
+            et_apartement_identity1.text?.clear()
+            et_country_identity1.text?.clear()
+            et_postcode_identity1.text?.clear()
+            et_phone_identity1.text?.clear()
+            et_email_identity1.text?.clear()
             val dbHandler = DatabaseIdentity(this)
             setupIdentitiesRecyclerView(dbHandler.getIdentitiesList())
             plusButton(
                 this.findViewById(R.id.iv_plus_image_identity),
-                R.id.iv_identity
-                ,
+                R.id.iv_identity,
                 iv_plus_image_identity,
                 R.id.main_layout_identity,
                 R.id.ll_add_menu_identity1,

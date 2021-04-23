@@ -22,7 +22,7 @@ import com.example.app.models.CardModel
 import kotlinx.android.synthetic.main.activity_profile.*
 
 class NotesActivity : ButtonsFunctionality() {
-    private var updateFormOpened = false
+
     private var currentItem : NotesAdapter.ViewHolder? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         supportActionBar?.title = "Your Notes"
@@ -40,8 +40,8 @@ class NotesActivity : ButtonsFunctionality() {
          */
         iv_plus_image.setOnClickListener {
             plusButton(
-                this.findViewById(R.id.iv_plus_image), R.id.iv_notes
-                , iv_plus_image, R.id.main_layout_notes, R.id.add_menu1, false
+                this.findViewById(R.id.iv_plus_image), R.id.iv_notes,
+                iv_plus_image, R.id.main_layout_notes, R.id.add_menu1, false
             )
         }
         btn_settingsInNotes.setOnClickListener {
@@ -63,30 +63,36 @@ class NotesActivity : ButtonsFunctionality() {
     }
 
     fun addNote(view: View) {
-        val notesHandler = DatabaseNotes(this)
-        val status =
-            notesHandler.addNote(NoteModel(0, et_title.text.toString(), et_text.text.toString()))
-        if (status > -1) {
-            Toast.makeText(this, "Note added", Toast.LENGTH_SHORT).show()
+
+        val title = et_title.text.toString()
+        val text = et_text.text.toString()
+
+        if (!updateFormOpened) {
+            val notesHandler = DatabaseNotes(this)
+            val status =
+                notesHandler.addNote(
+                    NoteModel(
+                        0,
+                        et_title.text.toString(),
+                        et_text.text.toString()
+                    )
+                )
+            if (status > -1) {
+                Toast.makeText(this, "Note added", Toast.LENGTH_SHORT).show()
+            }
+
             findViewById<EditText>(R.id.et_title).text.clear()
             findViewById<EditText>(R.id.et_text).text.clear()
-
-            val dbHandler = DatabaseNotes(this)
-
-            setupNotesRecyclerView(dbHandler.getNotesList())
+            setupNotesRecyclerView(notesHandler.getNotesList())
             plusButton(
                 this.findViewById(R.id.iv_plus_image), R.id.iv_notes
                 , iv_plus_image, R.id.main_layout_notes, R.id.add_menu1, false
             )
-            /*val intent = Intent(this,NotesActivity::class.java)
-            startActivity(intent)
-            finish()
-
-             */
             getNotesListFromPrivateDB()
         }
     }
 
+    private var updateFormOpened = false
     private fun setupNotesRecyclerView(noteslist: ArrayList<NoteModel>) {
         rv_notes_list.layoutManager = LinearLayoutManager(this)
         rv_notes_list.setHasFixedSize(true)
@@ -102,24 +108,24 @@ class NotesActivity : ButtonsFunctionality() {
 
             }
         })
+
         val d = DeleteSwipe(SwipeParamsHolder(rv_notes_list, supportFragmentManager))
         ItemTouchHelper(d).attachToRecyclerView(rv_notes_list)
-        /*val deleteSwipeHelperRight = object : ProfileSwipeHelper(ItemTouchHelper.RIGHT) {
+
+        val deleteSwipeHelperRight = object : ProfileSwipeHelper(ItemTouchHelper.RIGHT) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 plusButton(
-                    findViewById(R.id.iv_plus_image), R.id.iv_notes
-                    , iv_plus_image, R.id.main_layout_notes, R.id.add_menu1, false
+                    iv_plus_image, R.id.iv_notes,
+                    iv_plus_image, R.id.main_layout_notes, R.id.add_menu1, false
                 )
                 updateFormOpened = true
-                et_source.setText((viewHolder as ProfilesAdapter.ViewHolder).source.text)
-                et_login.setText(viewHolder.login.text)
-                et_password.setText(viewHolder.password.text)
-                et_info.setText(viewHolder.info.text)
+                et_title.setText((viewHolder as NotesAdapter.ViewHolder).title.text)
+                et_text.setText(viewHolder.text.text)
                 add_button_profile.setText(R.string.update)
                 currentItem = viewHolder
             }
         }
-        ItemTouchHelper(deleteSwipeHelperRight).attachToRecyclerView(rv_profiles)*/
+        ItemTouchHelper(deleteSwipeHelperRight).attachToRecyclerView(rv_profiles)
     }
 
     private fun getNotesListFromPrivateDB() {

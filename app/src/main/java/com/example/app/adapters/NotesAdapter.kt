@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
@@ -16,11 +17,10 @@ import com.example.app.models.NoteModel
 import com.example.app.R
 import com.example.app.adapters.ProfilesAdapter
 import com.example.app.database.DatabaseNotes
+import com.example.app.models.IdentityModel
 import kotlinx.android.synthetic.main.activity_notes.view.*
 import kotlinx.android.synthetic.main.item_notes.view.*
 
-// TODO (Step 6: Creating an adapter class for binding it to the recyclerview in the new package which is adapters.)
-// START
 open class NotesAdapter(
 
     private val context: Context,
@@ -28,12 +28,6 @@ open class NotesAdapter(
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var onClickListener: OnClickListener? = null
 
-    /**
-     * Inflates the item views which is designed in xml layout file
-     *
-     * create a new
-     * {@link ViewHolder} and initializes some private fields to be used by RecyclerView.
-     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
         return ViewHolder(
@@ -45,20 +39,14 @@ open class NotesAdapter(
         )
     }
 
+    interface OnClickListener {
+        fun OnClick(position: Int, model: NoteModel)
+    }
+
     fun setOnClickListener(onClickListener: OnClickListener) {
         this.onClickListener = onClickListener
     }
 
-    /**
-     * Binds each item in the ArrayList to a view
-     *
-     * Called when RecyclerView needs a new {@link ViewHolder} of the given type to represent
-     * an item.
-     *
-     * This new ViewHolder should be constructed with a new View that can represent the items
-     * of the given type. You can either create a new View manually or inflate it from an XML
-     * layout file.
-     */
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val model = list[position]
 
@@ -73,14 +61,16 @@ open class NotesAdapter(
         }
     }
 
-    interface OnClickListener {
-        fun OnClick(position: Int, model: NoteModel)
+    fun updateNote(holder: ViewHolder, model: NoteModel) {
+        if (DatabaseNotes(context).updateNote(NoteModel(list[holder.adapterPosition].id, model.titel, model.text)) == -1)
+            Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
+        else {
+            Toast.makeText(context, "Updated", Toast.LENGTH_SHORT).show()
+            if (context is NotesActivity)
+                context.getNotesListFromPrivateDB()
+        }
+
     }
-
-    /**
-     * Gets the number of items in the list
-     */
-
 
     fun deleteNote(holder: ViewHolder) {
         val dbHandler = DatabaseNotes(context)
@@ -90,7 +80,6 @@ open class NotesAdapter(
             notifyItemRemoved(holder.adapterPosition)
         }
     }
-
 
     fun notifyEditItem(activity: Activity, position: Int, requestCode: Int) {
         val intent = Intent(context, AddNoteActivity::class.java)
@@ -104,9 +93,6 @@ open class NotesAdapter(
         return list.size
     }
 
-    /**
-     * A ViewHolder describes an item view and metadata about its place within the RecyclerView.
-     */
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view){
         val title : TextView = view.tv_title_item
         val text : TextView = view.tv_shorttext_item

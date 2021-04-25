@@ -23,7 +23,6 @@ import kotlinx.android.synthetic.main.activity_profile.*
 
 class NotesActivity : ButtonsFunctionality() {
 
-    private var currentItem : NotesAdapter.ViewHolder? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         supportActionBar?.title = "Your Notes"
         super.onCreate(savedInstanceState)
@@ -39,10 +38,18 @@ class NotesActivity : ButtonsFunctionality() {
 
          */
         iv_plus_image.setOnClickListener {
+            et_title.setText("")
+            et_text.setText("")
+            add_button.setText(R.string.add)
             plusButton(
                 this.findViewById(R.id.iv_plus_image), R.id.iv_notes,
                 iv_plus_image, R.id.main_layout_notes, R.id.add_menu1, false
             )
+            if (updateFormOpened) {
+                currentItem?.foreground?.alpha = 1f
+                rv_notes_list.layoutManager = LinearLayoutManager(this)
+                updateFormOpened = false
+            }
         }
         btn_settingsInNotes.setOnClickListener {
             rotate(btn_settingsInNotes)
@@ -51,15 +58,6 @@ class NotesActivity : ButtonsFunctionality() {
         btn_angle.setOnClickListener {
             selectMenu(btn_angle, iv_angle_image, ll_layout_menu)
         }
-        /*iv_plus_image.setOnClickListener {
-            plusButton(
-                this.findViewById(R.id.iv_plus_image), R.id.iv_notes
-                , iv_plus_image, R.id.main_layout_notes, R.id.ll_add_menu
-            )
-        }
-
-         */
-
     }
 
     fun addNote(view: View) {
@@ -67,32 +65,33 @@ class NotesActivity : ButtonsFunctionality() {
         val title = et_title.text.toString()
         val text = et_text.text.toString()
 
+        val notesHandler = DatabaseNotes(this)
         if (!updateFormOpened) {
-            val notesHandler = DatabaseNotes(this)
-            val status =
-                notesHandler.addNote(
-                    NoteModel(
-                        0,
-                        et_title.text.toString(),
-                        et_text.text.toString()
-                    )
-                )
-            if (status > -1) {
+            if (notesHandler.addNote(NoteModel(0, title, text)) > -1) {
                 Toast.makeText(this, "Note added", Toast.LENGTH_SHORT).show()
             }
-
-            findViewById<EditText>(R.id.et_title).text.clear()
-            findViewById<EditText>(R.id.et_text).text.clear()
-            setupNotesRecyclerView(notesHandler.getNotesList())
-            plusButton(
-                this.findViewById(R.id.iv_plus_image), R.id.iv_notes
-                , iv_plus_image, R.id.main_layout_notes, R.id.add_menu1, false
-            )
-            getNotesListFromPrivateDB()
         }
+        else {
+            if (currentItem != null)
+                (rv_notes_list.adapter as NotesAdapter).updateNote(currentItem!!,
+                    NoteModel(-1, title, text)
+                )
+            updateFormOpened = false
+        }
+
+        findViewById<EditText>(R.id.et_title).text.clear()
+        findViewById<EditText>(R.id.et_text).text.clear()
+        add_button.setText(R.string.add)
+        setupNotesRecyclerView(notesHandler.getNotesList())
+        plusButton(
+            this.findViewById(R.id.iv_plus_image), R.id.iv_notes
+            , iv_plus_image, R.id.main_layout_notes, R.id.add_menu1, false
+        )
+        getNotesListFromPrivateDB()
     }
 
     private var updateFormOpened = false
+    private var currentItem : NotesAdapter.ViewHolder? = null
     private fun setupNotesRecyclerView(noteslist: ArrayList<NoteModel>) {
         rv_notes_list.layoutManager = LinearLayoutManager(this)
         rv_notes_list.setHasFixedSize(true)
@@ -100,14 +99,6 @@ class NotesActivity : ButtonsFunctionality() {
 
         val notesAdapter = NotesAdapter(this, noteslist)
         rv_notes_list.adapter = notesAdapter
-        notesAdapter.setOnClickListener(object : NotesAdapter.OnClickListener {
-            override fun OnClick(position: Int, model: NoteModel) {
-         //       val intent = Intent(this@NotesActivity, NoteDetailsActivity::class.java)
-          //      intent.putExtra(EXTRA_NOTES_DETAILS, model)
-          //      startActivity(intent)
-
-            }
-        })
 
         val d = DeleteSwipe(SwipeParamsHolder(rv_notes_list, supportFragmentManager))
         ItemTouchHelper(d).attachToRecyclerView(rv_notes_list)
@@ -121,14 +112,14 @@ class NotesActivity : ButtonsFunctionality() {
                 updateFormOpened = true
                 et_title.setText((viewHolder as NotesAdapter.ViewHolder).title.text)
                 et_text.setText(viewHolder.text.text)
-                add_button_profile.setText(R.string.update)
+                add_button.setText(R.string.update)
                 currentItem = viewHolder
             }
         }
-        ItemTouchHelper(deleteSwipeHelperRight).attachToRecyclerView(rv_profiles)
+        ItemTouchHelper(deleteSwipeHelperRight).attachToRecyclerView(rv_notes_list)
     }
 
-    private fun getNotesListFromPrivateDB() {
+    fun getNotesListFromPrivateDB() {
         val dbHandler = DatabaseNotes(this)
         val getNotesList: ArrayList<NoteModel> = dbHandler.getNotesList()
         if (getNotesList.size > 0) {

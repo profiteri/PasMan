@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".CardActivity"
-    android:background="@color/white">
+    android:background="@drawable/bg_profile_activity">
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_profiles"
         android:layout_width="match_parent"
@@ -33,7 +33,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginTop="20dp"
-        android:src="@drawable/account_gradient"
+        android:src="@drawable/account_gradient_v2"
         />
     <!--<Button
         android:id="@+id/plus_button"

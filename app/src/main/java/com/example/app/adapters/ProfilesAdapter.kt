@@ -71,7 +71,6 @@ class ProfilesAdapter(val context: Context, val items: ArrayList<ProfileModel>) 
         Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show()
        if (context is ProfileActivity)
            context.setupListOfDataIntoRecycleView()
-           //context.deleteItem(items[holder.adapterPosition])
     }
 
     fun updateProfile(holder: ViewHolder, profileModel: ProfileModel) {
@@ -83,18 +82,11 @@ class ProfilesAdapter(val context: Context, val items: ArrayList<ProfileModel>) 
                 profileModel.iv)) == -1) {
             Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
         }
-        Toast.makeText(context, "Updated", Toast.LENGTH_SHORT).show()
-        if (context is ProfileActivity) {
-            context.setupListOfDataIntoRecycleView()
-            /*
-            context.updateItem(ProfileModel(items[holder.adapterPosition].id,
-                profileModel.source,
-                profileModel.login,
-                profileModel.password,
-                profileModel.info,
-                profileModel.iv))
-
-             */
+        else {
+            Toast.makeText(context, "Updated", Toast.LENGTH_SHORT).show()
+            if (context is ProfileActivity) {
+                context.setupListOfDataIntoRecycleView()
+            }
         }
     }
 

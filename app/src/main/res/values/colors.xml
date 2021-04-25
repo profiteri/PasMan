@@ -21,8 +21,8 @@
     <color name="gradient_start">#0E0A41</color>
     <color name="gradient_center">#611313</color>
     <color name="gradient_end">#000000</color>
-    <color name="plusbutton_startcolor">#0A042D</color>
-    <color name="plusbutton_endcolor">#B90000</color>
+    <color name="plusbutton_startcolor">#040211</color>
+    <color name="plusbutton_endcolor">#0664C2</color>
     <color name="btn_cancel">#55B90000</color>
     <color name="btn_cancel_more_transp">#33B90000</color>
     <color name="item_delete">#B90000</color>

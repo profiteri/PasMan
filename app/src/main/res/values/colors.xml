@@ -30,7 +30,7 @@
     <color name="shadow_text">#88000000</color>
     <color name="btn_touched">#77faedca</color>
     <color name="text_pressed">#66afeeee</color>
-
+    <color name="item_bg">#66AFAFAF</color>
 <!--#011f4b • #03396c • #005b96 • #6497b1 • #b3cde0 -->
     <color name="add_button_background">#FF000000</color>
     <color name="add_button_stroke">#FF554400</color>

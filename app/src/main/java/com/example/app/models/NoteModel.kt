@@ -5,6 +5,7 @@ import java.io.Serializable
 
 data class NoteModel(
     val id: Int,
-    val titel: String,
-    val text: String
+    val titel: ByteArray,
+    val text: ByteArray,
+    val iv: ByteArray
 ) : Serializable

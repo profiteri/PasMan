@@ -38,7 +38,10 @@
         android:padding="10dp"
         app:cardCornerRadius="20dp"
         app:cardElevation="0dp"
-        app:cardBackgroundColor="@color/item_bg"
+        app:cardMaxElevation="0dp"
+        app:cardBackgroundColor="@color/transparent"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true"
         app:strokeWidth="5dp"
         app:strokeColor="@color/black"
         >

@@ -14,14 +14,14 @@ import com.example.app.models.NoteModel
 import kotlinx.android.synthetic.main.activity_add_note.*
 import kotlinx.android.synthetic.main.item_notes.*
 
-class AddNoteActivity : AppCompatActivity(), View.OnClickListener {
+abstract class AddNoteActivity : AppCompatActivity(), View.OnClickListener {
     private var mNotesDetails: NoteModel? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_note)
         //val btn_add = findViewById(R.id.btn_add) as Button
         // val btn_cancel = findViewById(R.id.btn_cancel) as Button
-        if (intent.hasExtra(NotesActivity.EXTRA_NOTES_DETAILS)) {
+        /*if (intent.hasExtra(NotesActivity.EXTRA_NOTES_DETAILS)) {
             mNotesDetails =
                 intent.getSerializableExtra(NotesActivity.EXTRA_NOTES_DETAILS) as NoteModel
         }
@@ -93,7 +93,7 @@ class AddNoteActivity : AppCompatActivity(), View.OnClickListener {
 
              */
         }
-    }
+*/    }
 
 
 }

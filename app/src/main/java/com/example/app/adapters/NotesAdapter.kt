@@ -16,6 +16,7 @@ import com.example.app.NotesActivity
 import com.example.app.models.NoteModel
 import com.example.app.R
 import com.example.app.adapters.ProfilesAdapter
+import com.example.app.crypto.Decrypter
 import com.example.app.database.DatabaseNotes
 import com.example.app.models.IdentityModel
 import kotlinx.android.synthetic.main.activity_notes.view.*
@@ -50,9 +51,11 @@ open class NotesAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val model = list[position]
 
+        val d = Decrypter(model.iv)
+
         if (holder is ViewHolder) {
-            holder.itemView.tv_title_item.text = model.titel
-            holder.itemView.tv_shorttext_item.text = model.text
+            holder.title.text = d.decryptString(model.titel)
+            holder.text.text = d.decryptString(model.text)
             holder.itemView.setOnClickListener {
                 if (onClickListener != null) {
                     onClickListener!!.OnClick(position, model)
@@ -62,7 +65,7 @@ open class NotesAdapter(
     }
 
     fun updateNote(holder: ViewHolder, model: NoteModel) {
-        if (DatabaseNotes(context).updateNote(NoteModel(list[holder.adapterPosition].id, model.titel, model.text)) == -1)
+        if (DatabaseNotes(context).updateNote(NoteModel(list[holder.adapterPosition].id, model.titel, model.text, model.iv)) == -1)
             Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
         else {
             Toast.makeText(context, "Updated", Toast.LENGTH_SHORT).show()

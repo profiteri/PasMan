@@ -13,6 +13,7 @@ import com.example.app.SwipeHelpers.DeleteSwipe
 import com.example.app.SwipeHelpers.ProfileSwipeHelper
 import com.example.app.SwipeHelpers.SwipeParamsHolder
 import com.example.app.adapters.ProfilesAdapter
+import com.example.app.crypto.Encrypter
 import com.example.app.database.DatabaseNotes
 import com.example.app.models.NoteModel
 import com.happyplaces.adapters.NotesAdapter
@@ -62,19 +63,20 @@ class NotesActivity : ButtonsFunctionality() {
 
     fun addNote(view: View) {
 
-        val title = et_title.text.toString()
-        val text = et_text.text.toString()
+        val encrypter = Encrypter(null)
+        val title = encrypter.encryptString(et_title.text.toString())
+        val text = Encrypter(encrypter.getIv()).encryptString(et_text.text.toString())
 
         val notesHandler = DatabaseNotes(this)
         if (!updateFormOpened) {
-            if (notesHandler.addNote(NoteModel(0, title, text)) > -1) {
+            if (notesHandler.addNote(NoteModel(0, title, text, encrypter.getIv())) > -1) {
                 Toast.makeText(this, "Note added", Toast.LENGTH_SHORT).show()
             }
         }
         else {
             if (currentItem != null)
                 (rv_notes_list.adapter as NotesAdapter).updateNote(currentItem!!,
-                    NoteModel(-1, title, text)
+                    NoteModel(-1, title, text, encrypter.getIv())
                 )
             updateFormOpened = false
         }

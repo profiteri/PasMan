@@ -21,6 +21,7 @@ class DatabaseNotes(context: Context) :
         private const val KEY_ID = "_id"
         private const val KEY_TITLE = "title"
         private const val KEY_TEXT = "text"
+        private const val KEY_IV = "iv"
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
@@ -28,8 +29,8 @@ class DatabaseNotes(context: Context) :
 
         val CREATE_HAPPY_PLACE_TABLE = ("CREATE TABLE " + TABLE_NOTE + "("
                 + KEY_ID + " INTEGER PRIMARY KEY,"
-                + KEY_TITLE + " TEXT,"
-                + KEY_TEXT + " TEXT)")
+                + KEY_TITLE + " BLOB,"
+                + KEY_TEXT + " BLOB," + KEY_IV + " BLOB)")
         db?.execSQL(CREATE_HAPPY_PLACE_TABLE)
     }
 
@@ -44,7 +45,7 @@ class DatabaseNotes(context: Context) :
         val contentValues = ContentValues()
         contentValues.put(KEY_TITLE, note.titel) // HappyPlaceModelClass TITLE
         contentValues.put(KEY_TEXT, note.text) // HappyPlaceModelClass DESCRIPTION
-
+        contentValues.put(KEY_IV, note.iv)
 
         // Inserting Row
         val result = db.insert(TABLE_NOTE, null, contentValues)
@@ -60,7 +61,7 @@ class DatabaseNotes(context: Context) :
         val contentValues = ContentValues()
         contentValues.put(KEY_TITLE, note.titel) // HappyPlaceModelClass TITLE
         contentValues.put(KEY_TEXT, note.text) // HappyPlaceModelClass DESCRIPTION
-
+        contentValues.put(KEY_IV, note.iv)
 
         // Inserting Row
         val success = db.update(TABLE_NOTE, contentValues, KEY_ID + "=" + note.id, null)
@@ -89,8 +90,9 @@ class DatabaseNotes(context: Context) :
                     val note =
                         NoteModel(
                             cursor.getInt(cursor.getColumnIndex(KEY_ID)),
-                            cursor.getString(cursor.getColumnIndex(KEY_TITLE)),
-                            cursor.getString(cursor.getColumnIndex(KEY_TEXT))
+                            cursor.getBlob(cursor.getColumnIndex(KEY_TITLE)),
+                            cursor.getBlob(cursor.getColumnIndex(KEY_TEXT)),
+                            cursor.getBlob(cursor.getColumnIndex(KEY_IV))
                         )
                     notesList.add(note)
 

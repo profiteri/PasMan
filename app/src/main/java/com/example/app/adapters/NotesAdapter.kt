@@ -6,6 +6,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
@@ -100,7 +101,7 @@ open class NotesAdapter(
         val title : TextView = view.tv_title_item
         val text : TextView = view.tv_shorttext_item
         val background: ConstraintLayout = view.findViewById(R.id.notes_background)
-        val foreground: CardView = view.findViewById(R.id.notes_foreground)
+        val foreground: FrameLayout = view.findViewById(R.id.notes_foreground)
     }
 }
 // END

@@ -31,21 +31,20 @@
             android:layout_gravity="start|center_vertical"
             android:background="@drawable/ic_baseline_remove_red_eye_24" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-    <com.google.android.material.card.MaterialCardView
+    <FrameLayout
         android:id="@+id/card_foreground"
         android:layout_width="match_parent"
         android:layout_height="180dp"
         android:padding="10dp"
+        android:background="@drawable/profile_item_style">
+        <!--
+        android:orientation="vertical"
         app:cardCornerRadius="20dp"
         app:cardElevation="0dp"
         app:cardMaxElevation="0dp"
         app:cardBackgroundColor="@color/transparent"
         app:cardPreventCornerOverlap="true"
         app:cardUseCompatPadding="true"
-        app:strokeWidth="5dp"
-        app:strokeColor="@color/black"
-        >
-        <!--android:orientation="vertical"
         android:background="@drawable/profile_item_style"
         app:cardMaxElevation="12dp"
         android:divider="@drawable/divider_10dp"
@@ -158,5 +157,5 @@
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:text="Delete"/> -->
-    </com.google.android.material.card.MaterialCardView>
+    </FrameLayout>
 </FrameLayout>

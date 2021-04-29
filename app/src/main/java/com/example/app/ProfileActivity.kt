@@ -37,11 +37,13 @@ open class ProfileActivity : ButtonsFunctionality() {
         }
 
         plus_image.setOnClickListener {
-            et_source.setText("")
-            et_login.setText("")
-            et_password.setText("")
-            et_info.setText("")
-            add_button_profile.setText(R.string.add)
+            if (!updateFormOpened) {
+                et_source.setText("")
+                et_login.setText("")
+                et_password.setText("")
+                et_info.setText("")
+                add_button_profile.setText(R.string.add)
+            }
             plusButton(
                 this.findViewById(R.id.plus_image), R.id.profile_big
                 , plus_image, R.id.main_layout_profile, R.id.add_menu, false

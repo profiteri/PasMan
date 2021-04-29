@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".CardActivity"
-    android:background="@color/teal_200">
+    android:background="@drawable/bg_profile_activity">
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/cards_layout"
         android:layout_width="match_parent"
@@ -14,13 +14,6 @@
         android:layout_margin="20dp"
         app:layout_constraintTop_toBottomOf="@+id/card_big"
         android:orientation="vertical">
-        <!--<TextView
-            android:id="@+id/text_nocards"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:visibility="gone"
-            android:text="No cards added"/> -->
     </androidx.recyclerview.widget.RecyclerView>
 
 
@@ -35,18 +28,6 @@
         android:background="@drawable/main_image"
         android:src="@drawable/card"
         />
-    <!--<Button
-        android:id="@+id/plus_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:background="@drawable/plusbutton"
-        android:backgroundTint="@color/black"
-        android:text="+"
-        android:textColor="@color/white"
-        android:textSize="40dp"/> -->
 
     <FrameLayout
         android:id="@+id/layout_plus_button"
@@ -58,14 +39,11 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-
         <Button
             android:id="@+id/plus_button"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/plusbutton"
-            android:backgroundTint="@color/black"
-             />
+            android:background="@drawable/plusbutton"/>
     </RelativeLayout>
     <ImageView
         android:id="@+id/plus_image"

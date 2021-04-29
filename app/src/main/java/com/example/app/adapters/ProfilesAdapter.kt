@@ -99,7 +99,7 @@ class ProfilesAdapter(val context: Context, val items: ArrayList<ProfileModel>) 
         val info: TextView = view.findViewById<TextView>(R.id.tvInfo)
         val delete: Button = view.findViewById<Button>(R.id.buDelete)
         val background: ConstraintLayout = view.findViewById(R.id.card_background)
-        val foreground: CardView = view.findViewById(R.id.card_foreground)
+        val foreground: FrameLayout = view.findViewById(R.id.card_foreground)
     }
 
 }

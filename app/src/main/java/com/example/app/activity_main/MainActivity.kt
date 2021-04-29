@@ -8,9 +8,7 @@ import com.example.app.*
 import kotlinx.android.synthetic.main.activity_main.*
 import java.security.KeyStore
 
-/*TODO 3. Copy design from profiles
-       4. Design entry profiles
-*/
+
 class MainActivity : AppCompatActivity() {
 
     //var alias : String? = null
@@ -28,14 +26,14 @@ class MainActivity : AppCompatActivity() {
                 .add(R.id.ll_fragment_registration, RegistrationFragment.newInstance(keyStore))
                 .commit()
 
-            cl_navigation.visibility = View.GONE
+            //cl_navigation.visibility = View.GONE
         }
         else {
             supportFragmentManager.beginTransaction()
                 .add(R.id.ll_fragment_registration, LoginFragment.newInstance())
                 .commit()
 
-            cl_navigation.visibility = View.GONE
+            //cl_navigation.visibility = View.GONE
         }
 
         /*btn_singin.setOnClickListener {

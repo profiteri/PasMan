@@ -2,6 +2,7 @@ package com.example.app.activity_main
 
 import android.animation.ObjectAnimator
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,6 +12,7 @@ import android.widget.Toast
 import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
 import androidx.core.animation.addListener
+import com.example.app.ProfileActivity
 import com.example.app.R
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_login.*
@@ -46,9 +48,11 @@ class LoginFragment : Fragment() {
         view.btn_login.setOnClickListener {
             if (mainActivity.keyStore.getKey(et_enter_password.text.toString(), null) != null) {
                 //mainActivity.alias = et_enter_password.text.toString()
-                mainActivity.cl_navigation.visibility = View.VISIBLE
+                //mainActivity.cl_navigation.visibility = View.VISIBLE
                 mainActivity.supportFragmentManager.beginTransaction().remove(this)
                     .commit()
+                startActivity(Intent(mainActivity, ProfileActivity::class.java))
+                mainActivity.finish()
             }
             else Toast.makeText(mainActivity, "Wrong password", Toast.LENGTH_SHORT).show()
         }
@@ -98,7 +102,9 @@ class LoginFragment : Fragment() {
 
     private fun success(authResult: BiometricPrompt.AuthenticationResult) {
         mainActivity.supportFragmentManager.beginTransaction().remove(this).commit()
-        mainActivity.cl_navigation.visibility = View.VISIBLE
+        //mainActivity.cl_navigation.visibility = View.VISIBLE
+        startActivity(Intent(mainActivity, ProfileActivity::class.java))
+        mainActivity.finish()
         //mainActivity.alias = mainActivity.keyStore.aliases().nextElement()
     }
 

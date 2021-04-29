@@ -5,7 +5,7 @@
     android:id="@+id/main_layout_notes"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/verylightblue">
+    android:background="@drawable/bg_profile_activity"
     tools:context=".NotesActivity">
 
     <ImageView
@@ -13,12 +13,10 @@
         android:layout_width="42dp"
         android:layout_height="60dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/main_image"
-        android:src="@drawable/notes"
+        android:src="@drawable/ic_note"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_notes_list"
@@ -27,7 +25,6 @@
         android:layout_margin="20dp"
         android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@+id/iv_notes" />
-
 
     <ImageButton
         android:id="@+id/btn_settingsInNotes"
@@ -134,13 +131,11 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-
             <Button
                 android:id="@+id/plus_button"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:background="@drawable/plusbutton"
-                android:backgroundTint="@color/black" />
+                android:background="@drawable/plusbutton"/>
         </RelativeLayout>
 
         <ImageView

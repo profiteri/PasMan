@@ -64,11 +64,13 @@ abstract class ProfileSwipeHelper(private val dir: Int)
         }
         notesHolder?.let {
             if (dir == ItemTouchHelper.RIGHT) {
+                it.background.visibility = View.VISIBLE
                 it.background.setBackgroundResource(R.drawable.card_background_edit)
                 it.background.icon_delete.visibility = View.GONE
                 it.background.icon_eye.visibility = View.VISIBLE
             }
             else {
+                it.background.visibility = View.VISIBLE
                 it.background.setBackgroundResource(R.drawable.card_background)
                 it.background.icon_delete.visibility = View.VISIBLE
                 it.background.icon_eye.visibility = View.GONE
@@ -126,6 +128,7 @@ abstract class ProfileSwipeHelper(private val dir: Int)
             )
         }
         notesHolder?.let {
+            it.background.alpha = abs(dX / viewHolder.itemView.width)
             it.foreground.alpha =
                 1 - abs(dX / viewHolder.itemView.width)
             getDefaultUIUtil().onDraw(
@@ -176,6 +179,7 @@ abstract class ProfileSwipeHelper(private val dir: Int)
         }
         notesHolder?.let {
             getDefaultUIUtil().clearView(it.foreground)
+            it.background.visibility = View.INVISIBLE
         }
         cardsHolder?.let {
             getDefaultUIUtil().clearView(it.foreground)

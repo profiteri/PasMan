@@ -9,12 +9,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.App">
-        <activity android:name=".AddIdentityActivity" />
-        <activity android:name=".ProfileActivity" />
-        <activity android:name=".AddNoteActivity" />
-        <activity android:name=".IdentityActivity" />
-        <activity android:name=".NotesActivity" />
-        <activity android:name=".CardActivity" />
+        <activity android:name=".AddIdentityActivity"
+            android:theme="@style/Theme.Design.NoActionBar"/>
+        <activity android:name=".ProfileActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity android:name=".AddNoteActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity android:name=".IdentityActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity android:name=".NotesActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity android:name=".CardActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity android:name=".activity_main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

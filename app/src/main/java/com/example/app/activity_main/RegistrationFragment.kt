@@ -4,6 +4,7 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.LayoutTransition
 import android.animation.ObjectAnimator
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.security.keystore.KeyGenParameterSpec
@@ -21,6 +22,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.transition.Transition
 import androidx.transition.TransitionListenerAdapter
+import com.example.app.ProfileActivity
 import com.example.app.R
 import com.google.crypto.tink.KeysetHandle
 import com.google.crypto.tink.aead.AesGcmKeyManager
@@ -110,11 +112,13 @@ class RegistrationFragment : Fragment() {
             keyGenerator.init(keyGenParams)
             keyGenerator.generateKey()
             //(activity as MainActivity).alias = et_create_password.text.toString()
-            (activity as MainActivity).cl_navigation.visibility = View.VISIBLE
+            //(activity as MainActivity).cl_navigation.visibility = View.VISIBLE
             (activity as MainActivity).supportFragmentManager.beginTransaction()
                 .remove(this)
                 //.add(R.id.ll_fragment_registration, LoginFragment.newInstance())
                 .commit()
+            startActivity(Intent((activity as MainActivity), ProfileActivity::class.java))
+            (activity as MainActivity).finish()
         }
         return view
     }

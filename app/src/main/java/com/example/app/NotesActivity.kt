@@ -81,8 +81,8 @@ class NotesActivity : ButtonsFunctionality() {
             updateFormOpened = false
         }
 
-        findViewById<EditText>(R.id.et_title).text.clear()
-        findViewById<EditText>(R.id.et_text).text.clear()
+        et_title.text?.clear()
+        et_text.text?.clear()
         add_button.setText(R.string.add)
         setupNotesRecyclerView(notesHandler.getNotesList())
         plusButton(

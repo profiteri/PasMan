@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/verylightblue">
-    tools:context=".IdentityActivity">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_identities"
@@ -94,45 +93,10 @@
         app:layout_constraintLeft_toLeftOf="@+id/right_button"
         app:layout_constraintRight_toRightOf="@+id/right_button">
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:onClick="startCards"
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp"
-            android:src="@drawable/card" />
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:onClick="startProfiles"
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp"
-            android:src="@drawable/account" />
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:onClick="startIdentity"
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp"
-            android:src="@drawable/identity" />
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:onClick="startNotes"
-            android:paddingStart="15dp"
-            android:paddingEnd="12dp"
-            android:src="@drawable/notes" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/ll_add_menu_identity1"
+        android:id="@+id/ll_add_menu_identity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
@@ -155,9 +119,8 @@
             app:boxCornerRadiusTopStart="50dp"
             app:boxStrokeColor="@color/input_box"
             app:boxStrokeWidth="5dp">
-
             <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/et_name_identity1"
+                android:id="@+id/et_name_identity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -176,7 +139,7 @@
             app:boxStrokeWidth="5dp">
 
             <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/et_surname_identity1"
+                android:id="@+id/et_surname_identity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -202,7 +165,7 @@
                 app:boxStrokeWidth="5dp">
 
                 <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/et_street_identity1"
+                    android:id="@+id/et_street_identity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -222,7 +185,7 @@
                 app:boxStrokeWidth="5dp">
 
                 <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/et_apartement_identity1"
+                    android:id="@+id/et_apartment_identity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -249,7 +212,7 @@
                 app:boxStrokeWidth="5dp">
 
                 <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/et_country_identity1"
+                    android:id="@+id/et_country_identity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -269,7 +232,7 @@
                 app:boxStrokeWidth="5dp">
 
                 <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/et_postcode_identity1"
+                    android:id="@+id/et_postcode_identity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -288,7 +251,7 @@
                 app:boxStrokeWidth="5dp">
 
                 <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/et_phone_identity1"
+                    android:id="@+id/et_phone_identity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -307,13 +270,13 @@
                 app:boxStrokeWidth="5dp">
 
                 <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/et_email_identity1"
+                    android:id="@+id/et_email_identity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:id="@+id/btn_add_identity1"
+            android:id="@+id/btn_add_identity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="70dp"

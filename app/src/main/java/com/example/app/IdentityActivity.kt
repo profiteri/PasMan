@@ -19,13 +19,16 @@ import com.example.app.models.IdentityModel
 import com.happyplaces.adapters.IdentityAdapter
 import com.happyplaces.adapters.NotesAdapter
 import kotlinx.android.synthetic.main.activity_identity.*
+import kotlinx.android.synthetic.main.activity_notes.*
 import kotlinx.android.synthetic.main.activity_profile.*
 
 class IdentityActivity : ButtonsFunctionality() {
 
 
     private var updateFormOpened = false
-    private var currentItem: NotesAdapter.ViewHolder? = null
+
+    private var currentItem: IdentityAdapter.ViewHolder? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_identity)
@@ -37,7 +40,7 @@ class IdentityActivity : ButtonsFunctionality() {
                 R.id.iv_identit12321313y,
                 iv_plus_image_identity,
                 R.id.main_layout_identity,
-                R.id.ll_add_menu_identity1,
+                R.id.ll_add_menu_identity,
                 true
             )
         }
@@ -54,41 +57,48 @@ class IdentityActivity : ButtonsFunctionality() {
     fun addIdentity(view: View) {
 
         val identityHandler = DatabaseIdentity(this)
-        val status =
-            identityHandler.addIdentity(
-                IdentityModel(
-                    0,
-                    et_name_identity1.text.toString(),
-                    et_surname_identity1.text.toString(),
-                    et_street_identity1.text.toString(),
-                    et_apartement_identity1.text.toString(),
-                    et_country_identity1.text.toString(),
-                    et_postcode_identity1.text.toString(),
-                    et_phone_identity1.text.toString(),
-                    et_email_identity1.text.toString()
-                )
-            )
-        if (status > -1) {
-            Toast.makeText(this, "Identity added", Toast.LENGTH_SHORT).show()
-            et_name_identity1.text?.clear()
-            et_surname_identity1.text?.clear()
-            et_street_identity1.text?.clear()
-            et_apartement_identity1.text?.clear()
-            et_country_identity1.text?.clear()
-            et_postcode_identity1.text?.clear()
-            et_phone_identity1.text?.clear()
-            et_email_identity1.text?.clear()
-            val dbHandler = DatabaseIdentity(this)
-            setupIdentitiesRecyclerView(dbHandler.getIdentitiesList())
-            plusButton(
-                this.findViewById(R.id.iv_plus_image_identity),
-                R.id.iv_identity,
-                iv_plus_image_identity,
-                R.id.main_layout_identity,
-                R.id.ll_add_menu_identity1,
-                true
-            )
+
+        val model = IdentityModel(
+            0,
+            et_name_identity.text.toString(),
+            et_surname_identity.text.toString(),
+            et_street_identity.text.toString(),
+            et_apartment_identity.text.toString(),
+            et_country_identity.text.toString(),
+            et_postcode_identity.text.toString(),
+            et_phone_identity.text.toString(),
+            et_email_identity.text.toString()
+        )
+
+        if (!updateFormOpened) {
+            if (identityHandler.addIdentity(model) > -1) {
+                Toast.makeText(this, "Identity added", Toast.LENGTH_SHORT).show()
+            }
         }
+        else {
+            if (currentItem != null) {
+                (rv_identities.adapter as IdentityAdapter).updateIdentity(currentItem!!, model)
+            }
+            updateFormOpened = false
+        }
+        et_name_identity.text?.clear()
+        et_surname_identity.text?.clear()
+        et_street_identity.text?.clear()
+        et_apartment_identity.text?.clear()
+        et_country_identity.text?.clear()
+        et_postcode_identity.text?.clear()
+        et_phone_identity.text?.clear()
+        et_email_identity.text?.clear()
+        val dbHandler = DatabaseIdentity(this)
+        setupIdentitiesRecyclerView(dbHandler.getIdentitiesList())
+        plusButton(
+            this.findViewById(R.id.iv_plus_image_identity),
+            R.id.iv_identity,
+            iv_plus_image_identity,
+            R.id.main_layout_identity,
+            R.id.ll_add_menu_identity,
+            true
+        )
         getIdentitiesListFromPrivateDB()
     }
 
@@ -96,28 +106,36 @@ class IdentityActivity : ButtonsFunctionality() {
     private fun setupIdentitiesRecyclerView(identitieslist: ArrayList<IdentityModel>) {
         rv_identities.layoutManager = LinearLayoutManager(this)
         rv_identities.setHasFixedSize(true)
-
-
         val identityAdapter = IdentityAdapter(this, identitieslist)
         rv_identities.adapter = identityAdapter
-        identityAdapter.setOnClickListener(object : IdentityAdapter.OnClickListener {
-            override fun OnClick(position: Int, model: IdentityModel) {
-                // val intent = Intent(this@IdentityActivity, NoteDetailsActivity::class.java)
-                //intent.putExtra(NotesActivity.EXTRA_NOTES_DETAILS, model)
-                //startActivity(intent)
 
-            }
-        })
         val d = DeleteSwipe(SwipeParamsHolder(rv_identities, supportFragmentManager))
         ItemTouchHelper(d).attachToRecyclerView(rv_identities)
 
-
-
-
+        val deleteSwipeHelperRight = object : ProfileSwipeHelper(ItemTouchHelper.RIGHT) {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                plusButton(
+                    iv_plus_image, R.id.iv_notes,
+                    iv_plus_image, R.id.main_layout_notes, R.id.add_menu1, false
+                )
+                updateFormOpened = true
+                et_name_identity.setText((viewHolder as IdentityAdapter.ViewHolder).name.text)
+                et_surname_identity.setText(viewHolder.surname.text)
+                et_street_identity.setText(viewHolder.street.text)
+                et_apartment_identity.setText(viewHolder.app.text)
+                et_country_identity.setText(viewHolder.country.text)
+                et_postcode_identity.setText(viewHolder.postcode.text)
+                et_phone_identity.setText(viewHolder.phone.text)
+                et_email_identity.setText(viewHolder.email.text)
+                btn_add_identity.setText(R.string.update)
+                currentItem = viewHolder
+            }
+        }
+        ItemTouchHelper(deleteSwipeHelperRight).attachToRecyclerView(rv_identities)
     }
 
 
-    private fun getIdentitiesListFromPrivateDB() {
+    fun getIdentitiesListFromPrivateDB() {
         val dbHandler = DatabaseIdentity(this)
         val getIdentetiesList: ArrayList<IdentityModel> = dbHandler.getIdentitiesList()
         if (getIdentetiesList.size > 0) {
@@ -143,30 +161,6 @@ class IdentityActivity : ButtonsFunctionality() {
     companion object {
         var ADD_IDENTITY_ACTIVITY_REQUEST_CODE = 1
         var EXTRA_IDENTITIES_DETAILS = "extra identities details"
-    }
-
-    fun startCards(view: View) {
-        val intent = Intent(this, CardActivity::class.java)
-        startActivity(intent)
-        finish()
-    }
-
-    fun startNotes(view: View) {
-        val intent = Intent(this, NotesActivity::class.java)
-        startActivity(intent)
-        finish()
-    }
-
-    fun startProfiles(view: View) {
-        val intent = Intent(this, ProfileActivity::class.java)
-        startActivity(intent)
-        finish()
-    }
-
-    fun startIdentity(view: View) {
-        val intent = Intent(this, IdentityActivity::class.java)
-        startActivity(intent)
-        finish()
     }
 
 }

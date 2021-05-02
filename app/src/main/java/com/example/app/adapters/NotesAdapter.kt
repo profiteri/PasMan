@@ -73,7 +73,6 @@ open class NotesAdapter(
             if (context is NotesActivity)
                 context.getNotesListFromPrivateDB()
         }
-
     }
 
     fun deleteNote(holder: ViewHolder) {

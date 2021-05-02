@@ -6,16 +6,18 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.app.*
 import com.example.app.database.DatabaseIdentity
+import com.example.app.database.DatabaseNotes
 import com.example.app.models.IdentityModel
+import com.example.app.models.NoteModel
 import kotlinx.android.synthetic.main.item_identity.view.*
 
-// TODO (Step 6: Creating an adapter class for binding it to the recyclerview in the new package which is adapters.)
-// START
 open class IdentityAdapter(
 
     private val context: Context,
@@ -23,12 +25,6 @@ open class IdentityAdapter(
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var onClickListener: OnClickListener? = null
 
-    /**
-     * Inflates the item views which is designed in xml layout file
-     *
-     * create a new
-     * {@link ViewHolder} and initializes some private fields to be used by RecyclerView.
-     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
         return ViewHolder(
@@ -44,16 +40,6 @@ open class IdentityAdapter(
         this.onClickListener = onClickListener
     }
 
-    /**
-     * Binds each item in the ArrayList to a view
-     *
-     * Called when RecyclerView needs a new {@link ViewHolder} of the given type to represent
-     * an item.
-     *
-     * This new ViewHolder should be constructed with a new View that can represent the items
-     * of the given type. You can either create a new View manually or inflate it from an XML
-     * layout file.
-     */
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val model = list[position]
 
@@ -72,10 +58,18 @@ open class IdentityAdapter(
         fun OnClick(position: Int, model: IdentityModel)
     }
 
-    /**
-     * Gets the number of items in the list
-     */
-
+    fun updateIdentity(holder: IdentityAdapter.ViewHolder, model: IdentityModel) {
+        if (DatabaseIdentity(context).updateIdentity(
+                IdentityModel(list[holder.adapterPosition].id, model.name, model.surname, model.street,
+                model.app, model.contry, model.postcode, model.phoneNumber, model.email)
+            ) == -1)
+            Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
+        else {
+            Toast.makeText(context, "Updated", Toast.LENGTH_SHORT).show()
+            if (context is IdentityActivity)
+                context.getIdentitiesListFromPrivateDB()
+        }
+    }
 
     fun deleteIdentity(holder: ViewHolder) {
         val dbHandler = DatabaseIdentity(context)
@@ -99,12 +93,18 @@ open class IdentityAdapter(
         return list.size
     }
 
-    /**
-     * A ViewHolder describes an item view and metadata about its place within the RecyclerView.
-     */
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val background: ConstraintLayout = view.findViewById(R.id.identity_background)
-        val foreground: CardView = view.findViewById(R.id.identity_foreground)
+        val title: TextView = view.tv_title_item_identity
+        val email: TextView = view.tv_email_item_identity
+        val name: TextView = view.tvName
+        val surname: TextView = view.tvSurname
+        val street: TextView = view.tvStreet
+        val app: TextView = view.tvApp
+        val postcode: TextView = view.tvPostcode
+        val country: TextView = view.tvCountry
+        val phone: TextView = view.tvPhone
+        val background: ConstraintLayout = view.identity_background
+        val foreground: CardView = view.identity_foreground
     }
 }
 // END

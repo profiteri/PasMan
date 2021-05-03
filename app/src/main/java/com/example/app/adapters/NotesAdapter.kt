@@ -9,17 +9,13 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.TextView
 import android.widget.Toast
-import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
-import com.example.app.AddNoteActivity
 import com.example.app.NotesActivity
 import com.example.app.models.NoteModel
 import com.example.app.R
-import com.example.app.adapters.ProfilesAdapter
 import com.example.app.crypto.Decrypter
 import com.example.app.database.DatabaseNotes
-import com.example.app.models.IdentityModel
 import kotlinx.android.synthetic.main.activity_notes.view.*
 import kotlinx.android.synthetic.main.item_notes.view.*
 
@@ -83,14 +79,6 @@ open class NotesAdapter(
             notifyItemRemoved(holder.adapterPosition)
         }
     }
-
-    fun notifyEditItem(activity: Activity, position: Int, requestCode: Int) {
-        val intent = Intent(context, AddNoteActivity::class.java)
-        intent.putExtra(NotesActivity.EXTRA_NOTES_DETAILS, list[position])
-        activity.startActivityForResult(intent, requestCode)
-        notifyItemChanged(position)
-    }
-
 
     override fun getItemCount(): Int {
         return list.size

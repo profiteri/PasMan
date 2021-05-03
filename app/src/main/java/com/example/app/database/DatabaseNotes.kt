@@ -43,8 +43,8 @@ class DatabaseNotes(context: Context) :
         val db = this.writableDatabase
 
         val contentValues = ContentValues()
-        contentValues.put(KEY_TITLE, note.titel) // HappyPlaceModelClass TITLE
-        contentValues.put(KEY_TEXT, note.text) // HappyPlaceModelClass DESCRIPTION
+        contentValues.put(KEY_TITLE, note.titel)
+        contentValues.put(KEY_TEXT, note.text)
         contentValues.put(KEY_IV, note.iv)
 
         // Inserting Row
@@ -59,8 +59,8 @@ class DatabaseNotes(context: Context) :
         val db = this.writableDatabase
 
         val contentValues = ContentValues()
-        contentValues.put(KEY_TITLE, note.titel) // HappyPlaceModelClass TITLE
-        contentValues.put(KEY_TEXT, note.text) // HappyPlaceModelClass DESCRIPTION
+        contentValues.put(KEY_TITLE, note.titel)
+        contentValues.put(KEY_TEXT, note.text)
         contentValues.put(KEY_IV, note.iv)
 
         // Inserting Row

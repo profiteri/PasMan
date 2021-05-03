@@ -5,12 +5,13 @@ import java.io.Serializable
 
 data class IdentityModel(
     val id: Int,
-    val name: String,
-    val surname: String,
-    val street: String,
-    val app: String,
-    val contry: String,
-    val postcode: String,
-    val phoneNumber: String,
-    val email: String
+    val name: ByteArray,
+    val surname: ByteArray,
+    val street: ByteArray,
+    val app: ByteArray,
+    val country: ByteArray,
+    val postcode: ByteArray,
+    val phoneNumber: ByteArray,
+    val email: ByteArray,
+    val iv: ByteArray
 ) : Serializable

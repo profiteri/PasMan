@@ -45,8 +45,8 @@ open class ProfileActivity : ButtonsFunctionality() {
                 add_button_profile.setText(R.string.add)
             }
             plusButton(
-                this.findViewById(R.id.plus_image), R.id.profile_big
-                , plus_image, R.id.main_layout_profile, R.id.add_menu, false
+                R.id.profile_big, plus_image,
+                R.id.main_layout_profile, R.id.add_menu, false
             )
             if (updateFormOpened) {
                 currentItem?.foreground?.alpha = 1f
@@ -97,7 +97,7 @@ open class ProfileActivity : ButtonsFunctionality() {
         et_info.text.clear()
         add_button_profile.setText(R.string.add)
         plusButton(
-            this.findViewById(R.id.plus_image), R.id.profile_big,
+            R.id.profile_big,
             plus_image, R.id.main_layout_profile, R.id.add_menu, false
         )
         setupListOfDataIntoRecycleView()
@@ -143,8 +143,8 @@ open class ProfileActivity : ButtonsFunctionality() {
         val deleteSwipeHelperRight = object : ProfileSwipeHelper(ItemTouchHelper.RIGHT) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 plusButton(
-                    findViewById(R.id.plus_image), R.id.profile_big
-                    , plus_image, R.id.main_layout_profile, R.id.add_menu, false
+                    R.id.profile_big, plus_image,
+                    R.id.main_layout_profile, R.id.add_menu, false
                 )
                 updateFormOpened = true
                 et_source.setText((viewHolder as ProfilesAdapter.ViewHolder).source.text)

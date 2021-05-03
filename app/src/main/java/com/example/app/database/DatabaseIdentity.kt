@@ -20,11 +20,12 @@ class DatabaseIdentity(context: Context) :
         private const val KEY_NAME = "name"
         private const val KEY_SURNAME = "surname"
         private const val KEY_STREET = "street"
-        private const val KEY_APP = "appartement"
-        private const val KEY_CONUTRY = "contry"
+        private const val KEY_APP = "apartment"
+        private const val KEY_COUNTRY = "country"
         private const val KEY_POSTCODE = "postcode"
         private const val KEY_PHONE = "phoneNumber"
         private const val KEY_EMAIL = "email"
+        private const val KEY_IV = "iv"
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
@@ -32,14 +33,15 @@ class DatabaseIdentity(context: Context) :
 
         val CREATE_IDENTITY_TABLE = ("CREATE TABLE " + TABLE_IDENTITY + "("
                 + KEY_ID + " INTEGER PRIMARY KEY,"
-                + KEY_NAME + " TEXT,"
-                + KEY_SURNAME + " TEXT,"
-                + KEY_STREET + " TEXT,"
-                + KEY_APP + " TEXT,"
-                + KEY_CONUTRY + " TEXT,"
-                + KEY_POSTCODE + " TEXT,"
-                + KEY_PHONE + " TEXT,"
-                + KEY_EMAIL + " TEXT)"
+                + KEY_NAME + " BLOB,"
+                + KEY_SURNAME + " BLOB,"
+                + KEY_STREET + " BLOB,"
+                + KEY_APP + " BLOB,"
+                + KEY_COUNTRY + " BLOB,"
+                + KEY_POSTCODE + " BLOB,"
+                + KEY_PHONE + " BLOB,"
+                + KEY_EMAIL + " BLOB,"
+                + KEY_IV + " BLOB)"
 
 
                 )
@@ -55,15 +57,15 @@ class DatabaseIdentity(context: Context) :
         val db = this.writableDatabase
 
         val contentValues = ContentValues()
-        contentValues.put(KEY_NAME, identity.name) // HappyPlaceModelClass DESCRIPTION
-        contentValues.put(KEY_SURNAME, identity.surname) // HappyPlaceModelClass TITLE
-        contentValues.put(KEY_STREET, identity.street) // HappyPlaceModelClass DESCRIPTION
-        contentValues.put(KEY_APP, identity.app) // HappyPlaceModelClass TITLE
-        contentValues.put(KEY_CONUTRY, identity.contry) // HappyPlaceModelClass DESCRIPTION
-        contentValues.put(KEY_POSTCODE, identity.postcode) // HappyPlaceModelClass TITLE
-        contentValues.put(KEY_PHONE, identity.phoneNumber) // HappyPlaceModelClass DESCRIPTION
-        contentValues.put(KEY_EMAIL, identity.email) // HappyPlaceModelClass DESCRIPTION
-
+        contentValues.put(KEY_NAME, identity.name)
+        contentValues.put(KEY_SURNAME, identity.surname)
+        contentValues.put(KEY_STREET, identity.street)
+        contentValues.put(KEY_APP, identity.app)
+        contentValues.put(KEY_COUNTRY, identity.country)
+        contentValues.put(KEY_POSTCODE, identity.postcode)
+        contentValues.put(KEY_PHONE, identity.phoneNumber)
+        contentValues.put(KEY_EMAIL, identity.email)
+        contentValues.put(KEY_IV, identity.iv)
 
         // Inserting Row
         val result = db.insert(TABLE_IDENTITY, null, contentValues)
@@ -77,14 +79,15 @@ class DatabaseIdentity(context: Context) :
         val db = this.writableDatabase
 
         val contentValues = ContentValues()
-        contentValues.put(KEY_NAME, identity.name) // HappyPlaceModelClass DESCRIPTION
-        contentValues.put(KEY_SURNAME, identity.surname) // HappyPlaceModelClass TITLE
-        contentValues.put(KEY_STREET, identity.street) // HappyPlaceModelClass DESCRIPTION
-        contentValues.put(KEY_APP, identity.app) // HappyPlaceModelClass TITLE
-        contentValues.put(KEY_CONUTRY, identity.contry) // HappyPlaceModelClass DESCRIPTION
-        contentValues.put(KEY_POSTCODE, identity.postcode) // HappyPlaceModelClass TITLE
-        contentValues.put(KEY_PHONE, identity.phoneNumber) // HappyPlaceModelClass DESCRIPTION
-        contentValues.put(KEY_EMAIL, identity.email) // HappyPlaceModelClass DESCRIPTION
+        contentValues.put(KEY_NAME, identity.name)
+        contentValues.put(KEY_SURNAME, identity.surname)
+        contentValues.put(KEY_STREET, identity.street)
+        contentValues.put(KEY_APP, identity.app)
+        contentValues.put(KEY_COUNTRY, identity.country)
+        contentValues.put(KEY_POSTCODE, identity.postcode)
+        contentValues.put(KEY_PHONE, identity.phoneNumber)
+        contentValues.put(KEY_EMAIL, identity.email)
+        contentValues.put(KEY_IV, identity.iv)
 
 
         // Inserting Row
@@ -114,16 +117,15 @@ class DatabaseIdentity(context: Context) :
                     val identity =
                         IdentityModel(
                             cursor.getInt(cursor.getColumnIndex(KEY_ID)),
-                            cursor.getString(cursor.getColumnIndex(KEY_NAME)),
-                            cursor.getString(cursor.getColumnIndex(KEY_SURNAME)),
-                            cursor.getString(cursor.getColumnIndex(KEY_STREET)),
-                            cursor.getString(cursor.getColumnIndex(KEY_APP)),
-                            cursor.getString(cursor.getColumnIndex(KEY_CONUTRY)),
-                            cursor.getString(cursor.getColumnIndex(KEY_POSTCODE)),
-                            cursor.getString(cursor.getColumnIndex(KEY_PHONE)),
-                            cursor.getString(cursor.getColumnIndex(KEY_EMAIL))
-
-
+                            cursor.getBlob(cursor.getColumnIndex(KEY_NAME)),
+                            cursor.getBlob(cursor.getColumnIndex(KEY_SURNAME)),
+                            cursor.getBlob(cursor.getColumnIndex(KEY_STREET)),
+                            cursor.getBlob(cursor.getColumnIndex(KEY_APP)),
+                            cursor.getBlob(cursor.getColumnIndex(KEY_COUNTRY)),
+                            cursor.getBlob(cursor.getColumnIndex(KEY_POSTCODE)),
+                            cursor.getBlob(cursor.getColumnIndex(KEY_PHONE)),
+                            cursor.getBlob(cursor.getColumnIndex(KEY_EMAIL)),
+                            cursor.getBlob(cursor.getColumnIndex(KEY_IV))
                         )
                     identityList.add(identity)
 

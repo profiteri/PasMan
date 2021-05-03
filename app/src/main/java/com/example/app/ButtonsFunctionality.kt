@@ -52,7 +52,6 @@ open abstract class ButtonsFunctionality : AppCompatActivity() {
     }
 
     fun plusButton(
-        view: View,
         iv_icon: Int,
         iv_plus_image: ImageView,
         main_layout: Int,
@@ -63,11 +62,11 @@ open abstract class ButtonsFunctionality : AppCompatActivity() {
         animator.duration = 300;
         animator.addListener(object : AnimatorListenerAdapter() {
             override fun onAnimationStart(animation: Animator?) {
-                view.isEnabled = false;
+                iv_plus_image.isEnabled = false;
             }
 
             override fun onAnimationEnd(animation: Animator?) {
-                view.isEnabled = true;
+                iv_plus_image.isEnabled = true;
 
             }
         })//вращение

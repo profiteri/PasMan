@@ -77,42 +77,6 @@
             android:textColor="@color/white"
             android:textSize="20sp" />
 
-        <TextView
-            android:visibility="gone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvName"/>
-        <TextView
-            android:visibility="gone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvSurname"/>
-        <TextView
-            android:visibility="gone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvStreet"/>
-        <TextView
-            android:visibility="gone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvApp"/>
-        <TextView
-            android:visibility="gone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvCountry"/>
-        <TextView
-            android:visibility="gone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvPostcode"/>
-        <TextView
-            android:visibility="gone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvPhone"/>
-
         <Button
             android:id="@+id/buDelete"
             android:layout_width="wrap_content"

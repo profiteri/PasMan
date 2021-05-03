@@ -39,19 +39,23 @@ class NotesActivity : ButtonsFunctionality() {
 
          */
         iv_plus_image.setOnClickListener {
-            et_title.setText("")
-            et_text.setText("")
-            add_button.setText(R.string.add)
-            plusButton(
-                this.findViewById(R.id.iv_plus_image), R.id.iv_notes,
-                iv_plus_image, R.id.main_layout_notes, R.id.add_menu1, false
-            )
             if (updateFormOpened) {
                 currentItem?.foreground?.alpha = 1f
                 rv_notes_list.layoutManager = LinearLayoutManager(this)
                 updateFormOpened = false
             }
+            else {
+                et_title.setText("")
+                et_text.setText("")
+                add_button.setText(R.string.add)
+            }
+            plusButton(
+                R.id.iv_notes,
+                iv_plus_image, R.id.main_layout_notes,
+                R.id.add_menu1, false
+            )
         }
+
         btn_settingsInNotes.setOnClickListener {
             rotate(btn_settingsInNotes)
         }
@@ -86,14 +90,15 @@ class NotesActivity : ButtonsFunctionality() {
         add_button.setText(R.string.add)
         setupNotesRecyclerView(notesHandler.getNotesList())
         plusButton(
-            this.findViewById(R.id.iv_plus_image), R.id.iv_notes
-            , iv_plus_image, R.id.main_layout_notes, R.id.add_menu1, false
+            R.id.iv_notes, iv_plus_image,
+            R.id.main_layout_notes, R.id.add_menu1, false
         )
         getNotesListFromPrivateDB()
     }
 
     private var updateFormOpened = false
     private var currentItem : NotesAdapter.ViewHolder? = null
+
     private fun setupNotesRecyclerView(noteslist: ArrayList<NoteModel>) {
         rv_notes_list.layoutManager = LinearLayoutManager(this)
         rv_notes_list.setHasFixedSize(true)
@@ -108,8 +113,8 @@ class NotesActivity : ButtonsFunctionality() {
         val deleteSwipeHelperRight = object : ProfileSwipeHelper(ItemTouchHelper.RIGHT) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 plusButton(
-                    iv_plus_image, R.id.iv_notes,
-                    iv_plus_image, R.id.main_layout_notes, R.id.add_menu1, false
+                    R.id.iv_notes, iv_plus_image,
+                    R.id.main_layout_notes, R.id.add_menu1, false
                 )
                 updateFormOpened = true
                 et_title.setText((viewHolder as NotesAdapter.ViewHolder).title.text)

@@ -92,7 +92,41 @@
         app:layout_constraintBottom_toTopOf="@+id/right_button"
         app:layout_constraintLeft_toLeftOf="@+id/right_button"
         app:layout_constraintRight_toRightOf="@+id/right_button">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:onClick="toCards"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:src="@drawable/card" />
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:onClick="toAccounts"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:src="@drawable/account" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:onClick="toIdent"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:src="@drawable/identity" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:onClick="toNotes"
+            android:paddingStart="15dp"
+            android:paddingEnd="12dp"
+            android:src="@drawable/notes" />
     </LinearLayout>
 
     <LinearLayout

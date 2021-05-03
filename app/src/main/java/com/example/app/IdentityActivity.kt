@@ -14,6 +14,7 @@ import com.example.app.SwipeHelpers.DeleteSwipe
 import com.example.app.SwipeHelpers.ProfileSwipeHelper
 import com.example.app.SwipeHelpers.SwipeParamsHolder
 import com.example.app.adapters.ProfilesAdapter
+import com.example.app.crypto.Encrypter
 import com.example.app.database.DatabaseIdentity
 import com.example.app.models.IdentityModel
 import com.happyplaces.adapters.IdentityAdapter
@@ -33,10 +34,18 @@ class IdentityActivity : ButtonsFunctionality() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_identity)
         supportActionBar?.title = "Your Identities"
+
         getIdentitiesListFromPrivateDB()
         iv_plus_image_identity.setOnClickListener {
+            if (updateFormOpened) {
+                currentItem?.foreground?.alpha = 1f
+                rv_identities.layoutManager = LinearLayoutManager(this)
+                updateFormOpened = false
+            } else {
+                clearText()
+                btn_add_identity.setText(R.string.add)
+            }
             plusButton(
-                this.findViewById(R.id.iv_plus_image_identity),
                 R.id.iv_identit12321313y,
                 iv_plus_image_identity,
                 R.id.main_layout_identity,
@@ -58,16 +67,19 @@ class IdentityActivity : ButtonsFunctionality() {
 
         val identityHandler = DatabaseIdentity(this)
 
+        val encrypter = Encrypter(null)
+
         val model = IdentityModel(
             0,
-            et_name_identity.text.toString(),
-            et_surname_identity.text.toString(),
-            et_street_identity.text.toString(),
-            et_apartment_identity.text.toString(),
-            et_country_identity.text.toString(),
-            et_postcode_identity.text.toString(),
-            et_phone_identity.text.toString(),
-            et_email_identity.text.toString()
+            encrypter.encryptString(et_name_identity.text.toString()),
+            Encrypter(encrypter.getIv()).encryptString(et_surname_identity.text.toString()),
+            Encrypter(encrypter.getIv()).encryptString(et_street_identity.text.toString()),
+            Encrypter(encrypter.getIv()).encryptString(et_apartment_identity.text.toString()),
+            Encrypter(encrypter.getIv()).encryptString(et_country_identity.text.toString()),
+            Encrypter(encrypter.getIv()).encryptString(et_postcode_identity.text.toString()),
+            Encrypter(encrypter.getIv()).encryptString(et_phone_identity.text.toString()),
+            Encrypter(encrypter.getIv()).encryptString(et_email_identity.text.toString()),
+            encrypter.getIv()
         )
 
         if (!updateFormOpened) {
@@ -81,6 +93,20 @@ class IdentityActivity : ButtonsFunctionality() {
             }
             updateFormOpened = false
         }
+        clearText()
+        val dbHandler = DatabaseIdentity(this)
+        setupIdentitiesRecyclerView(dbHandler.getIdentitiesList())
+        plusButton(
+            R.id.iv_identity,
+            iv_plus_image_identity,
+            R.id.main_layout_identity,
+            R.id.ll_add_menu_identity,
+            true
+        )
+        getIdentitiesListFromPrivateDB()
+    }
+
+    private fun clearText() {
         et_name_identity.text?.clear()
         et_surname_identity.text?.clear()
         et_street_identity.text?.clear()
@@ -89,17 +115,6 @@ class IdentityActivity : ButtonsFunctionality() {
         et_postcode_identity.text?.clear()
         et_phone_identity.text?.clear()
         et_email_identity.text?.clear()
-        val dbHandler = DatabaseIdentity(this)
-        setupIdentitiesRecyclerView(dbHandler.getIdentitiesList())
-        plusButton(
-            this.findViewById(R.id.iv_plus_image_identity),
-            R.id.iv_identity,
-            iv_plus_image_identity,
-            R.id.main_layout_identity,
-            R.id.ll_add_menu_identity,
-            true
-        )
-        getIdentitiesListFromPrivateDB()
     }
 
 
@@ -115,17 +130,20 @@ class IdentityActivity : ButtonsFunctionality() {
         val deleteSwipeHelperRight = object : ProfileSwipeHelper(ItemTouchHelper.RIGHT) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 plusButton(
-                    iv_plus_image, R.id.iv_notes,
-                    iv_plus_image, R.id.main_layout_notes, R.id.add_menu1, false
+                    R.id.iv_identit12321313y,
+                    iv_plus_image_identity,
+                    R.id.main_layout_identity,
+                    R.id.ll_add_menu_identity,
+                    true
                 )
                 updateFormOpened = true
                 et_name_identity.setText((viewHolder as IdentityAdapter.ViewHolder).name.text)
-                et_surname_identity.setText(viewHolder.surname.text)
-                et_street_identity.setText(viewHolder.street.text)
-                et_apartment_identity.setText(viewHolder.app.text)
-                et_country_identity.setText(viewHolder.country.text)
-                et_postcode_identity.setText(viewHolder.postcode.text)
-                et_phone_identity.setText(viewHolder.phone.text)
+                et_surname_identity.setText(viewHolder.surname)
+                et_street_identity.setText(viewHolder.street)
+                et_apartment_identity.setText(viewHolder.app)
+                et_country_identity.setText(viewHolder.country)
+                et_postcode_identity.setText(viewHolder.postcode)
+                et_phone_identity.setText(viewHolder.phone)
                 et_email_identity.setText(viewHolder.email.text)
                 btn_add_identity.setText(R.string.update)
                 currentItem = viewHolder
@@ -148,7 +166,6 @@ class IdentityActivity : ButtonsFunctionality() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == ADD_IDENTITY_ACTIVITY_REQUEST_CODE)
             if (resultCode == Activity.RESULT_OK) {

@@ -40,8 +40,8 @@ class CardActivity : ButtonsFunctionality() {
 
         plus_image.setOnClickListener {
             plusButton(
-                this.findViewById(R.id.plus_image), R.id.card_big
-                , plus_image, R.id.main_layout_cards, R.id.add_menu, false
+                R.id.card_big, plus_image,
+                R.id.main_layout_cards, R.id.add_menu, false
             )
             if (updateFormOpened) {
                 et_number.setText("")
@@ -94,8 +94,8 @@ class CardActivity : ButtonsFunctionality() {
         et_comment.text?.clear()
         setupListOfDataIntoRecycleView()
         plusButton(
-            this.findViewById(R.id.plus_image), R.id.card_big
-            , plus_image, R.id.main_layout_cards, R.id.add_menu, false)
+            R.id.card_big, plus_image,
+            R.id.main_layout_cards, R.id.add_menu, false)
     }
 
 
@@ -119,7 +119,7 @@ class CardActivity : ButtonsFunctionality() {
         val deleteSwipeHelperRight = object : ProfileSwipeHelper(ItemTouchHelper.RIGHT) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 plusButton(
-                    findViewById(R.id.plus_image), R.id.card_big,
+                    R.id.card_big,
                     plus_image, R.id.main_layout_cards, R.id.add_menu, false
                 )
                 updateFormOpened = true

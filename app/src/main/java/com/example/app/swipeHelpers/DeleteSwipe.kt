@@ -1,14 +1,11 @@
-package com.example.app.SwipeHelpers
+package com.example.app.swipeHelpers
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.app.Dialog
-import android.content.Context
-import android.content.DialogInterface
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,7 +14,6 @@ import com.example.app.adapters.CardsAdapter
 import com.example.app.adapters.ProfilesAdapter
 import com.happyplaces.adapters.IdentityAdapter
 import com.happyplaces.adapters.NotesAdapter
-import kotlinx.android.synthetic.main.activity_profile.*
 import java.lang.ClassCastException
 
 class DeleteSwipe(private val paramsHolder: SwipeParamsHolder) : ProfileSwipeHelper(ItemTouchHelper.LEFT) {

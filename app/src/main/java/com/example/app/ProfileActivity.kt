@@ -1,17 +1,15 @@
 package com.example.app
 
 import android.os.Bundle
-import android.util.DisplayMetrics
 import android.view.View
-import android.view.WindowMetrics
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.app.SwipeHelpers.DeleteSwipe
-import com.example.app.SwipeHelpers.ProfileSwipeHelper
-import com.example.app.SwipeHelpers.SwipeParamsHolder
+import com.example.app.swipeHelpers.DeleteSwipe
+import com.example.app.swipeHelpers.ProfileSwipeHelper
+import com.example.app.swipeHelpers.SwipeParamsHolder
 import com.example.app.adapters.ProfilesAdapter
 import com.example.app.crypto.Encrypter
 import com.example.app.database.DatabaseProfile

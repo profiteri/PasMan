@@ -1,4 +1,4 @@
-package com.example.app.SwipeHelpers
+package com.example.app.swipeHelpers
 
 
 import androidx.fragment.app.FragmentManager

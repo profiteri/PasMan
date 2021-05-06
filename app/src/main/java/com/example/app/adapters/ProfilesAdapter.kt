@@ -14,6 +14,8 @@ import com.example.app.R
 import com.example.app.crypto.Decrypter
 import com.example.app.database.DatabaseProfile
 import com.example.app.models.ProfileModel
+import com.example.app.swipeHelpers.EntryHolder
+import kotlinx.android.synthetic.main.item_profile.view.*
 import java.security.KeyStore
 import java.util.*
 import javax.crypto.Cipher
@@ -90,16 +92,31 @@ class ProfilesAdapter(val context: Context, val items: ArrayList<ProfileModel>) 
         }
     }
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        // Holds the TextView that will add each item to
-        val source: TextView = view.findViewById<TextView>(R.id.tvSource)
-        val icon: ImageView = view.findViewById<ImageView>(R.id.icon_profile)
-        val login: TextView = view.findViewById<TextView>(R.id.tvLogin)
-        val password: TextView = view.findViewById<TextView>(R.id.tvPassword)
-        val info: TextView = view.findViewById<TextView>(R.id.tvInfo)
-        val delete: Button = view.findViewById<Button>(R.id.buDelete)
-        val background: ConstraintLayout = view.findViewById(R.id.card_background)
-        val foreground: FrameLayout = view.findViewById(R.id.card_foreground)
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view), EntryHolder {
+        val source: TextView = view.tvSource
+        val icon: ImageView = view.icon_profile
+        val login: TextView = view.tvLogin
+        val password: TextView = view.tvPassword
+        val info: TextView = view.tvInfo
+        val delete: Button = view.buDelete
+        val background: ConstraintLayout = view.card_background
+        val foreground: ConstraintLayout = view.card_foreground
+
+        override fun getDeleteIcon(): ImageView {
+            return background.icon_delete
+        }
+
+        override fun getEditIcon(): ImageView {
+            return background.icon_eye
+        }
+
+        override fun getEntryBackground(): ConstraintLayout {
+            return background
+        }
+
+        override fun getEntryForeground(): ConstraintLayout {
+            return foreground
+        }
     }
 
 }

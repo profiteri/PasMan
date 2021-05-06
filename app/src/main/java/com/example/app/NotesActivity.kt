@@ -9,17 +9,14 @@ import android.widget.*
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.app.SwipeHelpers.DeleteSwipe
-import com.example.app.SwipeHelpers.ProfileSwipeHelper
-import com.example.app.SwipeHelpers.SwipeParamsHolder
-import com.example.app.adapters.ProfilesAdapter
+import com.example.app.swipeHelpers.DeleteSwipe
+import com.example.app.swipeHelpers.ProfileSwipeHelper
+import com.example.app.swipeHelpers.SwipeParamsHolder
 import com.example.app.crypto.Encrypter
 import com.example.app.database.DatabaseNotes
 import com.example.app.models.NoteModel
 import com.happyplaces.adapters.NotesAdapter
 import kotlinx.android.synthetic.main.activity_notes.*
-import com.example.app.database.DatabaseCards
-import com.example.app.models.CardModel
 import kotlinx.android.synthetic.main.activity_profile.*
 
 class NotesActivity : ButtonsFunctionality() {
@@ -103,7 +100,6 @@ class NotesActivity : ButtonsFunctionality() {
         rv_notes_list.layoutManager = LinearLayoutManager(this)
         rv_notes_list.setHasFixedSize(true)
 
-
         val notesAdapter = NotesAdapter(this, noteslist)
         rv_notes_list.adapter = notesAdapter
 
@@ -118,7 +114,7 @@ class NotesActivity : ButtonsFunctionality() {
                 )
                 updateFormOpened = true
                 et_title.setText((viewHolder as NotesAdapter.ViewHolder).title.text)
-                et_text.setText(viewHolder.text.text)
+                et_text.setText(viewHolder.text)
                 add_button.setText(R.string.update)
                 currentItem = viewHolder
             }
@@ -152,6 +148,5 @@ class NotesActivity : ButtonsFunctionality() {
 
     companion object {
         var ADD_NOTE_ACTIVITY_REQUEST_CODE = 1
-        var EXTRA_NOTES_DETAILS = "extra notes details"
     }
 }

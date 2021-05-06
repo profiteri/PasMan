@@ -10,8 +10,8 @@
 
     <ImageView
         android:id="@+id/iv_notes"
-        android:layout_width="42dp"
-        android:layout_height="60dp"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
         android:layout_marginTop="20dp"
         android:src="@drawable/ic_note"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -133,8 +133,8 @@
             android:layout_height="wrap_content">
             <Button
                 android:id="@+id/plus_button"
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="60dp"
                 android:background="@drawable/plusbutton"/>
         </RelativeLayout>
 

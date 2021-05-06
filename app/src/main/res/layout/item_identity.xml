@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:visibility="invisible"
         android:id="@+id/identity_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -33,47 +33,44 @@
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.cardview.widget.CardView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/identity_foreground"
         android:layout_width="match_parent"
-        android:layout_height="90dp"
-        android:background="@color/white"
-        android:padding="10dp"
-        app:cardCornerRadius="20dp">
-
+        android:layout_height="wrap_content"
+        android:paddingVertical="20dp"
+        android:background="@drawable/profile_item_style">
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/purple_500" />
-
-        <ImageView
-            android:id="@+id/iv_notes"
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start|top"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="5dp"
-            android:src="@drawable/identity" />
-
+            android:id="@+id/ic_identity"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:src="@drawable/identity"
+            android:contentDescription="@string/add" />
         <TextView
             android:id="@+id/tv_title_item_identity"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:gravity="top|center_horizontal"
-            android:text="Source"
-            android:textColor="@color/white"
+            app:layout_constraintLeft_toRightOf="@id/ic_identity"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginEnd="30dp"
+            android:text="@string/name"
+            android:textColor="@color/black"
             android:textSize="25sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tv_email_item_identity"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="80dp"
-            android:layout_marginLeft="55dp"
-            android:layout_marginTop="38dp"
-            android:text="Text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/ic_identity"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginEnd="30dp"
+            android:text="@string/add"
             android:textColor="@color/white"
             android:textSize="20sp" />
 
@@ -85,5 +82,5 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

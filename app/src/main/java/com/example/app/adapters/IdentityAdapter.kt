@@ -6,6 +6,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
@@ -15,6 +16,7 @@ import com.example.app.*
 import com.example.app.crypto.Decrypter
 import com.example.app.database.DatabaseIdentity
 import com.example.app.models.IdentityModel
+import com.example.app.swipeHelpers.EntryHolder
 import kotlinx.android.synthetic.main.item_identity.view.*
 
 open class IdentityAdapter(
@@ -91,8 +93,7 @@ open class IdentityAdapter(
         return list.size
     }
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        //val title: TextView = view.tv_title_item_identity
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view), EntryHolder {
         val email: TextView = view.tv_email_item_identity
         val name: TextView = view.tv_title_item_identity
         var surname: String = ""
@@ -101,15 +102,23 @@ open class IdentityAdapter(
         var postcode: String = ""
         var country: String = ""
         var phone: String = ""
-        /*val surname: TextView = TextView()
-        val street: TextView = view.tvStreet
-        val app: TextView = view.tvApp
-        val postcode: TextView = view.tvPostcode
-        val country: TextView = view.tvCountry
-        val phone: TextView = view.tvPhone
-        */
         val background: ConstraintLayout = view.identity_background
-        val foreground: CardView = view.identity_foreground
+        val foreground: ConstraintLayout = view.identity_foreground
+
+        override fun getDeleteIcon(): ImageView {
+            return background.icon_delete
+        }
+
+        override fun getEditIcon(): ImageView {
+            return background.icon_eye
+        }
+
+        override fun getEntryBackground(): ConstraintLayout {
+            return background
+        }
+
+        override fun getEntryForeground(): ConstraintLayout {
+            return foreground
+        }
     }
 }
-// END

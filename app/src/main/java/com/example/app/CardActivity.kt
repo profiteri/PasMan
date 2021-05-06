@@ -6,23 +6,18 @@ import android.widget.*
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.app.SwipeHelpers.DeleteSwipe
-import com.example.app.SwipeHelpers.ProfileSwipeHelper
-import com.example.app.SwipeHelpers.SwipeParamsHolder
+import com.example.app.swipeHelpers.DeleteSwipe
+import com.example.app.swipeHelpers.ProfileSwipeHelper
+import com.example.app.swipeHelpers.SwipeParamsHolder
 import com.example.app.adapters.CardsAdapter
-import com.example.app.adapters.ProfilesAdapter
 import com.example.app.crypto.Encrypter
 import com.example.app.database.DatabaseCards
-import com.example.app.database.DatabaseProfile
 import com.example.app.models.CardModel
-import com.example.app.models.ProfileModel
 import kotlinx.android.synthetic.main.activity_cards.*
 import kotlinx.android.synthetic.main.activity_cards.angle
 import kotlinx.android.synthetic.main.activity_cards.angle_image
 import kotlinx.android.synthetic.main.activity_cards.layout_menu
 import kotlinx.android.synthetic.main.activity_cards.plus_image
-import kotlinx.android.synthetic.main.activity_identity.*
-import kotlinx.android.synthetic.main.activity_profile.*
 
 
 class CardActivity : ButtonsFunctionality() {

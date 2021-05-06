@@ -31,7 +31,7 @@
             android:layout_gravity="start|center_vertical"
             android:background="@drawable/ic_baseline_remove_red_eye_24" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/card_foreground"
         android:layout_width="match_parent"
         android:layout_height="180dp"
@@ -59,14 +59,16 @@
         -->
 
         <ImageView
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
             android:src="@drawable/all"
             android:id="@+id/icon_profile"
             android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start|top"/>
+            android:layout_height="wrap_content"/>
         <TextView
+            app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="10dp"
             android:id="@+id/tvSource"
             android:gravity="top|center_horizontal"
@@ -77,6 +79,7 @@
             android:textStyle="bold"
             android:textSize="25sp"/>
         <androidx.constraintlayout.widget.ConstraintLayout
+            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginBottom="10dp"
             android:layout_gravity="bottom"
             android:layout_width="match_parent"
@@ -157,5 +160,5 @@
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:text="Delete"/> -->
-    </FrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

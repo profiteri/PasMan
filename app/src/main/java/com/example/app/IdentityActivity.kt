@@ -5,23 +5,18 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.EditText
 import android.widget.Toast
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.app.SwipeHelpers.DeleteSwipe
-import com.example.app.SwipeHelpers.ProfileSwipeHelper
-import com.example.app.SwipeHelpers.SwipeParamsHolder
-import com.example.app.adapters.ProfilesAdapter
+import com.example.app.swipeHelpers.DeleteSwipe
+import com.example.app.swipeHelpers.ProfileSwipeHelper
+import com.example.app.swipeHelpers.SwipeParamsHolder
 import com.example.app.crypto.Encrypter
 import com.example.app.database.DatabaseIdentity
 import com.example.app.models.IdentityModel
 import com.happyplaces.adapters.IdentityAdapter
-import com.happyplaces.adapters.NotesAdapter
 import kotlinx.android.synthetic.main.activity_identity.*
-import kotlinx.android.synthetic.main.activity_notes.*
-import kotlinx.android.synthetic.main.activity_profile.*
 
 class IdentityActivity : ButtonsFunctionality() {
 

@@ -7,6 +7,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
@@ -19,6 +20,8 @@ import com.example.app.crypto.Decrypter
 import com.example.app.database.DatabaseCards
 import com.example.app.database.DatabaseProfile
 import com.example.app.models.ProfileModel
+import com.example.app.swipeHelpers.EntryHolder
+import kotlinx.android.synthetic.main.item_card.view.*
 
 class CardsAdapter(val context: Context, val items: ArrayList<CardModel>) :
     RecyclerView.Adapter<CardsAdapter.ViewHolder>() {
@@ -83,14 +86,30 @@ class CardsAdapter(val context: Context, val items: ArrayList<CardModel>) :
         return items.size
     }
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val number: TextView = view.findViewById<TextView>(R.id.tvNumber)
-        val holder: TextView = view.findViewById<TextView>(R.id.tvHolder)
-        val expiry: TextView = view.findViewById<TextView>(R.id.tvExpiry)
-        val cvc: TextView = view.findViewById<TextView>(R.id.tvCVC)
-        val pin: TextView = view.findViewById<TextView>(R.id.tvPIN)
-        val comment: TextView = view.findViewById<TextView>(R.id.tvComment)
-        val background: ConstraintLayout = view.findViewById(R.id.card_background)
-        val foreground: CardView = view.findViewById(R.id.card_foreground)
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view), EntryHolder {
+        val number: TextView = view.tvNumber
+        val holder: TextView = view.tvHolder
+        val expiry: TextView = view.tvExpiry
+        val cvc: TextView = view.tvCVC
+        val pin: TextView = view.tvPIN
+        val comment: TextView = view.tvComment
+        val background: ConstraintLayout = view.card_background
+        val foreground: ConstraintLayout = view.card_foreground
+
+        override fun getDeleteIcon(): ImageView {
+            return background.icon_delete
+        }
+
+        override fun getEditIcon(): ImageView {
+            return background.icon_eye
+        }
+
+        override fun getEntryBackground(): ConstraintLayout {
+            return background
+        }
+
+        override fun getEntryForeground(): ConstraintLayout {
+            return foreground
+        }
     }
 }

@@ -14,6 +14,7 @@ import com.example.app.R
 import com.example.app.crypto.Decrypter
 import com.example.app.database.DatabaseProfile
 import com.example.app.models.ProfileModel
+import com.example.app.swipeHelpers.AdapterHolder
 import com.example.app.swipeHelpers.EntryHolder
 import kotlinx.android.synthetic.main.item_profile.view.*
 import java.security.KeyStore
@@ -24,7 +25,7 @@ import javax.crypto.spec.GCMParameterSpec
 import kotlin.collections.ArrayList
 
 class ProfilesAdapter(val context: Context, val items: ArrayList<ProfileModel>) :
-    RecyclerView.Adapter<ProfilesAdapter.ViewHolder>()
+    RecyclerView.Adapter<ProfilesAdapter.ViewHolder>(), AdapterHolder
 {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProfilesAdapter.ViewHolder {
         return ProfilesAdapter.ViewHolder(
@@ -73,6 +74,10 @@ class ProfilesAdapter(val context: Context, val items: ArrayList<ProfileModel>) 
         Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show()
        if (context is ProfileActivity)
            context.setupListOfDataIntoRecycleView()
+    }
+
+    override fun deleteItem(holder: RecyclerView.ViewHolder) {
+        deleteProfile(holder as ViewHolder)
     }
 
     fun updateProfile(holder: ViewHolder, profileModel: ProfileModel) {

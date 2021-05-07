@@ -58,67 +58,6 @@ abstract class ProfileSwipeHelper(private val dir: Int)
                 entry.getEditIcon().visibility = View.GONE
             }
         }
-        /*
-        determineClass(viewHolder)
-        profileHolder?.let {
-            it.background.visibility = View.VISIBLE
-            if (dir == ItemTouchHelper.RIGHT) {
-                it.background.setBackgroundResource(R.drawable.card_background_edit)
-                it.background.icon_delete.visibility = View.GONE
-                it.background.icon_eye.visibility = View.VISIBLE
-            }
-            else {
-                it.background.setBackgroundResource(R.drawable.card_background)
-                it.background.icon_delete.visibility = View.VISIBLE
-                it.background.icon_eye.visibility = View.GONE
-            }
-            ItemTouchHelper.Callback.getDefaultUIUtil().onSelected(it.foreground)
-        }
-        notesHolder?.let {
-            it.background.visibility = View.VISIBLE
-            if (dir == ItemTouchHelper.RIGHT) {
-                it.background.setBackgroundResource(R.drawable.card_background_edit)
-                it.background.icon_delete.visibility = View.GONE
-                it.background.icon_eye.visibility = View.VISIBLE
-            }
-            else {
-                it.background.setBackgroundResource(R.drawable.card_background)
-                it.background.icon_delete.visibility = View.VISIBLE
-                it.background.icon_eye.visibility = View.GONE
-            }
-            ItemTouchHelper.Callback.getDefaultUIUtil().onSelected(it.foreground)
-        }
-        identityHolder?.let {
-            it.background.visibility = View.VISIBLE
-            if (dir == ItemTouchHelper.RIGHT) {
-                it.background.setBackgroundResource(R.drawable.card_background_edit)
-                it.background.icon_delete.visibility = View.GONE
-                it.background.icon_eye.visibility = View.VISIBLE
-            }
-            else {
-                it.background.setBackgroundResource(R.drawable.card_background)
-                it.background.icon_delete.visibility = View.VISIBLE
-                it.background.icon_eye.visibility = View.GONE
-            }
-            ItemTouchHelper.Callback.getDefaultUIUtil().onSelected(it.foreground)
-        }
-        cardsHolder?.let {
-            it.background.visibility = View.VISIBLE
-            if (dir == ItemTouchHelper.RIGHT) {
-                it.background.setBackgroundResource(R.drawable.card_background_edit)
-                it.background.icon_delete.visibility = View.GONE
-                it.background.icon_eye.visibility = View.VISIBLE
-            }
-            else {
-                it.background.setBackgroundResource(R.drawable.card_background)
-                it.background.icon_delete.visibility = View.VISIBLE
-                it.background.icon_eye.visibility = View.GONE
-            }
-            ItemTouchHelper.Callback.getDefaultUIUtil().onSelected(it.foreground)
-        }
-
-         */
-
     }
 
 
@@ -140,50 +79,6 @@ abstract class ProfileSwipeHelper(private val dir: Int)
             entry.getEntryForeground(), dX, dY,
             actionState, isCurrentlyActive
         )
-        /*
-        determineClass(viewHolder)
-        profileHolder?.let {
-            it.background.alpha = abs(dX / viewHolder.itemView.width)
-            it.foreground.alpha =
-                1 - abs(dX / viewHolder.itemView.width)
-            getDefaultUIUtil().onDraw(
-                c, recyclerView,
-                it.foreground, dX, dY,
-                actionState, isCurrentlyActive
-            )
-        }
-        notesHolder?.let {
-            it.background.alpha = abs(dX / viewHolder.itemView.width)
-            it.foreground.alpha =
-                1 - abs(dX / viewHolder.itemView.width)
-            getDefaultUIUtil().onDraw(
-                c, recyclerView,
-                it.foreground, dX, dY,
-                actionState, isCurrentlyActive
-            )
-        }
-        cardsHolder?.let {
-            it.background.alpha = abs(dX / viewHolder.itemView.width)
-            it.foreground.alpha =
-                1 - abs(dX / viewHolder.itemView.width)
-            getDefaultUIUtil().onDraw(
-                c, recyclerView,
-                it.foreground, dX, dY,
-                actionState, isCurrentlyActive
-            )
-        }
-        identityHolder?.let {
-            it.background.alpha = abs(dX / viewHolder.itemView.width)
-            it.foreground.alpha =
-                1 - abs(dX / viewHolder.itemView.width)
-            getDefaultUIUtil().onDraw(
-                c, recyclerView,
-                it.foreground, dX, dY,
-                actionState, isCurrentlyActive
-            )
-        }
-
-         */
     }
 
     /*override fun onChildDrawOver(
@@ -205,25 +100,6 @@ abstract class ProfileSwipeHelper(private val dir: Int)
         val entry = viewHolder as EntryHolder
         getDefaultUIUtil().clearView(entry.getEntryForeground())
         entry.getEntryBackground().visibility = View.INVISIBLE
-        /*
-        profileHolder?.let {
-            getDefaultUIUtil().clearView(it.foreground)
-            it.background.visibility = View.INVISIBLE
-        }
-        notesHolder?.let {
-            getDefaultUIUtil().clearView(it.foreground)
-            it.background.visibility = View.INVISIBLE
-        }
-        cardsHolder?.let {
-            getDefaultUIUtil().clearView(it.foreground)
-            it.background.visibility = View.INVISIBLE
-        }
-        identityHolder?.let {
-            getDefaultUIUtil().clearView(it.foreground)
-            it.background.visibility = View.INVISIBLE
-        }
-
-         */
     }
 
 }

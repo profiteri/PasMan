@@ -20,11 +20,12 @@ import com.example.app.crypto.Decrypter
 import com.example.app.database.DatabaseCards
 import com.example.app.database.DatabaseProfile
 import com.example.app.models.ProfileModel
+import com.example.app.swipeHelpers.AdapterHolder
 import com.example.app.swipeHelpers.EntryHolder
 import kotlinx.android.synthetic.main.item_card.view.*
 
 class CardsAdapter(val context: Context, val items: ArrayList<CardModel>) :
-    RecyclerView.Adapter<CardsAdapter.ViewHolder>() {
+    RecyclerView.Adapter<CardsAdapter.ViewHolder>(), AdapterHolder {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -82,6 +83,10 @@ class CardsAdapter(val context: Context, val items: ArrayList<CardModel>) :
             context.setupListOfDataIntoRecycleView()
     }
 
+    override fun deleteItem(holder: RecyclerView.ViewHolder) {
+        deleteCard(holder as ViewHolder)
+    }
+
     override fun getItemCount(): Int {
         return items.size
     }
@@ -112,4 +117,5 @@ class CardsAdapter(val context: Context, val items: ArrayList<CardModel>) :
             return foreground
         }
     }
+
 }

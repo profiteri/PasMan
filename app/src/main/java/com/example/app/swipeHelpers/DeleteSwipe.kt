@@ -31,54 +31,15 @@ class DeleteProfile(private val holder: RecyclerView.ViewHolder,
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let { it ->
-            var profileHolder : ProfilesAdapter.ViewHolder?
-            var cardsHolder : CardsAdapter.ViewHolder?
-            var notesHolder : NotesAdapter.ViewHolder?
-            var identityHolder : IdentityAdapter.ViewHolder?
 
-            var profileAdapter : ProfilesAdapter?
-            var cardsAdapter : CardsAdapter?
-            var notesAdapter : NotesAdapter?
-            var identityAdapter : IdentityAdapter?
-
-            try {
-                profileAdapter = recyclerView.adapter as ProfilesAdapter
-                profileHolder = holder as ProfilesAdapter.ViewHolder
-            } catch (e : ClassCastException) {
-                profileAdapter = null
-                profileHolder = null
-            }
-            try {
-                cardsAdapter = recyclerView.adapter as CardsAdapter
-                cardsHolder = holder as CardsAdapter.ViewHolder
-            } catch (e : ClassCastException) {
-                cardsAdapter = null
-                cardsHolder = null
-            }
-            try {
-                notesAdapter = recyclerView.adapter as NotesAdapter
-                notesHolder = holder as NotesAdapter.ViewHolder
-            } catch (e : ClassCastException) {
-                notesAdapter = null
-                notesHolder = null
-            }
-            try {
-                identityAdapter = recyclerView.adapter as IdentityAdapter
-                identityHolder = holder as IdentityAdapter.ViewHolder
-            } catch (e : ClassCastException) {
-                identityAdapter = null
-                identityHolder = null
-            }
+            val adapter = recyclerView.adapter as AdapterHolder
 
             val builder = AlertDialog.Builder(it)
             builder.setMessage(R.string.delete_profile_dialog)
                 .setPositiveButton(
                     R.string.delete
                 ) { _, _ ->
-                    profileHolder?.let { profileAdapter?.deleteProfile(it) }
-                    cardsHolder?.let {cardsAdapter?.deleteCard(it) }
-                    notesHolder?.let { notesAdapter?.deleteNote(it) }
-                    identityHolder?.let { identityAdapter?.deleteIdentity(it) }
+                    adapter.deleteItem(holder)
                 }
                 .setNegativeButton(
                     R.string.cancel
@@ -88,21 +49,10 @@ class DeleteProfile(private val holder: RecyclerView.ViewHolder,
                             recyclerView.layoutManager = LinearLayoutManager(context)
                         }
                     }
-                    profileHolder?.let {
-                        it.foreground.alpha = 1f
-                        it.foreground.animate().translationX(0f).setListener(animatorListener).start()
-                    }
-                    cardsHolder?.let {
-                        it.foreground.alpha = 1f
-                        it.foreground.animate().translationX(0f).setListener(animatorListener).start()
-                    }
-                    notesHolder?.let {
-                        it.foreground.alpha = 1f
-                        it.foreground.animate().translationX(0f).setListener(animatorListener).start()
-                    }
-                    identityHolder?.let {
-                        it.foreground.alpha = 1f
-                        it.foreground.animate().translationX(0f).setListener(animatorListener).start()
+                    val item = holder as EntryHolder
+                    item.getEntryForeground().apply {
+                        alpha = 1f
+                        animate().translationX(0f).setListener(animatorListener).start()
                     }
                     dialog.cancel()
                 }
@@ -110,8 +60,4 @@ class DeleteProfile(private val holder: RecyclerView.ViewHolder,
         } ?: throw IllegalStateException("Activity cannot be null")
     }
 
-    /*fun showAndReturn(manager: FragmentManager, tag: String?): Boolean {
-        super.show(manager, tag)
-        return cancel
-    }*/
 }

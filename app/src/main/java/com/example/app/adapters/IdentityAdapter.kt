@@ -1,29 +1,28 @@
 package com.happyplaces.adapters
 
-import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.app.*
 import com.example.app.crypto.Decrypter
 import com.example.app.database.DatabaseIdentity
 import com.example.app.models.IdentityModel
+import com.example.app.swipeHelpers.AdapterHolder
 import com.example.app.swipeHelpers.EntryHolder
 import kotlinx.android.synthetic.main.item_identity.view.*
 
-open class IdentityAdapter(
+class IdentityAdapter(
 
     private val context: Context,
     private var list: ArrayList<IdentityModel>
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), AdapterHolder {
+
     private var onClickListener: OnClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -87,6 +86,10 @@ open class IdentityAdapter(
             list.removeAt(holder.adapterPosition)
             notifyItemRemoved(holder.adapterPosition)
         }
+    }
+
+    override fun deleteItem(holder: RecyclerView.ViewHolder) {
+        deleteIdentity(holder as ViewHolder)
     }
 
     override fun getItemCount(): Int {

@@ -15,13 +15,14 @@ import com.example.app.R
 import com.example.app.swipeHelpers.EntryHolder
 import com.example.app.crypto.Decrypter
 import com.example.app.database.DatabaseNotes
+import com.example.app.swipeHelpers.AdapterHolder
 import kotlinx.android.synthetic.main.item_notes.view.*
 
-open class NotesAdapter(
+class NotesAdapter(
 
     private val context: Context,
     private var list: ArrayList<NoteModel>
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), AdapterHolder {
     private var onClickListener: OnClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -82,6 +83,10 @@ open class NotesAdapter(
         }
     }
 
+    override fun deleteItem(holder: RecyclerView.ViewHolder) {
+        deleteNote(holder as ViewHolder)
+    }
+
     override fun getItemCount(): Int {
         return list.size
     }
@@ -109,5 +114,6 @@ open class NotesAdapter(
             return foreground;
         }
     }
+
 }
 // END

@@ -1,8 +1,10 @@
 package com.example.app
 
+import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.view.View
 import android.widget.*
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -13,6 +15,7 @@ import com.example.app.adapters.CardsAdapter
 import com.example.app.crypto.Encrypter
 import com.example.app.database.DatabaseCards
 import com.example.app.models.CardModel
+import com.example.app.swipeHelpers.CardSwipeFlip
 import kotlinx.android.synthetic.main.activity_cards.*
 import kotlinx.android.synthetic.main.activity_cards.angle
 import kotlinx.android.synthetic.main.activity_cards.angle_image
@@ -51,6 +54,7 @@ class CardActivity : ButtonsFunctionality() {
             }
             else add_button.setText(R.string.add)
         }
+        setupListOfDataIntoRecycleView()
     }
 
     var updateFormOpened = false
@@ -108,7 +112,28 @@ class CardActivity : ButtonsFunctionality() {
         else {
             cards_layout.visibility = View.GONE
         }
-        val d = DeleteSwipe(SwipeParamsHolder(cards_layout, supportFragmentManager))
+        /*val swipeToFlip = object : CardSwipeFlip() {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val translation = ObjectAnimator.ofFloat((viewHolder as CardsAdapter.ViewHolder).mainLayout, View.ROTATION_X, 0f, 180f)
+                translation.start()
+            }
+        }
+        ItemTouchHelper(swipeToFlip).attachToRecyclerView(cards_layout)
+         */
+
+        val simpleCallback = object : CardSwipeFlip() {
+
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                    //your code for deleting the item from database or from the list
+                    val translation = ObjectAnimator.ofFloat((viewHolder as CardsAdapter.ViewHolder).mainLayout, View.ROTATION_X, 0f, 180f)
+                    translation.start()
+            }
+        }
+        val itemTouchHelper = ItemTouchHelper(simpleCallback)
+        itemTouchHelper.attachToRecyclerView(cards_layout)
+
+        /*val d = DeleteSwipe(SwipeParamsHolder(cards_layout, supportFragmentManager))
         ItemTouchHelper(d).attachToRecyclerView(cards_layout)
 
         val deleteSwipeHelperRight = object : ProfileSwipeHelper(ItemTouchHelper.RIGHT) {
@@ -129,6 +154,8 @@ class CardActivity : ButtonsFunctionality() {
             }
         }
         ItemTouchHelper(deleteSwipeHelperRight).attachToRecyclerView(cards_layout)
+
+         */
     }
 
 }

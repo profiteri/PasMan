@@ -7,6 +7,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -92,6 +93,7 @@ class CardsAdapter(val context: Context, val items: ArrayList<CardModel>) :
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view), EntryHolder {
+        val mainLayout: FrameLayout = view.main_layout_card
         val number: TextView = view.tvNumber
         val holder: TextView = view.tvHolder
         val expiry: TextView = view.tvExpiry

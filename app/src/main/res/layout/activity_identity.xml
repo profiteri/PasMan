@@ -41,7 +41,6 @@
         android:layout_height="60dp"
         android:layout_margin="20dp"
         android:background="@drawable/round"
-        android:backgroundTint="@color/black"
         android:padding="12dp"
         android:scaleType="fitXY"
         android:src="@drawable/settings"
@@ -64,8 +63,7 @@
                 android:id="@+id/btn_angle_identity"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:background="@drawable/round"
-                android:backgroundTint="@color/black" />
+                android:background="@drawable/round" />
         </RelativeLayout>
 
         <ImageView

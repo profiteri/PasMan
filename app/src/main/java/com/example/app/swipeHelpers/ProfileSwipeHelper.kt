@@ -24,26 +24,6 @@ abstract class ProfileSwipeHelper(private val dir: Int)
         return true
     }
 
-    private fun determineClass(viewHolder: RecyclerView.ViewHolder?) {
-        profileHolder = try {
-            viewHolder as ProfilesAdapter.ViewHolder
-        } catch (e : ClassCastException) {null}
-        cardsHolder = try {
-            viewHolder as CardsAdapter.ViewHolder
-        } catch (e : ClassCastException) {null}
-        notesHolder = try {
-            viewHolder as NotesAdapter.ViewHolder
-        } catch (e : ClassCastException) {null}
-        identityHolder = try {
-            viewHolder as IdentityAdapter.ViewHolder
-        } catch (e : ClassCastException) {null}
-    }
-
-    private var profileHolder : ProfilesAdapter.ViewHolder? = null
-    private var cardsHolder : CardsAdapter.ViewHolder? = null
-    private var notesHolder : NotesAdapter.ViewHolder? = null
-    private var identityHolder : IdentityAdapter.ViewHolder? = null
-
     override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
         if (viewHolder != null) {
             val entry = viewHolder as EntryHolder

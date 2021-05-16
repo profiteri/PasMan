@@ -2,6 +2,7 @@ package com.example.app.swipeHelpers
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
+import android.animation.ObjectAnimator
 import android.app.Dialog
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
@@ -14,6 +15,7 @@ import com.example.app.adapters.CardsAdapter
 import com.example.app.adapters.ProfilesAdapter
 import com.happyplaces.adapters.IdentityAdapter
 import com.happyplaces.adapters.NotesAdapter
+import kotlinx.android.synthetic.main.fragment_login.view.*
 import java.lang.ClassCastException
 
 class DeleteSwipe(private val paramsHolder: SwipeParamsHolder) : ProfileSwipeHelper(ItemTouchHelper.LEFT) {
@@ -44,15 +46,21 @@ class DeleteProfile(private val holder: RecyclerView.ViewHolder,
                 .setNegativeButton(
                     R.string.cancel
                 ) { dialog, _ ->
+                    val item = holder as EntryHolder
+                    val anim = ObjectAnimator
+                        .ofFloat(item.getEntryBackground(),"alpha", 1f, 0f)
+                        .setDuration(300)
                     val animatorListener = object : AnimatorListenerAdapter() {
+                        override fun onAnimationStart(animation: Animator?) {
+                            anim.start()
+                        }
                         override fun onAnimationEnd(animation: Animator?) {
                             recyclerView.layoutManager = LinearLayoutManager(context)
                         }
                     }
-                    val item = holder as EntryHolder
                     item.getEntryForeground().apply {
                         alpha = 1f
-                        animate().translationX(0f).setListener(animatorListener).start()
+                        animate().translationX(0f).setDuration(300).setListener(animatorListener).start()
                     }
                     dialog.cancel()
                 }

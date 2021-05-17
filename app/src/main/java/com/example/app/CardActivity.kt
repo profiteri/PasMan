@@ -1,10 +1,12 @@
 package com.example.app
 
+import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.view.View
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.animation.addListener
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -103,6 +105,9 @@ class CardActivity : ButtonsFunctionality() {
     }
 
     var currentItem : CardsAdapter.ViewHolder? = null
+
+    lateinit var cardTouchHelper : ItemTouchHelper
+
     fun setupListOfDataIntoRecycleView() {
         if (getCards().size > 0) {
             cards_layout.visibility = View.VISIBLE
@@ -112,26 +117,72 @@ class CardActivity : ButtonsFunctionality() {
         else {
             cards_layout.visibility = View.GONE
         }
-        /*val swipeToFlip = object : CardSwipeFlip() {
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                val translation = ObjectAnimator.ofFloat((viewHolder as CardsAdapter.ViewHolder).mainLayout, View.ROTATION_X, 0f, 180f)
-                translation.start()
-            }
-        }
-        ItemTouchHelper(swipeToFlip).attachToRecyclerView(cards_layout)
-         */
+
+
 
         val simpleCallback = object : CardSwipeFlip() {
 
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                    //your code for deleting the item from database or from the list
-                    val translation = ObjectAnimator.ofFloat((viewHolder as CardsAdapter.ViewHolder).mainLayout, View.ROTATION_X, 0f, 180f)
-                    translation.start()
+
+                val aniSet = AnimatorSet()
+                val translation: ObjectAnimator
+                val appearance: ObjectAnimator
+                val disappearance: ObjectAnimator
+                if (front) {
+                    translation = ObjectAnimator.ofFloat(
+                        (viewHolder as CardsAdapter.ViewHolder).mainLayout,
+                        View.ROTATION_Y,
+                        0f,
+                        180f
+                    )
+                    appearance = ObjectAnimator.ofFloat(
+                        viewHolder.backside,
+                        View.ALPHA,
+                        0f, 1f
+                    )
+                    disappearance = ObjectAnimator.ofFloat(
+                        viewHolder.foreground,
+                        View.ALPHA,
+                        1f, 0f
+                    )
+                    front = false
+                } else {
+                    translation = ObjectAnimator.ofFloat(
+                        (viewHolder as CardsAdapter.ViewHolder).mainLayout,
+                        View.ROTATION_Y,
+                        -180f,
+                        0f
+                    )
+                    appearance = ObjectAnimator.ofFloat(
+                        viewHolder.foreground,
+                        View.ALPHA,
+                        0f, 1f
+                    )
+                    disappearance = ObjectAnimator.ofFloat(
+                        viewHolder.backside,
+                        View.ALPHA,
+                        1f, 0f
+                    )
+                    front = true
+                }
+                aniSet.playTogether(translation, appearance, disappearance)
+                aniSet.duration = 300
+                aniSet.addListener(
+                    onEnd = {
+                        cardTouchHelper.attachToRecyclerView(null)
+                        cardTouchHelper.attachToRecyclerView(cards_layout)
+                }
+                )
+                aniSet.start()
+
+                //recyclerView.layoutManager = LinearLayoutManager(context)
+                //cards_layout.adapter?.notifyItemChanged(viewHolder.adapterPosition)
+                //ItemTouchHelper(this).startSwipe(viewHolder)
             }
         }
-        val itemTouchHelper = ItemTouchHelper(simpleCallback)
-        itemTouchHelper.attachToRecyclerView(cards_layout)
+        cardTouchHelper = ItemTouchHelper(simpleCallback)
+        cardTouchHelper.attachToRecyclerView(cards_layout)
 
         /*val d = DeleteSwipe(SwipeParamsHolder(cards_layout, supportFragmentManager))
         ItemTouchHelper(d).attachToRecyclerView(cards_layout)
@@ -156,6 +207,10 @@ class CardActivity : ButtonsFunctionality() {
         ItemTouchHelper(deleteSwipeHelperRight).attachToRecyclerView(cards_layout)
 
          */
+    }
+
+    fun reattachTouchHelper() {
+
     }
 
 }

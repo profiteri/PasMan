@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     android:id="@+id/main_layout_card"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!--
     <androidx.constraintlayout.widget.ConstraintLayout
         android:visibility="invisible"
         android:id="@+id/card_background"
@@ -32,8 +33,11 @@
             android:layout_gravity="start|center_vertical"
             android:background="@drawable/ic_baseline_remove_red_eye_24" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+    -->
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:clickable="false"
+        android:rotationY="180"
         android:id="@+id/card_backside"
         android:layout_width="match_parent"
         android:layout_height="150dp">
@@ -74,6 +78,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:clickable="false"
         android:id="@+id/card_foreground"
         android:layout_width="match_parent"
         android:layout_height="150dp"

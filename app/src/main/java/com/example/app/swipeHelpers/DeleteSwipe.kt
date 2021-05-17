@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
 import android.app.Dialog
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -48,7 +49,7 @@ class DeleteProfile(private val holder: RecyclerView.ViewHolder,
                 ) { dialog, _ ->
                     val item = holder as EntryHolder
                     val anim = ObjectAnimator
-                        .ofFloat(item.getEntryBackground(),"alpha", 1f, 0f)
+                        .ofFloat(item.getEntryBackground(), View.ALPHA, 1f, 0f)
                         .setDuration(300)
                     val animatorListener = object : AnimatorListenerAdapter() {
                         override fun onAnimationStart(animation: Animator?) {
@@ -59,9 +60,10 @@ class DeleteProfile(private val holder: RecyclerView.ViewHolder,
                         }
                     }
                     item.getEntryForeground().apply {
-                        alpha = 1f
-                        animate().translationX(0f).setDuration(300).setListener(animatorListener).start()
+                       alpha = 1f
+                       animate().translationX(0f).setDuration(300).setListener(animatorListener).start()
                     }
+                    //recyclerView.adapter?.notifyItemChanged(holder.adapterPosition)
                     dialog.cancel()
                 }
             builder.create()

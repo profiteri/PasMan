@@ -74,7 +74,7 @@ class CardsAdapter(val context: Context, val items: ArrayList<CardModel>) :
         }
     }
 
-    fun deleteCard(holder: ViewHolder) {
+    private fun deleteCard(holder: ViewHolder) {
         val handler = DatabaseCards(context)
         if (handler.deleteCard(items[holder.adapterPosition]) == -1) {
             Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
@@ -100,20 +100,27 @@ class CardsAdapter(val context: Context, val items: ArrayList<CardModel>) :
         val cvc: TextView = view.tvCVC
         val pin: TextView = view.tvPIN
         val comment: TextView = view.tvComment
-        val background: ConstraintLayout = view.card_background
+        //val background: ConstraintLayout = view.card_background
         val foreground: ConstraintLayout = view.card_foreground
+        val backside: ConstraintLayout = view.card_backside
 
         override fun getDeleteIcon(): ImageView {
-            return background.icon_delete
+            //return background.icon_delete
+            return ImageView(null)
         }
 
         override fun getEditIcon(): ImageView {
-            return background.icon_eye
+            //return background.icon_eye
+            return ImageView(null)
         }
 
+
+
         override fun getEntryBackground(): ConstraintLayout {
-            return background
+            return foreground
         }
+
+
 
         override fun getEntryForeground(): ConstraintLayout {
             return foreground

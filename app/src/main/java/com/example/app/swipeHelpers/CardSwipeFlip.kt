@@ -3,12 +3,16 @@ package com.example.app.swipeHelpers
 import android.graphics.Canvas
 import android.view.View
 import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.ItemTouchHelper.ACTION_STATE_SWIPE
+import androidx.recyclerview.widget.ItemTouchHelper.LEFT
 import androidx.recyclerview.widget.RecyclerView
 import com.example.app.CardActivity
 import com.example.app.adapters.CardsAdapter
 import kotlin.math.abs
 
 abstract class CardSwipeFlip : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+
+    var front = true
 
     override fun onMove(
         recyclerView: RecyclerView,
@@ -17,6 +21,7 @@ abstract class CardSwipeFlip : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper
     ): Boolean {
         return false
     }
+
     override fun onChildDraw(
         c: Canvas,
         recyclerView: RecyclerView,
@@ -25,14 +30,14 @@ abstract class CardSwipeFlip : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper
         dY: Float,
         actionState: Int,
         isCurrentlyActive: Boolean
-    ) {
-        getDefaultUIUtil().onDraw(
-            c, recyclerView,
-            (viewHolder as CardsAdapter.ViewHolder).mainLayout, dX, dY,
-            actionState, isCurrentlyActive
-        )
-    }
+    ) {}
 
+    override fun getMovementFlags(
+        recyclerView: RecyclerView,
+        viewHolder: RecyclerView.ViewHolder
+    ): Int {
+        return makeFlag(ACTION_STATE_SWIPE, LEFT)
+    }
 
     /*override fun onChildDrawOver(
         c: Canvas,

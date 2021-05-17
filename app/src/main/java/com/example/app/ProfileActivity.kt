@@ -17,7 +17,7 @@ import com.example.app.models.ProfileModel
 import kotlinx.android.synthetic.main.activity_profile.*
 
 
-open class ProfileActivity : ButtonsFunctionality() {
+class ProfileActivity : ButtonsFunctionality() {
 
     private var currentItem : ProfilesAdapter.ViewHolder? = null
     private var updateFormOpened = false

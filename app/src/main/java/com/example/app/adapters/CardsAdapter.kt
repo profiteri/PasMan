@@ -100,24 +100,22 @@ class CardsAdapter(val context: Context, val items: ArrayList<CardModel>) :
         val cvc: TextView = view.tvCVC
         val pin: TextView = view.tvPIN
         val comment: TextView = view.tvComment
-        //val background: ConstraintLayout = view.card_background
+        val background: ConstraintLayout = view.card_background
         val foreground: ConstraintLayout = view.card_foreground
         val backside: ConstraintLayout = view.card_backside
 
         override fun getDeleteIcon(): ImageView {
-            //return background.icon_delete
-            return ImageView(null)
+            return background.icon_delete
         }
 
         override fun getEditIcon(): ImageView {
-            //return background.icon_eye
-            return ImageView(null)
+            return background.icon_eye
         }
 
 
 
         override fun getEntryBackground(): ConstraintLayout {
-            return foreground
+            return background
         }
 
 

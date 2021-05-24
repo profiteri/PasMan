@@ -15,7 +15,9 @@ import com.example.app.swipeHelpers.SwipeParamsHolder
 import com.example.app.crypto.Encrypter
 import com.example.app.database.DatabaseIdentity
 import com.example.app.models.IdentityModel
+import com.example.app.swipeHelpers.DeleteItem
 import com.happyplaces.adapters.IdentityAdapter
+import kotlinx.android.synthetic.main.activity_cards.*
 import kotlinx.android.synthetic.main.activity_identity.*
 
 class IdentityActivity : ButtonsFunctionality() {
@@ -34,7 +36,9 @@ class IdentityActivity : ButtonsFunctionality() {
         iv_plus_image_identity.setOnClickListener {
             if (updateFormOpened) {
                 currentItem?.foreground?.alpha = 1f
-                rv_identities.layoutManager = LinearLayoutManager(this)
+                editSwipeHelper.attachToRecyclerView(null)
+                editSwipeHelper.attachToRecyclerView(rv_identities)
+                //rv_identities.layoutManager = LinearLayoutManager(this)
                 updateFormOpened = false
             } else {
                 clearText()
@@ -112,6 +116,8 @@ class IdentityActivity : ButtonsFunctionality() {
         et_email_identity.text?.clear()
     }
 
+    private lateinit var deleteSwipeHelper : ItemTouchHelper
+    private lateinit var editSwipeHelper : ItemTouchHelper
 
     private fun setupIdentitiesRecyclerView(identitieslist: ArrayList<IdentityModel>) {
         rv_identities.layoutManager = LinearLayoutManager(this)
@@ -119,8 +125,13 @@ class IdentityActivity : ButtonsFunctionality() {
         val identityAdapter = IdentityAdapter(this, identitieslist)
         rv_identities.adapter = identityAdapter
 
-        val d = DeleteSwipe(SwipeParamsHolder(rv_identities, supportFragmentManager))
-        ItemTouchHelper(d).attachToRecyclerView(rv_identities)
+        val d = object : ProfileSwipeHelper(ItemTouchHelper.LEFT) {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                DeleteItem(viewHolder, rv_identities, deleteSwipeHelper).show(supportFragmentManager, "delete_dialog")
+            }
+        }
+        deleteSwipeHelper = ItemTouchHelper(d)
+        deleteSwipeHelper.attachToRecyclerView(rv_identities)
 
         val deleteSwipeHelperRight = object : ProfileSwipeHelper(ItemTouchHelper.RIGHT) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
@@ -144,7 +155,8 @@ class IdentityActivity : ButtonsFunctionality() {
                 currentItem = viewHolder
             }
         }
-        ItemTouchHelper(deleteSwipeHelperRight).attachToRecyclerView(rv_identities)
+        editSwipeHelper = ItemTouchHelper(deleteSwipeHelperRight)
+        editSwipeHelper.attachToRecyclerView(rv_identities)
     }
 
 

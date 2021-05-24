@@ -2,6 +2,7 @@ package com.example.app
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
 import android.widget.*
@@ -10,14 +11,11 @@ import androidx.core.animation.addListener
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.app.swipeHelpers.DeleteSwipe
-import com.example.app.swipeHelpers.ProfileSwipeHelper
-import com.example.app.swipeHelpers.SwipeParamsHolder
 import com.example.app.adapters.CardsAdapter
 import com.example.app.crypto.Encrypter
 import com.example.app.database.DatabaseCards
 import com.example.app.models.CardModel
-import com.example.app.swipeHelpers.CardSwipeFlip
+import com.example.app.swipeHelpers.*
 import kotlinx.android.synthetic.main.activity_cards.*
 import kotlinx.android.synthetic.main.activity_cards.angle
 import kotlinx.android.synthetic.main.activity_cards.angle_image
@@ -51,7 +49,9 @@ class CardActivity : ButtonsFunctionality() {
                 et_pin.setText("")
                 et_comment.setText("")
                 currentItem?.foreground?.alpha = 1f
-                cards_layout.layoutManager = LinearLayoutManager(this)
+                editSwipeHelper.attachToRecyclerView(null)
+                editSwipeHelper.attachToRecyclerView(cards_layout)
+                //cards_layout.layoutManager = LinearLayoutManager(this)
                 updateFormOpened = false
             }
             else add_button.setText(R.string.add)
@@ -106,7 +106,8 @@ class CardActivity : ButtonsFunctionality() {
 
     var currentItem : CardsAdapter.ViewHolder? = null
 
-    lateinit var deleteSwipeHepler : ItemTouchHelper
+    private lateinit var deleteSwipeHelper : ItemTouchHelper
+    private lateinit var editSwipeHelper : ItemTouchHelper
 
     fun setupListOfDataIntoRecycleView() {
         if (getCards().size > 0) {
@@ -119,9 +120,27 @@ class CardActivity : ButtonsFunctionality() {
         }
 
 
-        val d = DeleteSwipe(SwipeParamsHolder(cards_layout, supportFragmentManager))
+        /*val d = object : SmartDeleteSwipe(SwipeParamsHolder(cards_layout, supportFragmentManager)) {
+            override fun reattachHelper() {
+                deleteSwipeHelper.attachToRecyclerView(null)
+                deleteSwipeHelper.attachToRecyclerView(cards_layout)
+            }
+        }
+
+         */
+
+        val d = object : ProfileSwipeHelper(ItemTouchHelper.LEFT) {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                DeleteItem(viewHolder, cards_layout, deleteSwipeHelper).show(supportFragmentManager, "delete_dialog")
+            }
+        }
+        deleteSwipeHelper = ItemTouchHelper(d)
+        deleteSwipeHelper.attachToRecyclerView(cards_layout)
+        /*val d = DeleteSwipe(SwipeParamsHolder(cards_layout, supportFragmentManager))
         deleteSwipeHepler = ItemTouchHelper(d)
         deleteSwipeHepler.attachToRecyclerView(cards_layout)
+
+         */
 
         val deleteSwipeHelperRight = object : ProfileSwipeHelper(ItemTouchHelper.RIGHT) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
@@ -140,8 +159,8 @@ class CardActivity : ButtonsFunctionality() {
                 add_button.setText(R.string.update)
             }
         }
-        ItemTouchHelper(deleteSwipeHelperRight).attachToRecyclerView(cards_layout)
-
+        editSwipeHelper = ItemTouchHelper(deleteSwipeHelperRight)
+        editSwipeHelper.attachToRecyclerView(cards_layout)
 
     }
 

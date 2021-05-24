@@ -1,6 +1,7 @@
 package com.example.app
 
 import android.app.Activity
+import android.content.ClipData
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -15,6 +16,7 @@ import com.example.app.swipeHelpers.SwipeParamsHolder
 import com.example.app.crypto.Encrypter
 import com.example.app.database.DatabaseNotes
 import com.example.app.models.NoteModel
+import com.example.app.swipeHelpers.DeleteItem
 import com.happyplaces.adapters.NotesAdapter
 import kotlinx.android.synthetic.main.activity_notes.*
 import kotlinx.android.synthetic.main.activity_profile.*
@@ -38,7 +40,9 @@ class NotesActivity : ButtonsFunctionality() {
         iv_plus_image.setOnClickListener {
             if (updateFormOpened) {
                 currentItem?.foreground?.alpha = 1f
-                rv_notes_list.layoutManager = LinearLayoutManager(this)
+                //rv_notes_list.layoutManager = LinearLayoutManager(this)
+                editSwipeHelper.attachToRecyclerView(null)
+                editSwipeHelper.attachToRecyclerView(rv_notes_list)
                 updateFormOpened = false
             }
             else {
@@ -94,7 +98,11 @@ class NotesActivity : ButtonsFunctionality() {
     }
 
     private var updateFormOpened = false
+
     private var currentItem : NotesAdapter.ViewHolder? = null
+
+    private lateinit var deleteSwipeHelper : ItemTouchHelper
+    private lateinit var editSwipeHelper : ItemTouchHelper
 
     private fun setupNotesRecyclerView(noteslist: ArrayList<NoteModel>) {
         rv_notes_list.layoutManager = LinearLayoutManager(this)
@@ -103,8 +111,13 @@ class NotesActivity : ButtonsFunctionality() {
         val notesAdapter = NotesAdapter(this, noteslist)
         rv_notes_list.adapter = notesAdapter
 
-        val d = DeleteSwipe(SwipeParamsHolder(rv_notes_list, supportFragmentManager))
-        ItemTouchHelper(d).attachToRecyclerView(rv_notes_list)
+        val d = object : ProfileSwipeHelper(ItemTouchHelper.LEFT) {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                DeleteItem(viewHolder, rv_notes_list, deleteSwipeHelper).show(supportFragmentManager, "delete_dialog")
+            }
+        }
+        deleteSwipeHelper = ItemTouchHelper(d)
+        deleteSwipeHelper.attachToRecyclerView(rv_notes_list)
 
         val deleteSwipeHelperRight = object : ProfileSwipeHelper(ItemTouchHelper.RIGHT) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
@@ -119,7 +132,9 @@ class NotesActivity : ButtonsFunctionality() {
                 currentItem = viewHolder
             }
         }
-        ItemTouchHelper(deleteSwipeHelperRight).attachToRecyclerView(rv_notes_list)
+        editSwipeHelper = ItemTouchHelper(deleteSwipeHelperRight)
+        editSwipeHelper.attachToRecyclerView(rv_notes_list)
+        //ItemTouchHelper(deleteSwipeHelperRight).attachToRecyclerView(rv_notes_list)
     }
 
     fun getNotesListFromPrivateDB() {

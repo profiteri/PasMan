@@ -29,7 +29,8 @@ class DeleteSwipe(private val paramsHolder: SwipeParamsHolder) : ProfileSwipeHel
     }
 
 }
-    class DeleteProfile(
+
+class DeleteProfile(
         private val holder: RecyclerView.ViewHolder,
         private val recyclerView: RecyclerView
     ) : DialogFragment() {

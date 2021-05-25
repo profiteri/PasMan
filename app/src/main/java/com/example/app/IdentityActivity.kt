@@ -44,17 +44,11 @@ class IdentityActivity : ButtonsFunctionality() {
                 clearText()
                 btn_add_identity.setText(R.string.add)
             }
-            plusButton(
-                R.id.iv_identit12321313y,
-                iv_plus_image_identity,
-                R.id.main_layout_identity,
-                R.id.ll_add_menu_identity,
-                true
-            )
+            plusButton()
         }
 
-        btn_settingsInNotes_identity.setOnClickListener {
-            rotate(btn_settingsInNotes_identity)
+        settingsInIdentity.setOnClickListener {
+            rotate(settingsInIdentity)
         }
 
         btn_angle_identity.setOnClickListener {
@@ -95,13 +89,7 @@ class IdentityActivity : ButtonsFunctionality() {
         clearText()
         val dbHandler = DatabaseIdentity(this)
         setupIdentitiesRecyclerView(dbHandler.getIdentitiesList())
-        plusButton(
-            R.id.iv_identity,
-            iv_plus_image_identity,
-            R.id.main_layout_identity,
-            R.id.ll_add_menu_identity,
-            true
-        )
+        plusButton()
         getIdentitiesListFromPrivateDB()
     }
 
@@ -135,13 +123,7 @@ class IdentityActivity : ButtonsFunctionality() {
 
         val deleteSwipeHelperRight = object : ProfileSwipeHelper(ItemTouchHelper.RIGHT) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                plusButton(
-                    R.id.iv_identit12321313y,
-                    iv_plus_image_identity,
-                    R.id.main_layout_identity,
-                    R.id.ll_add_menu_identity,
-                    true
-                )
+                plusButton()
                 updateFormOpened = true
                 et_name_identity.setText((viewHolder as IdentityAdapter.ViewHolder).name.text)
                 et_surname_identity.setText(viewHolder.surname)
@@ -159,6 +141,15 @@ class IdentityActivity : ButtonsFunctionality() {
         editSwipeHelper.attachToRecyclerView(rv_identities)
     }
 
+    private fun plusButton() {
+        plusButton(
+            R.id.iv_identit12321313y,
+            R.id.iv_plus_image_identity,
+            R.id.main_layout_identity,
+            R.id.ll_add_menu_identity,
+            R.id.settingsInIdentity, R.id.right_button
+        )
+    }
 
     fun getIdentitiesListFromPrivateDB() {
         val dbHandler = DatabaseIdentity(this)

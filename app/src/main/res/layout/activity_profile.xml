@@ -15,13 +15,6 @@
         app:layout_constraintTop_toBottomOf="@+id/profile_big"
         app:layout_constraintBottom_toTopOf="@+id/settingsInProfile"
         android:orientation="vertical">
-        <!--<TextView
-            android:id="@+id/text_nocards"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:visibility="gone"
-            android:text="No cards added"/> -->
     </androidx.recyclerview.widget.RecyclerView>
 
     <ImageView
@@ -118,6 +111,7 @@
         android:background="@drawable/oval"
         android:animateLayoutChanges="true"
         android:visibility="gone"
+        android:alpha="0"
         android:paddingBottom="10dp"
         android:paddingTop="10dp"
         >

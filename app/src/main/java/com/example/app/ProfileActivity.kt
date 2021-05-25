@@ -49,10 +49,7 @@ class ProfileActivity : ButtonsFunctionality() {
                 et_info.setText("")
                 add_button_profile.setText(R.string.add)
             }
-            plusButton(
-                R.id.profile_big, plus_image,
-                R.id.main_layout_profile, R.id.add_menu, false
-            )
+            plusButton()
             if (updateFormOpened) {
                 currentItem?.foreground?.alpha = 1f
                 //rv_profiles.layoutManager = LinearLayoutManager(this)
@@ -103,10 +100,7 @@ class ProfileActivity : ButtonsFunctionality() {
         et_password.text.clear()
         et_info.text.clear()
         add_button_profile.setText(R.string.add)
-        plusButton(
-            R.id.profile_big,
-            plus_image, R.id.main_layout_profile, R.id.add_menu, false
-        )
+        plusButton()
         setupListOfDataIntoRecycleView()
     }
 
@@ -158,10 +152,7 @@ class ProfileActivity : ButtonsFunctionality() {
 
         val deleteSwipeHelperRight = object : ProfileSwipeHelper(ItemTouchHelper.RIGHT) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                plusButton(
-                    R.id.profile_big, plus_image,
-                    R.id.main_layout_profile, R.id.add_menu, false
-                )
+                plusButton()
                 updateFormOpened = true
                 et_source.setText((viewHolder as ProfilesAdapter.ViewHolder).source.text)
                 et_login.setText(viewHolder.login.text)
@@ -174,6 +165,14 @@ class ProfileActivity : ButtonsFunctionality() {
         editSwipeHelper = ItemTouchHelper(deleteSwipeHelperRight)
         editSwipeHelper.attachToRecyclerView(rv_profiles)
         //ItemTouchHelper(deleteSwipeHelperRight).attachToRecyclerView(rv_profiles)
+    }
+
+    private fun plusButton() {
+        plusButton(
+            R.id.profile_big, R.id.plus_image,
+            R.id.main_layout_profile, R.id.add_menu,
+            R.id.settingsInProfile, R.id.right_button
+        )
     }
 
 }

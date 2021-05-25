@@ -50,11 +50,7 @@ class NotesActivity : ButtonsFunctionality() {
                 et_text.setText("")
                 add_button.setText(R.string.add)
             }
-            plusButton(
-                R.id.iv_notes,
-                iv_plus_image, R.id.main_layout_notes,
-                R.id.add_menu1, false
-            )
+            plusButton()
         }
 
         btn_settingsInNotes.setOnClickListener {
@@ -90,10 +86,7 @@ class NotesActivity : ButtonsFunctionality() {
         et_text.text?.clear()
         add_button.setText(R.string.add)
         setupNotesRecyclerView(notesHandler.getNotesList())
-        plusButton(
-            R.id.iv_notes, iv_plus_image,
-            R.id.main_layout_notes, R.id.add_menu1, false
-        )
+        plusButton()
         getNotesListFromPrivateDB()
     }
 
@@ -121,10 +114,7 @@ class NotesActivity : ButtonsFunctionality() {
 
         val deleteSwipeHelperRight = object : ProfileSwipeHelper(ItemTouchHelper.RIGHT) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                plusButton(
-                    R.id.iv_notes, iv_plus_image,
-                    R.id.main_layout_notes, R.id.add_menu1, false
-                )
+                plusButton()
                 updateFormOpened = true
                 et_title.setText((viewHolder as NotesAdapter.ViewHolder).title.text)
                 et_text.setText(viewHolder.text)
@@ -159,6 +149,14 @@ class NotesActivity : ButtonsFunctionality() {
             } else {
                 Log.i("Activity", "Cancelled or Back pressed")
             }
+    }
+
+    private fun plusButton() {
+        plusButton(
+            R.id.iv_notes, R.id.iv_plus_image,
+            R.id.main_layout_notes, R.id.add_menu1,
+            R.id.btn_settingsInNotes, R.id.right_button
+        )
     }
 
     companion object {

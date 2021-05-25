@@ -14,7 +14,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="prompt_info_title">Password Manager</string>
     <string name="prompt_info_subtitle">Please PALEZ PRILOZHY</string>
-    <string name="prompt_info_description">a hule ty dumal, tut vse seryozno</string>
+    <string name="prompt_info_description">a ty dumal, tut vse seryozno</string>
     <string name="prompt_info_use_app_password">Use app password</string>
     <string name="welcome">Welcome to Password Manager</string>
     <string name="singin">Sign in</string>

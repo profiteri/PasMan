@@ -36,7 +36,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/btn_settingsInNotes_identity"
+        android:id="@+id/settingsInIdentity"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_margin="20dp"
@@ -85,6 +85,7 @@
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         android:visibility="gone"
+        android:alpha="0"
         app:layout_constraintBottom_toTopOf="@+id/right_button"
         app:layout_constraintLeft_toLeftOf="@+id/right_button"
         app:layout_constraintRight_toRightOf="@+id/right_button">

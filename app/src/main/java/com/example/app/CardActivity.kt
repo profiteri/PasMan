@@ -5,9 +5,13 @@ import android.animation.ObjectAnimator
 import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
+import android.view.animation.AnimationSet
+import android.view.animation.DecelerateInterpolator
+import android.view.animation.TranslateAnimation
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.animation.addListener
+import androidx.core.animation.doOnEnd
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -37,10 +41,31 @@ class CardActivity : ButtonsFunctionality() {
         }
 
         plus_image.setOnClickListener {
+
+            /*val animRight = ObjectAnimator.ofFloat(right_button, "x", -150f).apply {
+                doOnEnd { right_button.x -= 150f }
+                interpolator = DecelerateInterpolator()
+            }
+
+             */
+
+            /*val animLeft = ObjectAnimator.ofFloat(bu1, "x", -150f).apply {
+                interpolator = DecelerateInterpolator()
+                doOnEnd { bu1.x -= 150f }
+            }
+
+            val animSet = AnimatorSet()
+            animSet.playTogether(animLeft)//, animLeft)
+            animSet.duration = BUTTONS_TRANSLATION_DURATION
+
+             */
+
             plusButton(
-                R.id.card_big, plus_image,
-                R.id.main_layout_cards, R.id.add_menu, false
+                R.id.card_big, R.id.plus_image,
+                R.id.main_layout_cards, R.id.add_menu,
+                R.id.bu1, R.id.right_button
             )
+
             if (updateFormOpened) {
                 et_number.setText("")
                 et_holder.setText("")
@@ -52,10 +77,16 @@ class CardActivity : ButtonsFunctionality() {
                 editSwipeHelper.attachToRecyclerView(null)
                 editSwipeHelper.attachToRecyclerView(cards_layout)
                 //cards_layout.layoutManager = LinearLayoutManager(this)
+                //animSet.reverse()
+
                 updateFormOpened = false
             }
-            else add_button.setText(R.string.add)
+            else {
+                //animSet.start()
+                add_button.setText(R.string.add)
+            }
         }
+
         setupListOfDataIntoRecycleView()
     }
 
@@ -95,8 +126,9 @@ class CardActivity : ButtonsFunctionality() {
         et_comment.text?.clear()
         setupListOfDataIntoRecycleView()
         plusButton(
-            R.id.card_big, plus_image,
-            R.id.main_layout_cards, R.id.add_menu, false)
+            R.id.card_big, R.id.plus_image,
+            R.id.main_layout_cards, R.id.add_menu,
+            R.id.bu1, R.id.right_button)
     }
 
 
@@ -145,8 +177,9 @@ class CardActivity : ButtonsFunctionality() {
         val deleteSwipeHelperRight = object : ProfileSwipeHelper(ItemTouchHelper.RIGHT) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 plusButton(
-                    R.id.card_big,
-                    plus_image, R.id.main_layout_cards, R.id.add_menu, false
+                    R.id.card_big, R.id.plus_image,
+                    R.id.main_layout_cards, R.id.add_menu,
+                    R.id.bu1, R.id.right_button
                 )
                 updateFormOpened = true
                 currentItem = viewHolder as CardsAdapter.ViewHolder

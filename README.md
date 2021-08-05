@@ -1,5 +1,5 @@
 # PasMan
-Lokal password manager
+Local password manager
 
 In the app you can store 4 different types of entries: 
 1. Accounts (login + password + other information)

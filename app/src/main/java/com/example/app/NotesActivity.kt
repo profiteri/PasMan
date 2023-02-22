@@ -119,7 +119,7 @@ class NotesActivity : ButtonsFunctionality() {
                 et_title.setText((viewHolder as NotesAdapter.ViewHolder).title.text)
                 et_text.setText(viewHolder.text)
                 add_button.setText(R.string.update)
-                currentItem = viewHolder
+              //  currentItem = viewHolder
             }
         }
         editSwipeHelper = ItemTouchHelper(deleteSwipeHelperRight)
